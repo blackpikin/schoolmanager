@@ -1,0 +1,3 @@
+use schoolmanager;
+INSERT INTO `users` (`id`, `name`, `role`, `phone`, `email`, `subjects`, `password`, `dateof`, `section`) VALUES (NULL, 'Takang Halsey', 'Admin', '670008921', 'skinofblackpikin@gmail.com', 'Mathematics', 'cd072bb4fcb5b494b069b7568a9be413f865865031ddb01815a97e39aeb4a469', NULL, '0');
+INSERT INTO `users` (`id`, `name`, `role`, `phone`, `email`, `subjects`, `password`, `dateof`, `section`) VALUES (NULL, 'System', 'System', '670008923', 'system@skoomanager.com', 'None', 'cd072bb4fcb5b494b069b7568a9be413f865865031ddb01815a97e39aeb4a469', NULL, '0');

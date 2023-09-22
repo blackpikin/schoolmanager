@@ -1,0 +1,273 @@
+@font-face {
+    font-family: 'ps3font';
+    src: url('../fonts/HOMOARAK.TTF')  format('truetype'); /* Safari, Android, iOS */
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.sec{
+    display:none;
+}
+
+header{
+    background-color: navy;
+}
+.system-menu-title{
+    font-weight: bold;
+    color:navy;
+    font-family: ps3font;
+}
+
+.menu-list-item{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding:5px;
+    background-color: navy;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    border:thin solid lightgreen;
+}
+.fees_input{
+    font-size:15pt;font-weight:bold;
+}
+
+.fees_input_small{
+    font-weight:bold;
+}
+
+.footer-style{
+    background-color: navy;
+    margin-top: 20px;
+}
+
+.table-header{
+    background-color: navy; color:antiquewhite; font-weight:bold;
+}
+.tiny-table-header{
+    background-color: navy; color:antiquewhite; font-weight:bold; font-size: 6pt;
+}
+
+.menu-list{
+    list-style-type: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+.logo{
+    margin-left:40px;
+    width:180px; height: 157px;
+}
+.school-title{
+    margin-left: 20px;
+    margin-top:40px;
+    font-family: ps3font, 'cursive';
+    color:whitesmoke;
+    text-align: center;
+}
+.app_name{
+    color:whitesmoke;
+    margin-left: 20px;
+    text-align: center;
+}
+.white-label{
+    color:whitesmoke
+}
+
+.user-cred-box{
+    border:thin whitesmoke dashed;
+    padding: 8px;
+    margin-top:20px;
+}
+
+.sidebar-decor{
+    border-right:thin grey solid;
+    padding-right:10px;
+}
+.grey-body{
+    background-color: whitesmoke;
+}
+
+.button-width{
+    width:200px;
+    font-weight: bold;
+}
+
+.curved-box {
+    border: thin solid grey;
+    padding: 10px;
+    border-radius: 8px;
+    margin:5px;
+}
+.bold-header{
+    font-weight: bold;
+}
+
+.student-pic{
+    width: 100px;
+    height:100px;
+    border-radius: 8px;
+}
+.conduct-pic{
+    width: 200px;
+    height:200px;
+    border-radius: 8px;
+}
+
+.normal-tr{
+    background-color: white;
+}
+
+.grey-tr{
+    background-color: rgb(179, 174, 174);
+}
+
+#passforogt{width: 30%; display: inline-block; margin-left: 125.5px; font-style: italic; text-decoration: none;}
+.textAreas{width: 236px; height: 40px; border-radius: 5px; border: solid thin black; margin-top: -65px;padding-left: 10px;}
+#LogInArea{padding: 10px 90px 10px 98px; border-radius: 5px; border: none; background-color:navy; color: white; font-size: 14pt;}
+#forGotPass{text-decoration: none; color:black}
+#Log{font-size: 28pt; color: blueviolet;}
+#Labeluser{margin-bottom: 10px;}
+
+#label1{font-size: 24pt; color: navy;font-family:'cursive';}
+.selectareas{width: 236px; height: 40px; border-radius: 5px; border: solid thin black; margin-top: -65px;padding-left: 10px;}
+.footers{width: 250px; height: 38px;}
+#selectarea4{width: 150px; background-color: navy; color: white; font-size: 14pt; height: 40px; border-radius: 5px; border: solid thin black; margin-top: -65px;padding-left: 10px;}
+#block1{width: 40%;  display: inline-block;}
+#block2{width: 30%;  display: inline-block;}
+#block3{width: 30%;  display: inline-block;}
+#selectarea4{width: 150px; background-color: navy; color: white; font-size: 14pt; height: 40px; border-radius: 5px; border: solid thin black; margin-top: -65px;padding-left: 10px;}
+
+/*
+Calendar styles start*/
+.calendar {
+    display: flex;
+    flex-flow: column;
+}
+.calendar .header .month-year {
+    font-size: 20px;
+    font-weight: bold;
+    color: #636e73;
+    padding: 20px 0;
+}
+.calendar .days {
+    display: flex;
+    flex-flow: wrap;
+}
+.calendar .days .day_name {
+    width: calc(100% / 7);
+    border-right: 1px solid #2c7aca;
+    padding: 20px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: #818589;
+    color: #fff;
+    background-color: #448cd6;
+}
+.calendar .days .day_name:nth-child(7) {
+    border: none;
+}
+.calendar .days .day_num {
+    display: flex;
+    flex-flow: column;
+    width: calc(100% / 7);
+    border-right: 1px solid #e6e9ea;
+    border-bottom: 1px solid #e6e9ea;
+    padding: 15px;
+    font-weight: bold;
+    color: #7c878d;
+    cursor: pointer;
+    min-height: 100px;
+}
+.calendar .days .day_num span {
+    display: inline-flex;
+    width: 30px;
+    font-size: 14px;
+}
+.calendar .days .day_num .event {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background-color: #f7c30d;
+    color: #fff;
+    word-wrap: break-word;
+}
+.calendar .days .day_num .event.green {
+    background-color: #51ce57;
+}
+.calendar .days .day_num .event.blue {
+    background-color: #518fce;
+}
+.calendar .days .day_num .event.red {
+    background-color: #ce5151;
+}
+.calendar .days .day_num:nth-child(7n+1) {
+    border-left: 1px solid #e6e9ea;
+}
+.calendar .days .day_num:hover {
+    background-color: #fdfdfd;
+}
+.calendar .days .day_num.ignore {
+    background-color: #fdfdfd;
+    color: #ced2d4;
+    cursor: inherit;
+}
+.calendar .days .day_num.selected {
+    background-color: #f1f2f3;
+    cursor: inherit;
+}
+/* Calendar styles end */
+
+
+@media screen and (max-width: 975px) {
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1116px) {
+
+}
+
+@media screen and (min-width: 775px) and (max-width: 950px) {
+
+}
+
+@media screen and (max-width: 500px) {
+   
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        max-height: 100%;
+        overflow-y: scroll;
+    }
+}
+
+@supports (-ms-accelerator:true) {
+    /* Edge 12+ CSS */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        max-height: 100%;
+        overflow-y: scroll;
+    }
+}
+
+@supports (-ms-ime-align:auto) {
+    /* Edge 16+ CSS */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        max-height: 100%;
+        overflow-y: scroll;
+    }
+}
