@@ -26,6 +26,7 @@ class PDF extends FPDF
 function Header()
     {
         // Logo
+        $this->Image('../img/pagebkg2.png',0,0,205);
         $this->Image('../img/letterhead.png',2,2,200);
        
         // Line break
@@ -74,30 +75,50 @@ $pdf = new PDF();
     $pdf->SetFont('Arial','B',11);
     $pdf->Cell(10,7,$lang[$_SESSION['lang']]['Class lists'].': '.$className.' - '.$Model->GetYearName($Model->GetCurrentYear()[0]['id']),0);
     $pdf->Ln();
-    $pdf->Cell(10,7,'SN',1);
-    $pdf->Cell(90,7,$lang[$_SESSION['lang']]['Name'],1);
-    $pdf->Cell(20,7,$lang[$_SESSION['lang']]['Gender'],1);
-    $pdf->Cell(13,7,'T1',1);
-    $pdf->Cell(13,7,'T2',1);
-    $pdf->Cell(13,7,'T3',1);
-    $pdf->Cell(13,7,'T4',1);
-    $pdf->Cell(13,7,'T5',1);
-    $pdf->Cell(13,7,'T6',1);
-
-    $pdf->SetFont('Arial','',9);
-    foreach($result as $row) {
-        $pdf->Ln(7);
-        foreach($row as $key=> $column){
-            if($key == 'sn'){
-                $pdf->Cell(10,7,$column,1);
-            }elseif ($key == 'name'){
-                $pdf->Cell(90,7,$column,1);
-            }elseif($key == 'gender'){
-                $pdf->Cell(20,7,$column,1);
-            }else{
-                $pdf->Cell(13,7,$column,1);
+    $pdf->SetFillColor(0,0,128);
+    $pdf->SetTextColor(255,255,255);
+    $pdf->Cell(10,5,'SN',1, 0, '', true);
+    $pdf->Cell(90,5,$lang[$_SESSION['lang']]['Name'],1, 0, '', true);
+    $pdf->Cell(20,5,$lang[$_SESSION['lang']]['Gender'],1, 0, '', true);
+    $pdf->Cell(13,5,'T1',1, 0, '', true);
+    $pdf->Cell(13,5,'T2',1, 0, '', true);
+    $pdf->Cell(13,5,'T3',1, 0, '', true);
+    $pdf->Cell(13,5,'T4',1, 0, '', true);
+    $pdf->Cell(13,5,'T5',1, 0, '', true);
+    $pdf->Cell(13,5,'T6',1, 0, '', true);
+    $pdf->SetFillColor(0,0,128);
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetFont('Arial','B',7);
+    foreach($result as $k=>$row) {
+        $pdf->Ln(5);
+        if($k%2==0){
+            $pdf->SetFillColor(211,211,211);
+            foreach($row as $key=> $column){
+                if($key == 'sn'){
+                    $pdf->Cell(10,5,$column,1, 0, '', true);
+                }elseif ($key == 'name'){
+                    $pdf->Cell(90,5,$column,1, 0, '', true);
+                }elseif($key == 'gender'){
+                    $pdf->Cell(20,5,$column,1, 0, '', true);
+                }else{
+                    $pdf->Cell(13,5,$column,1, 0, '', true);
+                }
+            }
+        }else{
+            $pdf->SetFillColor(255,255,255);
+            foreach($row as $key=> $column){
+                if($key == 'sn'){
+                    $pdf->Cell(10,5,$column,1, 0, '', false);
+                }elseif ($key == 'name'){
+                    $pdf->Cell(90,5,$column,1, 0, '', false);
+                }elseif($key == 'gender'){
+                    $pdf->Cell(20,5,$column,1, 0, '', false);
+                }else{
+                    $pdf->Cell(13,5,$column,1, 0, '', false);
+                }
             }
         }
+        
     }
     $pdf->Output();
 }else{
