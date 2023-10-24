@@ -64,6 +64,7 @@ if($action == 'ComputeTerm'){
                     if($mark['mark'] < 10){$remark = "NA";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$remark = "ATBA";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$remark = "A";}elseif($mark['mark'] > 16){$remark = "A+";}
                     $rank = $Model->SubjectRank($mark['subject'], $student, $year_id, $class_id, $exam_id['id'] );
                     $grade = '';
+                    if($mark['mark'] < 10){$grade = "B.Av";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$grade = "Good";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$grade = "V.Good";}elseif($mark['mark'] > 16){$grade = "Excel";}
                     $rep_group = $Model->GetRepGroup($mark['subject'], $class_id, 1);
                     $teacher = $Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id);
                     $total_coef = $total_coef + $coef;
@@ -82,8 +83,9 @@ if($action == 'ComputeTerm'){
                 $class_average = round($class_av/count($student_codes), 2);
                 $term = $Model->GetTermName($exam_id['id']);
                 $overall_remark = '';
-                $annual_av = '';
-                $position = '';
+                if($average < 10){$overall_remark = "B.Av";}elseif($average >= 10 && $average <= 13){$overall_remark = "Good";}elseif($average > 13 && $average <= 16){$overall_remark = "V.Good";}elseif($average > 16){$overall_remark = "Excellent";}
+                $annual_av = 0.00;
+                $position = 0;
                 $position_array[$student] = $average;
                 arsort($position_array);
                 $dta = [$student, $exam_id['id'], $year_id, $position, $term, $average, $overall_remark, $annual_av, $class_id];
@@ -129,6 +131,7 @@ if($action == 'ComputeSequence'){
             if($mark['mark'] < 10){$remark = "NA";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$remark = "ATBA";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$remark = "A";}elseif($mark['mark'] > 16){$remark = "A+";}
             $rank = $Model->SubjectRank($mark['subject'], $student, $year_id, $class_id, $exam_id );
             $grade = '';
+            if($mark['mark'] < 10){$grade = "B.Av";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$grade = "Good";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$grade = "V.Good";}elseif($mark['mark'] > 16){$grade = "Excel";}
             $rep_group = $Model->GetRepGroup($mark['subject'], $class_id, 1);
             $teacher = $Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id);
             $total_coef = $total_coef + $coef;
@@ -148,6 +151,7 @@ if($action == 'ComputeSequence'){
         $class_average = round($class_av/count($student_codes), 2);
         $term = $Model->GetTermName($exam_id);
         $overall_remark = '';
+        if($average < 10){$overall_remark = "B.Av";}elseif($average >= 10 && $average <= 13){$overall_remark = "Good";}elseif($average > 13 && $average <= 16){$overall_remark = "V.Good";}elseif($average > 16){$overall_remark = "Excellent";}
         $annual_av = 0.0;
         $position = 0;
         $position_array[$student] = $average;

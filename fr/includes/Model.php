@@ -1161,6 +1161,32 @@ class Model extends Database
         return $rows;
     }
 
+    public function UpdateStaffSubjects($data){
+        try {
+            $conn = new PDO("mysql:host=".$this->ServerName().";dbname=".$this->DatabaseName(), $this->UserName(), $this->Password());
+    
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+            $sql = "UPDATE staff_subjects SET class_id = ?  WHERE staff_id = ? AND academic_year = ? AND subject = ?";
+    
+            // use exec() because no results are returned
+            $statement = $conn->prepare($sql);
+            $statement->execute([$data[2], $data[0], $data[1], $data[3]]);
+    
+            $conn = null;
+
+            
+            return "Successful";
+    
+        }
+        catch(PDOException $e)
+        {
+            $conn = null;
+            return $e->getMessage();
+        }
+    }
+
     public function RegisterNewStaffSubjects($data){
         try {
             $conn = new PDO("mysql:host=".$this->ServerName().";dbname=".$this->DatabaseName(), $this->UserName(), $this->Password());
@@ -4690,5 +4716,28 @@ public function NewCash($amount, $source, $user_id, $dateof, $monthYear, $yearOn
 
         return $rows;
     }
+
+    public function ClassTeachers($class, $day){
+        $teachers = [];
+        $staff_subjects = $this->ContentExists('staff_subjects', 'academic_year', $this->GetCurrentYear()[0]['id']);
+        foreach ($staff_subjects as $s){
+            $classes = explode(',', $s['class_id']);
+            $staff_days = explode(',', $this->ContentExists('staff_days', 'staff_id', $s['staff_id'])[0]['dow']);
+            if(in_array($class, $classes)){
+                array_push($teachers, 
+                [
+                    $s['staff_id']=> [
+                        'subject'=>$s['subject'],
+                         'days'=>in_array($day, $staff_days) ? $day : ''
+                    ]
+                ]
+                );
+            }
+            
+        }
+        
+        return $teachers;
+    }
+    
 
 }

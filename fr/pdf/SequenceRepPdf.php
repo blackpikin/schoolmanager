@@ -463,7 +463,9 @@ if($fg == false && $sg == false && $tg == false){
     $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Rank"].': ',1,0,'C', true);
     $pdf->Ln();
     $pdf->SetTextColor(0,0,0);
-    $pdf->Cell(65,5,'',1,0,'C', false);
+    $work ='';
+    if($general_av < 10){$work = "Could do better";}elseif($general_av >= 10 && $general_av <= 13){$work = "Satisfactory";}elseif($general_av > 13 && $general_av <= 16){$work = "Keep up the good work";}elseif($general_av > 16){$work = "Excellent work";}
+    $pdf->Cell(65,5,$work,1,0,'C', false);
     $pdf->Cell(21,5,isset($group_av1)?$group_av1:'',1,0,'C', false);
     $pdf->Cell(21,5,isset($group_av2)?$group_av2:'',1,0,'C', false);
     $pdf->Cell(23,5,isset($group_av3)?$group_av3:'',1,0,'C', false);

@@ -1,5 +1,14 @@
 //Functionality functions
 
+function SchoolTimeTable(){
+    let type = $('#timetable').val();
+    if (type !== undefined && type !== ""){
+        window.open('./pdf/ttPDF.php?type='+type);
+    }else{
+        alert("Select the type of timetable to make")
+    }
+}
+
 function GetMocksForYear(elem){
     let id = elem.value;
     $.ajax({

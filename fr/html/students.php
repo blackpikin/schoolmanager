@@ -14,7 +14,6 @@
                 $className = $Model->GetAClassName($class_id);
                 array_push($results, $Model->GetStudent($student['student_code'],$section)[0]);
             }
-
         }
     }
 ?>

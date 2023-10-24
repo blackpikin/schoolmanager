@@ -52,8 +52,8 @@ if (!empty($staff_subjects)){
         }
 */
         if (in_array($subject, $all_subjects)){
-            $result = "$subject already assigned to the selected staff";
-            $err = true;
+            //$result = "$subject already assigned to the selected staff";
+           //$err = true;
         }
 
         /*

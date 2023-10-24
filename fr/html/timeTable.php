@@ -23,6 +23,6 @@
         </select>
     </div>
     <div class="col-xs-5">
-        <button type="button" class="btn btn-primary"><?= $lang[$_SESSION['lang']]["Generate"] ?></button>
+        <button type="button" onclick="SchoolTimeTable()" class="btn btn-primary"><?= $lang[$_SESSION['lang']]["Generate"] ?></button>
     </div>
 </div>

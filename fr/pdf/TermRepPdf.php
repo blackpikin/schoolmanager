@@ -185,7 +185,9 @@ $fg = false; $sg = false; $tg = false;
                     $pdf->Cell(10,5,$coef,1);
                     $pdf->Cell(10,5,$total_sub_total,1);
                     $pdf->Cell(10,5,$av_rank,1);
-                    $pdf->Cell(10,5,'',1);
+                    $appr = '';
+                    if($av_mark < 10){$appr = "B.Av";}elseif($av_mark >= 10 && $av_mark <= 13){$appr = "Good";}elseif($av_mark > 13 && $av_mark <= 16){$appr = "V.good";}elseif($av_mark > 16){$appr = "Excel";}
+                    $pdf->Cell(10,5,$appr,1);
         
                     $remark = "";
                     if($av_mark < 10){$remark = "NA";}elseif($av_mark >= 10 && $av_mark <= 13){$remark = "ATBA";}elseif($av_mark > 13 && $av_mark <= 16){$remark = "A";}elseif($av_mark > 16){$remark = "A+";}
@@ -291,7 +293,9 @@ $fg = false; $sg = false; $tg = false;
                 $pdf->Cell(10,5,$coef,1);
                 $pdf->Cell(10,5,$total_sub_total,1);
                 $pdf->Cell(10,5,$av_rank,1);
-                $pdf->Cell(10,5,'',1);
+                $appr = '';
+                if($av_mark < 10){$appr = "B.Av";}elseif($av_mark >= 10 && $av_mark <= 13){$appr = "Good";}elseif($av_mark > 13 && $av_mark <= 16){$appr = "V.good";}elseif($av_mark > 16){$appr = "Excel";}
+                $pdf->Cell(10,5,$appr,1);
     
                 $remark = "";
                 if($av_mark < 10){$remark = "NA";}elseif($av_mark >= 10 && $av_mark <= 13){$remark = "ATBA";}elseif($av_mark > 13 && $av_mark <= 16){$remark = "A";}elseif($av_mark > 16){$remark = "A+";}
@@ -399,7 +403,9 @@ $fg = false; $sg = false; $tg = false;
                 $pdf->Cell(10,5,$coef,1);
                 $pdf->Cell(10,5,$total_sub_total,1);
                 $pdf->Cell(10,5,$av_rank,1);
-                $pdf->Cell(10,5,'',1);
+                $appr = '';
+                if($av_mark < 10){$appr = "B.Av";}elseif($av_mark >= 10 && $av_mark <= 13){$appr = "Good";}elseif($av_mark > 13 && $av_mark <= 16){$appr = "V.good";}elseif($av_mark > 16){$appr = "Excel";}
+                $pdf->Cell(10,5,$appr,1);
     
                 $remark = "";
                 if($av_mark < 10){$remark = "NA";}elseif($av_mark >= 10 && $av_mark <= 13){$remark = "ATBA";}elseif($av_mark > 13 && $av_mark <= 16){$remark = "A";}elseif($av_mark > 16){$remark = "A+";}
@@ -504,7 +510,9 @@ $fg = false; $sg = false; $tg = false;
                 $pdf->Cell(10,5,$coef,1);
                 $pdf->Cell(10,5,$total_sub_total,1);
                 $pdf->Cell(10,5,$av_rank,1);
-                $pdf->Cell(10,5,'',1);
+                $appr = '';
+                if($av_mark < 10){$appr = "B.Av";}elseif($av_mark >= 10 && $av_mark <= 13){$appr = "Good";}elseif($av_mark > 13 && $av_mark <= 16){$appr = "V.good";}elseif($av_mark > 16){$appr = "Excel";}
+                $pdf->Cell(10,5,$appr,1);
     
                 $remark = "";
                 if($av_mark < 10){$remark = "NA";}elseif($av_mark >= 10 && $av_mark <= 13){$remark = "ATBA";}elseif($av_mark > 13 && $av_mark <= 16){$remark = "A";}elseif($av_mark > 16){$remark = "A+";}
@@ -533,7 +541,9 @@ $fg = false; $sg = false; $tg = false;
         $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Rank"].': ',1,0,'C', true);
         $pdf->Ln();
         $pdf->SetTextColor(0,0,0);
-        $pdf->Cell(65,5,'',1,0,'C', false);
+        $work ='';
+        if($general_av < 10){$work = "Could do better";}elseif($general_av >= 10 && $general_av <= 13){$work = "Satisfactory";}elseif($general_av > 13 && $general_av <= 16){$work = "Keep up the good work";}elseif($general_av > 16){$work = "Excellent work";}
+        $pdf->Cell(65,5,$work,1,0,'C', false);
         $pdf->Cell(21,5,isset($group_av1)?$group_av1:'',1,0,'C', false);
         $pdf->Cell(21,5,isset($group_av2)?$group_av2:'',1,0,'C', false);
         $pdf->Cell(23,5,isset($group_av3)?$group_av3:'',1,0,'C', false);

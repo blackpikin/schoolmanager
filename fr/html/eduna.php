@@ -16,16 +16,11 @@
         
     </div>
     <div class="col-xs-5 curved-box">
-        <button class="btn btn-primary button-width" onclick="GotoPage('eduna/classlist')"><?= $lang[$_SESSION['lang']]['Class lists'] ?></button>
-        <br>  <br>
-        <button class="btn btn-primary button-width" onclick="GotoPage('eduna/reportcards')"><?= $lang[$_SESSION['lang']]['Report cards'] ?></button>
+        <button class="btn btn-primary button-width" onclick="GotoPage('eduna/transcript')"><?= $lang[$_SESSION['lang']]['Transcripts'] ?></button>
         <br> 
     </div>
-    <div class="col-xs-5 curved-box">
-        <button class="btn btn-primary button-width" onclick="GotoPage('eduna/transcript')"><?= $lang[$_SESSION['lang']]['Transcript1'] ?></button>
-        <br>  <br>
-        <button class="btn btn-primary button-width" onclick="GotoPage('eduna/transcript2')"><?= $lang[$_SESSION['lang']]['Transcript2'] ?></button>
-        <br> 
+    <div class="col-xs-5">
+        
     </div>
     <div class="col-xs-1">
 

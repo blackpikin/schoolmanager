@@ -78,25 +78,47 @@ foreach ($students as $i => $s){
             $success = file_put_contents($file, $d);
             $pdf->Image($file, $pdf->GetX()+1, $pdf->GetY()+10, 33.78, 33.78);
             
-            $pdf->SetTextColor(0,0,0);
+            $pdf->SetTextColor(64,64,64);
             //student information
             $pdf->SetXY($pdf->GetX()+35, $pdf->GetY()+11);
-            $pdf->Cell(15,7,$lang[$_SESSION['lang']]["Name"].":".$data[0]["name"],0);
-            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+7);
+            $stName = explode(' ', $data[0]["name"]);
+            if(count($stName) == 2){
+                $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+                $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+                $pdf->Cell(15,5,$stName[1],0);
+            }elseif (count($stName) == 3){
+                $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+                $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+                $pdf->Cell(15,5,$stName[1].' '.$stName[2],0);
+            }elseif(count($stName) == 4){
+                $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+                $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+                $pdf->Cell(15,5,$stName[1].' '.$stName[2].' '.$stName[3],0);
+            }elseif(count($stName) == 5){
+                $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+                $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+                $pdf->Cell(15,5,$stName[1].' '.$stName[2].' '.$stName[3].' '.$stName[4],0);
+            }elseif(count($stName) == 6){
+                $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+                $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+                $pdf->Cell(15,5,$stName[1].' '.$stName[2].' '.$stName[3].' '.$stName[4].' '.$stName[5],0);
+            }
+    
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
             $date = New DateTime($data[0]["dob"]);
-            $pdf->Cell(15,7,$lang[$_SESSION['lang']]["DOB"].":". date_format($date, "d F Y"),0);
-            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+7);
-            $pdf->Cell(15,7,$lang[$_SESSION['lang']]["Gender"].":".$data[0]["gender"],0);
-            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+7);
-            $pdf->Cell(15,7,$lang[$_SESSION['lang']]["Class"].":".$Model->GetAClassName($class_id),0);
-            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+7);
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["DOB"].": ".date_format($date, "d F Y"),0);
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Gender"].": ".$data[0]["gender"],0);
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Class"].": ".$Model->GetAClassName($class_id),0);
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
             $date = New DateTime($expire);
-            $pdf->Cell(15,7,$lang[$_SESSION['lang']]["expirationdate"].":".date_format($date, "d F Y"),0);
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["expirationdate"].": ".date_format($date, "d F Y"),0);
             $pdf->Ln();
-            $pdf->SetFillColor(0,0,255);
+            $pdf->SetFillColor(0,0,128);
             $pdf->SetTextColor(255,255,255);
             $pdf->SetXY(111, $pdf->GetY());
-            $pdf->Cell(60,4,$lang[$_SESSION['lang']]["Academic year"].":".$Model->YearNameDigits($year_id),0, 0,"", true);
+            $pdf->Cell(60,4,$lang[$_SESSION['lang']]["Academic year"].":".$Model->YearNameDigits($year_id),0, 0,"C", true);
             $pdf->Ln();
         }
         
@@ -114,30 +136,53 @@ foreach ($students as $i => $s){
         $success = file_put_contents($file, $d);
         $pdf->Image($file, $pdf->GetX()+1, $pdf->GetY()+10, 33.78, 33.78);
 
-        $pdf->SetTextColor(0,0,0);
+        $pdf->SetTextColor(64,64,64);
         //student information
         $pdf->SetXY($pdf->GetX()+35, $pdf->GetY()+11);
-        $pdf->Cell(15,7,$lang[$_SESSION['lang']]["Name"].":".$data[0]["name"],0);
-        $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+7);
+        $stName = explode(' ', $data[0]["name"]);
+        if(count($stName) == 2){
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+            $pdf->Cell(15,5,$stName[1],0);
+        }elseif (count($stName) == 3){
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+            $pdf->Cell(15,5,$stName[1].' '.$stName[2],0);
+        }elseif(count($stName) == 4){
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+            $pdf->Cell(15,5,$stName[1].' '.$stName[2].' '.$stName[3],0);
+        }elseif(count($stName) == 5){
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+            $pdf->Cell(15,5,$stName[1].' '.$stName[2].' '.$stName[3].' '.$stName[4],0);
+        }elseif(count($stName) == 6){
+            $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Name"].": ".$stName[0],0);
+            $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+            $pdf->Cell(15,5,$stName[1].' '.$stName[2].' '.$stName[3].' '.$stName[4].' '.$stName[5],0);
+        }
+
+        $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
         $date = New DateTime($data[0]["dob"]);
-        $pdf->Cell(15,7,$lang[$_SESSION['lang']]["DOB"].":".date_format($date, "d F Y"),0);
-        $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+7);
-        $pdf->Cell(15,7,$lang[$_SESSION['lang']]["Gender"].":".$data[0]["gender"],0);
-        $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+7);
-        $pdf->Cell(15,7,$lang[$_SESSION['lang']]["Class"].":".$Model->GetAClassName($class_id),0);
-        $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+7);
+        $pdf->Cell(15,5,$lang[$_SESSION['lang']]["DOB"].": ".date_format($date, "d F Y"),0);
+        $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+        $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Gender"].": ".$data[0]["gender"],0);
+        $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
+        $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Class"].": ".$Model->GetAClassName($class_id),0);
+        $pdf->SetXY($pdf->GetX()-15, $pdf->GetY()+6);
         $date = New DateTime($expire);
-        $pdf->Cell(15,7,$lang[$_SESSION['lang']]["expirationdate"].":".date_format($date, "d F Y"),0);
+        $pdf->Cell(15,5,$lang[$_SESSION['lang']]["expirationdate"].": ".date_format($date, "d F Y"),0);
         $pdf->Ln();
-        $pdf->SetFillColor(0,0,255);
+        $pdf->SetFillColor(0,0,128);
         $pdf->SetTextColor(255,255,255);
-        $pdf->Cell(60,4,$lang[$_SESSION['lang']]["Academic year"].":".$Model->YearNameDigits($year_id),0, 0,"", true);
+        $pdf->Cell(60,4,$lang[$_SESSION['lang']]["Academic year"].": ".$Model->YearNameDigits($year_id),0, 0,"C", true);
         }
     }
 
     if($student_count == 10){
         $pdf->AddPage();
         $student_count = 0;
+        $pdf->SetXY(110, 6);
     }
 }
 

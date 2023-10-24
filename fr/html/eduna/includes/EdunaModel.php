@@ -44,7 +44,7 @@ class EdunaModel extends Edunabase
         }
     }
 
-    public function Update($table, $data, $criteria){
+    public function Update($table, array $data, array $criteria){
         $columns = []; $values =[]; $crit =[];
         foreach($data as $key=>$value) {
             array_push($columns, $key.'=?');
@@ -105,7 +105,7 @@ class EdunaModel extends Edunabase
         return $rows;
     }
 
-    public function GetAllWithCriteria($table, $criteria){
+    public function GetAllWithCriteria($table, array $criteria){
         $crit =[];
         foreach($criteria as $key=>$value) {
             array_push($crit, $key."='".$value."'");
@@ -170,7 +170,7 @@ class EdunaModel extends Edunabase
         return $rows;
     }
 
-    public function SearchWithCriteria($table, $criteria){
+    public function SearchWithCriteria($table, array $criteria){
         $crit =[];
         foreach($criteria as $key=>$value) {
             array_push($crit, $key." LIKE '%".$value."%'");
@@ -197,5 +197,70 @@ class EdunaModel extends Edunabase
         $conn = null;
 
         return $rows;
+    }
+
+    public function ExamsForTerm($term_id, $year_id, $subject_id, $sequence_id, $class_id){
+        $rows = array();
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare("SELECT DISTINCT(id) FROM user_mgt_testsetup WHERE school_term_id = ? AND year_id = ? AND school_subject_id = ? AND term_sequence_id = ? AND school_class_id = ? ORDER BY id ASC");
+
+            $stmt->execute([$term_id, $year_id, $subject_id, $sequence_id, $class_id]);
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $rows = $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+        if(!empty($rows)){
+            return $rows[0]['id'];
+        }else{
+            return "";
+        }
+        
+    }
+
+    public function GetTranscriptMark($term_id, $subject_id, $student_code, $academic_year_id, $class_id, $seq1_id, $seq2_id){
+        $seq1 = $this->ExamsForTerm($term_id, $academic_year_id, $subject_id, $seq1_id, $class_id);
+        $seq2 = $this->ExamsForTerm($term_id, $academic_year_id, $subject_id, $seq2_id, $class_id);
+        if($seq1 != ""){
+            if(isset($this->GetSomeWithCriteria('user_mgt_testmarks', ['marks_on_fixed_limit'], ['test_id'=>$seq1, 'yearly_student_id'=>$student_code])[0]['marks_on_fixed_limit'])){
+                $mark1 = $this->GetSomeWithCriteria('user_mgt_testmarks', ['marks_on_fixed_limit'], ['test_id'=>$seq1, 'yearly_student_id'=>$student_code])[0]['marks_on_fixed_limit'];
+            }else{
+                $mark1 = 0;
+            }
+         }else{
+            $mark1 = 0;
+        }
+
+        if($seq2 != ""){
+            if(isset($this->GetSomeWithCriteria('user_mgt_testmarks', ['marks_on_fixed_limit'], ['test_id'=>$seq2, 'yearly_student_id'=>$student_code])[0]['marks_on_fixed_limit'])){
+                $mark2 = $this->GetSomeWithCriteria('user_mgt_testmarks', ['marks_on_fixed_limit'], ['test_id'=>$seq2, 'yearly_student_id'=>$student_code])[0]['marks_on_fixed_limit'];
+            }else{
+                $mark2 = 0;
+            }
+        }else{
+            $mark2 = 0;
+        }
+        
+        $final_mark = round(($mark1 + $mark2) /2, 2);
+        if($final_mark != 0){
+            return $final_mark;
+        }else{
+            return '';
+        }
+        
+    }
+
+    public function StudentDidSubject($subject_id, $student_code){
+        
     }
 }
