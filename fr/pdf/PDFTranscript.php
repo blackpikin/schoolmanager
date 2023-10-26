@@ -28,7 +28,7 @@ function Header()
         //bkg
         $this->Image('../img/pagebkg.png',50,25,200, 200);
         // Logo
-        $this->Image('../img/letterhead.png',50,2,200);
+        $this->Image('../img/letterhead.png',50,2,200, 35);
         // Line break
         $this->Ln(30);
     }
@@ -36,7 +36,7 @@ function Header()
     // Page footer
     function Footer()
     {
-        $this->Image('../img/footer.png',2,260,200);
+        //$this->Image('../img/footer.png',2,260,200);
         // Position at 1.5 cm from bottom
         $this->SetY(-15);
         // Arial italic 8
@@ -59,7 +59,7 @@ $pdf->AddPage('O');
 $pdf->AliasNbPages();
 $pdf->SetFont('Arial','B',11);
 $pdf->Cell(30,4, "", 0);
-$pdf->Ln();
+$pdf->Ln(3);
 $pdf->Cell(30,4, "", 0);
 $pdf->SetFont('Times','B',18);
 $pdf->Cell(70,4, "", 0);
@@ -145,7 +145,7 @@ $pdf->SetTextColor(0, 0, 0);
 
 foreach ($class_subjects as $id){
     $pdf->Ln();
-    $pdf->SetFont('Arial','',7);
+    $pdf->SetFont('Arial','B',7);
     $sub = $Eduna->GetSomeWithCriteria('setup_schoolsubjects', ['name'], ['id'=> $id])[0]['name'];
     if($type == 1){
         if(strlen($sub) > 22){
@@ -293,15 +293,15 @@ foreach($students_classes as $class){
 }
 $pdf->Ln();
 $pdf->SetFont('Arial','B',6);
-$pdf->Cell(10,5,"Any alteration on the transcript is not the handiwork of Quality International School",0);
+$pdf->Cell(10,4,"Any alteration on the transcript is not the handiwork of Quality International School",0);
 if($type == 1){
-    $pdf->Ln(16);
+    $pdf->Ln(10);
 }else{
     $pdf->Ln(40);
 }
 
 $pdf->SetFont('Arial','B',10);
-$pdf->Cell(10,5,"Done at________________, on the _______________                                                                                                                                  Principal__________________",0);
+$pdf->Cell(10,4,"Done at________________, on the _______________                                                                                                                                  Principal__________________",0);
 $pdf->Output();
 }else{
     echo '<h3>You have been logged out or your browser window expired. Login again</h3>';
