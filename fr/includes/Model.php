@@ -1765,13 +1765,19 @@ class Model extends Database
         $classes = [];
 
         if (!empty($rows)){
-            foreach($rows as $row){
-                if (strlen($row['class_id']) > 1){
-                    $classes = explode(',', $rows[0]['class_id']);
+            for($i = 0; $i <count($rows); $i++) {
+                if (strlen($rows[$i]['class_id']) > 1){
+                    $classes[$rows[$i]['staff_id']] = explode(',', $rows[$i]['class_id']);
+                }else{
+                    $classes[$rows[$i]['staff_id']] = explode(',', $rows[$i]['class_id']);
                 }
-                if (in_array($class_id, $classes)){
-                    return $row['staff_id'];
+                
+                if (in_array($class_id, $classes[$rows[$i]['staff_id']])){
+                    return $rows[$i]['staff_id'];
+                }else{
+                    continue;
                 }
+                
             }
         }else{
             return 1;
