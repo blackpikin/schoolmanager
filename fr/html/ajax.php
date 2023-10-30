@@ -700,27 +700,33 @@ if ($action == 'SaveMark'){
     $subject = $_POST['Subject'];
     $competence = $_POST['competence'];
     $err = false;
-    
-    if($mark > 20){
-        $result = "Mark must not be more than 20";
-        $err = true;
-    }
-
-    if($mark < 0){
-        $result = "Mark must not be less than zero";
-        $err = true;
-    }
-
-    if (!$err){
-        $data = [$student_code, $class_id, $Model->GetCurrentYear()[0]['id'], $subject, $exam_id, $mark, $competence];
-
-        if ($Model->EntryExists($data)){
-            $result = $Model->UpdateMark($data);
-        }else{
-            $result = $Model->SaveMark($data);
+    $result = "";
+    if (is_numeric($_POST['mark'])){       
+        if($mark > 20){
+            $result = "Mark must not be more than 20";
+            $err = true;
         }
 
+        if($mark < 0){
+            $result = "Mark must not be less than zero";
+            $err = true;
+        }
+
+        if (!$err){
+            $data = [$student_code, $class_id, $Model->GetCurrentYear()[0]['id'], $subject, $exam_id, $mark, $competence];
+    
+            if ($Model->EntryExists($data)){
+                $result = $Model->UpdateMark($data);
+            }else{
+                $result = $Model->SaveMark($data);
+            }
+    
+            
+        }
+    }else{
         
+        $result = $Model->DeleteMark([$student_code, $class_id, $Model->GetCurrentYear()[0]['id'], $subject, $exam_id, $mark, $competence]);
+        $err = true;
     }
 
     if ($result == "Mark Saved"){

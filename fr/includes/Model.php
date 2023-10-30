@@ -1361,6 +1361,32 @@ class Model extends Database
         }
     }
 
+    public function DeleteMark($data){
+        try {
+            $conn = new PDO("mysql:host=".$this->ServerName().";dbname=".$this->DatabaseName(), $this->UserName(), $this->Password());
+    
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+            $sql = "DELETE FROM mark_sheet WHERE student_code = ? AND class_id = ? AND academic_year = ? AND subject = ? AND exam = ?";
+    
+            // use exec() because no results are returned
+            $statement = $conn->prepare($sql);
+            $statement->execute([$data[0], $data[1], $data[2], $data[3], $data[4]]);
+    
+            $conn = null;
+    
+            
+            return "Mark Deleted";
+    
+        }
+        catch(PDOException $e)
+        {
+            $conn = null;
+            return $e->getMessage();
+        }
+    }
+
     public function EntryExists($data){
         $rows = array();
         try {
