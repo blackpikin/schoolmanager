@@ -37,7 +37,7 @@ function Header()
     // Page footer
     function Footer()
     {
-        //$this->Image('../img/footer.png',2,260,200);
+        $this->Image('../img/footer-Blue.png',0,240,220);
         // Position at 1.5 cm from bottom
         $this->SetY(-15);
         // Arial italic 8
@@ -64,6 +64,8 @@ if(!empty($means)){
    $pdf = new PDF();
    foreach($means as $pos => $stud_av){
     $s = $Model->GetStudent($stud_av['student'], $section);
+    $general_coef = 0;
+    $general_total = 0;
     $pdf->AddPage();
     $pdf->AliasNbPages();
     $pdf->SetFont('Arial','B',9);
