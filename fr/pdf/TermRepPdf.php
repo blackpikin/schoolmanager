@@ -26,10 +26,10 @@ class PDF extends FPDF
 // Page header
 function Header()
     {
-        // Logo
-        $this->Image('../img/letterhead.png',2,2,200);
-        //watermark
-        $this->Image('../img/map.jpg',10,40,195,160);
+         //watermark
+         $this->Image('../img/pagebkg.png',-10,-10,250,250);
+         // Logo
+         $this->Image('../img/letterhead.png',2,2,200);
         // Line break
         $this->Ln(30);
     }
@@ -41,9 +41,9 @@ function Header()
         // Position at 1.5 cm from bottom
         $this->SetY(-15);
         // Arial italic 8
-        $this->SetFont('Arial','I',8);
+        //$this->SetFont('Arial','I',8);
         // Page number
-        $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+        //$this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
         
     }
 }

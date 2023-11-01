@@ -132,7 +132,7 @@ if($action == 'ComputeSequence'){
             $rank = $Model->SubjectRank($mark['subject'], $student, $year_id, $class_id, $exam_id );
             $grade = '';
             if($mark['mark'] < 10){$grade = "B.Av";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$grade = "Good";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$grade = "V.Good";}elseif($mark['mark'] > 16){$grade = "Excel";}
-            $rep_group = $Model->GetRepGroup($mark['subject'], $class_id, 1);
+            $rep_group = $Model->GetRepGroup($mark['subject'], $class_id, 0);
             $teacher = $Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id);
             $total_coef = $total_coef + $coef;
             $total_marks = $total_marks + $total;
@@ -143,7 +143,6 @@ if($action == 'ComputeSequence'){
             }else{
                 $res = $Model->NewStudentTotal($mark_data);
             }
-            
         }
 
         $average = round($total_marks/$total_coef, 2);
@@ -165,7 +164,7 @@ if($action == 'ComputeSequence'){
         }
 
     }
-    echo 'Computation complete';
+    echo "Computation complete";
 
 }
 

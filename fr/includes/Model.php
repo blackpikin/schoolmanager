@@ -4263,7 +4263,7 @@ public function NewCash($amount, $source, $user_id, $dateof, $monthYear, $yearOn
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-            $sql = "UPDATE computed_totals SET total = ?, rank = ?, remark =?, grade = ?, subject_group =? WHERE subject =? AND student =? AND exam_id =? AND year_id =? AND class_id = ?";
+            $sql = "UPDATE computed_totals SET total = ?, `rank` = ?, remark =?, grade = ?, subject_group =? WHERE subject =? AND student =? AND exam_id =? AND year_id =? AND class_id = ?";
     
             // use exec() because no results are returned
             $statement = $conn->prepare($sql);
@@ -4289,7 +4289,7 @@ public function NewCash($amount, $source, $user_id, $dateof, $monthYear, $yearOn
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-            $sql = "INSERT INTO computed_totals(subject, student, exam_id, year_id, total, rank, remark, grade, subject_group, class_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO computed_totals(subject, student, exam_id, year_id, total, `rank`, remark, grade, subject_group, class_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
             // use exec() because no results are returned
             $statement = $conn->prepare($sql);
@@ -4304,7 +4304,7 @@ public function NewCash($amount, $source, $user_id, $dateof, $monthYear, $yearOn
         catch(PDOException $e)
         {
             $conn = null;
-            return $e->getMessage();
+            return "New Total ".$e->getMessage();
         }
     }
 
