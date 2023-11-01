@@ -117,7 +117,7 @@ if(!empty($means)){
     $pdf->Ln();
     $pdf->Cell(90,5,$lang[$_SESSION['lang']]["Classmaster"].':___________________________________ ',0);
     $pdf->Cell(70,5,$lang[$_SESSION['lang']]["Repeater"].':',0);
-    $pdf->Ln();
+    $pdf->Ln(10);
     //$pdf->Cell(60, 5, "", 0);
     $pdf->SetFont('Arial','',8);
 
