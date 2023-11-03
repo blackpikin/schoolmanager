@@ -1,10 +1,10 @@
 <?php
 class Database
 {
-    private $serverName = "localhost:3306";
+    private $serverName = "localhost";
     private $username = "root";
-    private $password = "solidus84B52@";
-    //private $password = "";
+    //private $password = "solidus84B52@";
+    private $password = "";
    // private $dbName = "schoolmanager";
     private $dbName = "skoo_manager";
     private $defaultPw = "12345678";

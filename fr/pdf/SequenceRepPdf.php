@@ -121,8 +121,8 @@ if(!empty($means)){
     //$pdf->Cell(60, 5, "", 0);
     $pdf->SetFont('Arial','',8);
 
-    //Check if the first group exists
-    
+    //Check for the groups that exist
+    $group_av1 = ''; $group_av2 = ''; $group_av3 = '';
     foreach($subject_groups as $group_name => $group){
         if(!empty($group)){
             $pdf->SetFillColor(0,0,128);
@@ -202,13 +202,31 @@ if(!empty($means)){
                     }
                 }
             }
-            $group_av1 = '';
+            
             if ($total_coef != 0){
-                $group_av1 = round($total_mark/$total_coef,2);
+                if($group_index[$group_name] == 1){
+                    $group_av1 = round($total_mark/$total_coef,2);
+                }elseif($group_index[$group_name] == 2){
+                    $group_av2 = round($total_mark/$total_coef,2);
+                }elseif($group_index[$group_name] == 3){
+                    $group_av3 = round($total_mark/$total_coef,2);
+                }else{
+                    $group_av1 = round($total_mark/$total_coef,2);
+                }
+                
             }
     
             $pdf->Cell(105,5,$lang[$_SESSION['lang']]["GroupTotal"],1,0,'R', false);
-            $pdf->Cell(10,5,$group_av1,1);
+            if($group_index[$group_name] == 1){
+                $pdf->Cell(10,5,$group_av1,1);
+            }elseif($group_index[$group_name] == 2){
+                $pdf->Cell(10,5,$group_av2,1);
+            }elseif($group_index[$group_name] == 3){
+                $pdf->Cell(10,5,$group_av3,1);
+            }else{
+                $pdf->Cell(10,5,$group_av1,1);
+            }
+            
             $pdf->Cell(10,5,$total_coef,1);
             $pdf->Cell(10,5,$total_mark,1);
             $pdf->Cell(60,5,'Remarks: ',1);
