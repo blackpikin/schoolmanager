@@ -214,7 +214,7 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
                         if($av_mark < 10){$remark = "NA";}elseif($av_mark >= 10 && $av_mark <= 13){$remark = "ATBA";}elseif($av_mark > 13 && $av_mark <= 16){$remark = "A";}elseif($av_mark > 16){$remark = "A+";}
             
                         $pdf->Cell(10,5,$remark,1);
-                        $pdf->Cell(30,5,$Model->GetStaffName($Model->GetSubjectTeacher($subject['subject'], $class_id, $year_id)),1);
+                        $pdf->Cell(30,5,strToUpper($Model->GetStaffName($Model->GetSubjectTeacher($subject['subject'], $class_id, $year_id))),1);
                         $pdf->Ln();
             
                     }
@@ -288,9 +288,9 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         $pdf->Ln();
         $pdf->SetTextColor(0,0,0);
         $pdf->Cell(27,5,$lang[$_SESSION['lang']]["JustAbs"],1,0,'C', false);
-        $pdf->Cell(5,5,$Model->CountAbsences($year_id, $class_id, $term_name, $code, 'absences'),1,0,'C', false);
+        $pdf->Cell(5,5,$Model->CountAbsences($year_id, $class_id, $term_name, $code, 'justabs'),1,0,'C', false);
         $pdf->Cell(28,5,$lang[$_SESSION['lang']]["UnJustAbs"],1,0,'C', false);
-        $pdf->Cell(5,5,'0',1,0,'C', false);
+        $pdf->Cell(5,5,$Model->CountAbsences($year_id, $class_id, $term_name, $code, 'absences'),1,0,'C', false);
         $pdf->Cell(33,5,'',1,0,'C', false);
         $pdf->Cell(32,5,$lang[$_SESSION['lang']]["ClassAv"].$classAv,1,0,'J', false);
         $pdf->Ln();

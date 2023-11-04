@@ -2421,13 +2421,15 @@ class Model extends Database
 
     public function SaveAbsence($student_code, $year, $class_id, $term, $abs, $type){
         if($type == 'abs'){
-            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension) VALUES (?, ?, ?, ?, ?, 0, 0, 0)";
+            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension, justabs) VALUES (?, ?, ?, ?, ?, 0, 0, 0, 0)";
         }elseif($type == 'pun'){
-            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension) VALUES (?, ?, ?, ?, 0, ?, 0, 0)";
+            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension, justabs) VALUES (?, ?, ?, ?, 0, ?, 0, 0, 0)";
         }elseif($type == 'war'){
-            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension) VALUES (?, ?, ?, ?, 0, 0, ?, 0)";
+            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension, justabs) VALUES (?, ?, ?, ?, 0, 0, ?, 0, 0)";
         }elseif($type == 'sus'){
-            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension) VALUES (?, ?, ?, ?, 0, 0, 0, ?)";
+            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension, justabs) VALUES (?, ?, ?, ?, 0, 0, 0, ?, 0)";
+        }elseif($type == 'justabs'){
+            $sql = "INSERT INTO absences(student_code, academic_year, class_id, term, absences, punishment, warning, suspension, justabs) VALUES (?, ?, ?, ?, 0, 0, 0, 0, ?)";
         }
         try {
             $conn = new PDO("mysql:host=".$this->ServerName().";dbname=".$this->DatabaseName(), $this->UserName(), $this->Password());

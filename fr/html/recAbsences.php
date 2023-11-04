@@ -102,13 +102,17 @@
         <div>
         <div class="col-xs-3">
            <br>
-            <input id="abs" type="radio" value="absent" name="conduct"> Absence
+            <input id="abs" type="radio" value="absent" name="conduct"> <?= $lang[$_SESSION['lang']]['UnJustAbsence'] ?>
        </div>
-       <div class="col-xs-3">
+       <div class="col-xs-2">
            <br>
-            <input id="pun" type="radio" value="punishment" name="conduct"> <?= $lang[$_SESSION['lang']]['Punishment'] ?>
+            <input id="justabs" type="radio" value="justabsent" name="conduct"> <?= $lang[$_SESSION['lang']]['JustAbsence'] ?>
        </div>
-        <div class="col-xs-3">
+       <div class="col-xs-2">
+           <br>
+            <input id="pun" type="radio" value="punishment" name="conduct"> <?= $lang[$_SESSION['lang']]['Latenessb'] ?>
+       </div>
+        <div class="col-xs-2">
         <br>
             <input id="war" type="radio" value="warning" name="conduct"> <?= $lang[$_SESSION['lang']]['Warning'] ?>
        </div>

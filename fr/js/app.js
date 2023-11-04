@@ -430,6 +430,8 @@ function SaveAbsence(elem){
         typ = 'war'
     }else if($('#sus').is(':checked')){
         typ = 'sus'
+    }else if($('#justabs').is(':checked')){
+        typ = 'justabs'
     }
    
     if (abs !== "" && abs !== undefined && typ !== ""){
@@ -464,6 +466,8 @@ function AbsencesList(){
         typ = 'war'
     }else if($('#sus').is(':checked')){
         typ = 'sus'
+    }else if($('#justabs').is(':checked')){
+        typ = 'justabs'
     }
         
     if(year !== "" && cls !== "" && term !== "" && typ !== ""){

@@ -197,7 +197,7 @@ if(!empty($means)){
                     $pdf->Cell(10,5,$sub_total['rank'],1);
                     $pdf->Cell(10,5,$sub_total['grade'],1);
                     $pdf->Cell(10,5,$sub_total['remark'],1);
-                    $pdf->Cell(30,5,$Model->GetStaffName($Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id)),1);
+                    $pdf->Cell(30,5,strToUpper($Model->GetStaffName($Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id))),1);
                     $pdf->Ln();
                     }
                 }
@@ -279,9 +279,9 @@ if(!empty($means)){
     //Display discipline information
     $pdf->SetTextColor(0,0,0);
     $pdf->Cell(27,5,$lang[$_SESSION['lang']]["JustAbs"],1,0,'C', false);
-    $pdf->Cell(5,5,$Model->CountAbsences($year_id, $class_id, explode(' ',$Model->GetTermName($exam_id))[0], $stud_av['student'], 'absences'),1,0,'C', false);
+    $pdf->Cell(5,5,$Model->CountAbsences($year_id, $class_id, explode(' ',$Model->GetTermName($exam_id))[0], $stud_av['student'], 'justabs'),1,0,'C', false);
     $pdf->Cell(28,5,$lang[$_SESSION['lang']]["UnJustAbs"],1,0,'C', false);
-    $pdf->Cell(5,5,'0',1,0,'C', false);
+    $pdf->Cell(5,5,$Model->CountAbsences($year_id, $class_id, explode(' ',$Model->GetTermName($exam_id))[0], $stud_av['student'], 'absences'),1,0,'C', false);
     $pdf->Cell(33,5,'',1,0,'C', false);
     $pdf->Cell(32,5,$lang[$_SESSION['lang']]["ClassAv"].round($Model->GetClassAverage($exam_id, $class_id, $year_id),2),1,0,'J', false);
     $pdf->Ln();
