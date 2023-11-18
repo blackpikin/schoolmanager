@@ -25,11 +25,9 @@
         <button class="btn btn-primary button-width" onclick="window.open('./pdf/transferCert.php?ref=<?= $student_code ?>')"><?= $lang[$_SESSION['lang']]["TransferCert"] ?></button>
         <br>
         <br>
-        <!--
-        <button class="btn btn-primary button-width" onclick="window.open('./pdf/schoolId.php?ref=<?= $student_code ?>')">Carte d'identité scolaire</button>
+        <button class="btn btn-primary button-width" onclick="GotoPage('studentsCards&ref=<?= $student_code ?>')"><?= $lang[$_SESSION['lang']]["Report cards"] ?></button>
         <br>
         <br>
--->
         <button class="btn btn-primary button-width" onclick="window.open('./pdf/studentsTranscript.php?ref=<?= $student_code ?>')"><?= $lang[$_SESSION['lang']]["Transcript1"] ?></button>
         <br>
         <br>

@@ -72,6 +72,7 @@ $pdf->Cell(40,5,'POB: '.$s[0]['pob'],0);
 $pdf->Cell(10,5,'ADMISSION #: '.$s[0]['adm_num'],0);
 $pdf->Ln();
 $pdf->Cell(40,5,'SUBJECT',1);
+//Get First Cycle Classes
 $classes = $Model->TranscriptClasses($student_code, 'FIRST');
 //Get subjects from Mark Sheet
 $subjects = $Model->AllMarkSheetSubjects($student_code);
