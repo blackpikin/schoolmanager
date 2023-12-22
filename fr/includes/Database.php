@@ -5,8 +5,8 @@ class Database
     private $username = "root";
     //private $password = "solidus84B52@";
     private $password = "";
-   // private $dbName = "schoolmanager";
-    private $dbName = "skoo_manager";
+   private $dbName = "schoolmanager";
+    //private $dbName = "skoo_manager";
     private $defaultPw = "12345678";
 
     public function ServerName(){return $this->serverName;}

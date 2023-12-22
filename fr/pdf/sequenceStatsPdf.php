@@ -96,7 +96,7 @@ $pdf = new PDF();
         $sat = count($students_in_subject);
         $male_pass = 0; $female_pass = 0;
         foreach ($students_in_subject as $student){
-            if ($student['mark']> 10){
+            if ($student['mark'] >= 10){
                 $passed++;
                 if($Model->GetStudent($student['student_code'], $section)[0]['gender'] == 'M'){
                     $male_pass++;

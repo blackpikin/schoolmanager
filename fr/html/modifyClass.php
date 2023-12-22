@@ -10,24 +10,40 @@ $class = $Model->GetAClass($_GET['ref']);
     }else{
         $cycle = "";
     }
+    $err = false;
                     
     $mockable = $class[0]['mockable'];
+    $practo = $class[0]['practo'];
+    $cm = $class[0]['cm'];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $genName = $_POST['className'];
         $subName = $Model->test_input($_POST['subName']);
-        if(isset($_POST['cycle'])){
-            $cycle = $_POST['cycle'];
-        }else{
-            $cycle = "";
+        $cycle = $_POST['cycle'];
+        $mockable = $_POST['mockable'];
+        $practo = $_POST['practo'];
+        $cm = $_POST['classmaster'];
+        $sec = $Model->test_input(($_POST['sec']));
+        if(!empty($sec)){
+            $err = true;
         }
 
         if (empty($subName)){
-            $subName = $genName;
+            $err=  true;
+            $result = 'Enter the sub name';
         }
 
-        $data = [$genName, $subName, $cycle, $mockable, $_GET['ref']];
-        $result = $Model->UpdateClass($data);
+        if(!$err){
+            $lng = $_SESSION['lang'];
+            $section = 0;
+            if($lng == 'fr'){
+                $section = 1;
+            }
+           $data = [$genName, $subName, $cycle, $mockable, $practo, $section, $cm, $_GET['ref']];
+           $result = $Model->UpdateClass($data); 
+        }
+
+        
     }
 
 ?>
@@ -51,20 +67,15 @@ $class = $Model->GetAClass($_GET['ref']);
             <label><?= $lang[$_SESSION['lang']]['SubClassName'] ?></label>
             <input type="text"  value="<?= $subName ?>" required="required" class="form-control" name="subName" placeholder="e.g. A or leave empty if sub class name is same as general name">
         </p>
-        <?php 
-            if ($cycle !== ""){
-                ?>
-                    <p>
-                        <label><?= $lang[$_SESSION['lang']]['Level'] ?></label>
-                        <select required="required" class="form-control" name="cycle">
-                            <option value="<?= $cycle ?>"><?= $cycle ?></option>
-                            <option value='FIRST'><?= $lang[$_SESSION['lang']]['FIRST'] ?> CYCLE</option>
-                             <option value='SECOND'><?= $lang[$_SESSION['lang']]['SECOND'] ?> CYCLE</option>
-                        </select>        
-                    </p>
-                <?php
-            }
-        ?>
+        <p>
+            <label><?= $lang[$_SESSION['lang']]['Level'] ?></label>
+            <select required="required" class="form-control" name="cycle">
+                <option value="<?= $class[0]['cycle'] ?>"><?= $cycle ?></option>
+                <option value='FIRST'><?= $lang[$_SESSION['lang']]['FIRST'] ?> CYCLE</option>
+                    <option value='SECOND'><?= $lang[$_SESSION['lang']]['SECOND'] ?> CYCLE</option>
+            </select>        
+        </p>
+        <br>
         <label><?= $lang[$_SESSION['lang']]['Mockable'] ?></label>
             <select required="required" class="form-control" name="mockable">
                 <option value="<?= $mockable ?>"><?= $mockable == 1 ?  $lang[$_SESSION['lang']]['Yes'] : $lang[$_SESSION['lang']]['No'] ?></option>
@@ -72,6 +83,36 @@ $class = $Model->GetAClass($_GET['ref']);
                 <option value="0"><?= $lang[$_SESSION['lang']]['No'] ?></option>
             </select>   
         <br>
+            <label><?= $lang[$_SESSION['lang']]['Practo'] ?></label>
+            <select required="required" class="form-control" name="practo">
+            <option value="<?= $practo ?>"><?= $practo == 1 ?  $lang[$_SESSION['lang']]['Yes'] : $lang[$_SESSION['lang']]['No'] ?></option>
+                <option value="1"><?= $lang[$_SESSION['lang']]['Yes'] ?></option>
+                <option value="0"><?= $lang[$_SESSION['lang']]['No'] ?></option>
+            </select>
+            <?php 
+                $cms = $Model->GetAllWithCriteria('users', ['section' => $section, 'role' => 'Teacher'])
+            ?>
+            <br>
+            <p>
+            <label><?= $lang[$_SESSION['lang']]['Classmaster'] ?></label>
+            <select class="form-control" name="classmaster">
+            <option value="<?= $cm ?>"><?= $cm != '' ?  $cm : $lang[$_SESSION['lang']]['Choose one'] ?></option>
+                <?php 
+                    if (!empty($cms)){
+                        foreach ($cms as $cm){
+                            ?>
+                            <option value="<?= $cm['name'] ?>"><?= $cm['name'] ?></option>
+
+                <?php
+                        }
+                    }
+                ?>
+            </select>
+            </p>
+            <p>
+                <label class="sec">Sec</label>
+               <input type="text" class="form-control sec" name="sec" value="">
+            </p>  
             <button type="submit" class="btn btn-primary"><?= $lang[$_SESSION['lang']]['Save'] ?></button>
         </form>
         </div>

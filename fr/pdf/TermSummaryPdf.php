@@ -83,6 +83,7 @@ if(!empty($averages)){
     $pdf->Cell(99,7,$lang[$_SESSION['lang']]["Name"],1);
     $pdf->Cell(20,7,$lang[$_SESSION['lang']]["Gender"],1);
     $pdf->Cell(20,7,$lang[$_SESSION['lang']]["Average"],1);
+    $pdf->Cell(35,7,$lang[$_SESSION['lang']]["subjectsPassed"],1);
     foreach ($averages as $student_code => $average){
         $pdf->Ln();
         $s = $Model->GetStudent($student_code, $section);
@@ -90,6 +91,7 @@ if(!empty($averages)){
         $pdf->Cell(99,7,$s[0]['name'],1);
         $pdf->Cell(20,7, $s[0]['gender'],1);
         $pdf->Cell(20,7, $average,1);
+        $pdf->Cell(35,7,$Model->NumberOfPapersTerm($student_code, $year_id, $class_id, $term_id),1);
      }
      $pdf->Output();
 }else{

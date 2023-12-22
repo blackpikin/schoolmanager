@@ -96,6 +96,7 @@
                     ?>
                     <table class="table table-responsive table-bordered">
                         <tr class="table-header">
+                            <td>#</td>
                             <td>Photo</td>
                             <td><?= $lang[$_SESSION['lang']]["Name"] ?></td>
                             <td><?= $lang[$_SESSION['lang']]["Gender"] ?></td>
@@ -105,7 +106,7 @@
                             <td>Actions</td>
                         </tr>
                     <?php
-                    foreach ($results as $result){
+                    foreach ($results as $key => $result){
                         $year = $Model->GetCurrentYear()[0]['id'];
                         $studentCode = $result['student_code'];
                         $class_id = $Model->GetClassId($year, $studentCode);
@@ -113,6 +114,7 @@
     
                         ?>
                         <tr class="normal-tr">
+                        <td><?= ++$key ?></td>
                         <td>
                             <?php 
                                 if($result['picture'] != ""){

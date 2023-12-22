@@ -323,11 +323,11 @@ class Model extends Database
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-            $sql = "INSERT INTO classes(general_name, sub_name, cycle, mockable, practo) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO classes(general_name, sub_name, cycle, mockable, practo, cm) VALUES (?, ?, ?, ?, ?, ?)";
     
             // use exec() because no results are returned
             $statement = $conn->prepare($sql);
-            $statement->execute([$data[0], $data[1], $data[2], $data[3], $data[4]]);
+            $statement->execute([$data[0], $data[1], $data[2], $data[3], $data[4], $data[5]]);
     
             $conn = null;
     
@@ -535,11 +535,11 @@ class Model extends Database
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-            $sql = "UPDATE  classes SET general_name = ?, sub_name = ?, cycle = ?, mockable = ? WHERE id = ?";
+            $sql = "UPDATE  classes SET general_name = ?, sub_name = ?, cycle = ?, mockable = ?, practo = ?, section = ?, cm = ?  WHERE id = ?";
     
             // use exec() because no results are returned
             $statement = $conn->prepare($sql);
-            $statement->execute([$data[0], $data[1], $data[2], $data[3], $data[4]]);
+            $statement->execute([$data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7]]);
     
             $conn = null;
     
@@ -1903,6 +1903,36 @@ class Model extends Database
         return count($rows);
     }
 
+    public function Average(array $numbers){
+        $count = count($numbers);
+        $sum = 0;
+        $avg = 0.0;
+        for ($i = 0; $i < $count; $i++){
+            $sum += $numbers[$i];
+        }
+
+        if ($count > 0 ){
+            $avg = round(($sum / $count),2);
+        }
+
+        return $avg;
+    }
+
+    public function NumberOfPapersTerm($student, $year_id, $class_id, $term_name ){
+        $exam_ids = $this->ExamsForTerm($term_name, $year_id, $this->get_section());
+        $subs = $this->ViewClassSubjects($class_id);
+        $mark1 = 0.00; $mark2 = 0.00;
+        $subjects = 0;
+        foreach($subs as $sub){
+            $mark1 = $this->GetAMark([$student, $class_id, $year_id, $sub['subject'], $exam_ids[0]['id']]);
+            $mark2 = $this->GetAMark([$student, $class_id, $year_id, $sub['subject'], $exam_ids[1]['id']]);
+            if($this->Average([$mark1, $mark2]) >= 10){
+                $subjects++;
+            }
+        }        
+        return $subjects;
+    }
+
     public function GetAllTerms($year){
         $rows = array();
         try {
@@ -2723,7 +2753,7 @@ class Model extends Database
         if (!empty($rows)){
             return $rows[0]['mark'];
         }else{
-            return 0;
+            return " ";
         }
         
     }
@@ -3291,7 +3321,7 @@ public function AverageMark($year_id, $class_id, $exam_id, $subject){
     }
     $conn = null;
      
-    if (!empty($rows)){
+    if (!empty($rows) && $rows[0]['mark'] > 0){
         return $rows[0]['mark'];
     }else{
         return "";

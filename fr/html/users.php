@@ -48,6 +48,7 @@
 
 <table class="table tabel-responsive table-bordered">
     <tr class="table-header">
+        <td>#</td>
         <td><?= $lang[$_SESSION['lang']]["Name"] ?></td>
         <td><?= $lang[$_SESSION['lang']]["Role"] ?></td>
         <td><?= $lang[$_SESSION['lang']]["Phone"] ?></td>
@@ -58,9 +59,10 @@
     </tr>
     <?php 
     if(!empty($users)){
-        foreach ($users as $user){
+        foreach ($users as $key => $user){
             ?>
             <tr class="normal-tr">
+                <td><?= ++$key ?></td>
                 <td><?= strToUpper($user['name']) ?></td>
                 <td><?php 
                 if($user['role'] == 'Admin'){

@@ -106,19 +106,29 @@ if(!empty($means)){
         $eval1 = 5; $eval2 = 6; $sequence = '6';
     }
     
+    //Student information
     $pdf->Ln();
-    $pdf->Cell(90,5,$lang[$_SESSION['lang']]["Name"].': '.$s[0]['name'],0);
-    $pdf->Cell(30,5,$lang[$_SESSION['lang']]["Gender"].': '.$s[0]['gender'],0);
-    $pdf->Cell(60,5,$lang[$_SESSION['lang']]["DOB"].': '.$s[0]['dob'].' at '.$s[0]['pob'],0);
+    $pdf->Cell(110,4,$lang[$_SESSION['lang']]["Name"].': '.$s[0]['name'],0);
+    $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Class"].': '.$Model->GetAClassName($class_id),0);
+    if($s[0]['picture'] != ""){
+        $data = base64_decode($s[0]['picture']);
+        $file = "../img/students/" . $s[0]["student_code"] . '.'.$s[0]["picture_ext"];
+        $success = file_put_contents($file, $data);
+        $pdf->Image($file,170,40,30, 30);
+    }          
     $pdf->Ln();
-    $pdf->Cell(90,5,$lang[$_SESSION['lang']]["AdmissionNum"].': '.$s[0]['adm_num'],0);
-    $pdf->Cell(50,5,$lang[$_SESSION['lang']]["Class"].':'.$Model->GetAClassName($class_id),0);
-    $pdf->Cell(70,5,$lang[$_SESSION['lang']]["Onroll"].':'.count($means),0);
+    $pdf->Cell(110,4,$lang[$_SESSION['lang']]["Gender"].': '.$s[0]['gender'],0);
+    $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Onroll"].': '.count($positions),0);
     $pdf->Ln();
-    $pdf->Cell(90,5,$lang[$_SESSION['lang']]["Classmaster"].':___________________________________ ',0);
-    $pdf->Cell(70,5,$lang[$_SESSION['lang']]["Repeater"].':',0);
+    $pdf->Cell(110,4,$lang[$_SESSION['lang']]["DOB"].': '.$s[0]['dob'].' at '.$s[0]['pob'],0);
+    $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Repeater"].':',0);
+    $pdf->Ln();
+    $pdf->Cell(90,4,$lang[$_SESSION['lang']]["AdmissionNum"].': '.$s[0]['adm_num'],0);
+    $pdf->Ln();
+    $pdf->Cell(90,4,$lang[$_SESSION['lang']]["Classmaster"].': '.$Model->GetAllWithCriteria('classes', ['id'=>$class_id])[0]['cm'],0);
     $pdf->Ln(10);
-    //$pdf->Cell(60, 5, "", 0);
+    //End student information
+    
     $pdf->SetFont('Arial','',8);
 
     //Check for the groups that exist
@@ -321,10 +331,10 @@ if(!empty($means)){
     $pdf->Cell(65,5,'',0,0,'L', false);
     $pdf->Ln();
 
-    //Last thing: any alteratio
+    //Last thing: any alteration
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('Arial','B',6);
-    $pdf->Cell(10,4,"Any alteration on the report card is not the handiwork of Quality International School",0);
+    $pdf->Cell(10,4,"Any alteration on the report card is not the handiwork of ".$Model->GetSchoolInfo(1)[0]['name'],0);
 }
 
 }

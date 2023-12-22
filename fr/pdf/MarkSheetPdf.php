@@ -75,62 +75,62 @@ $pdf = new PDF();
 //foter page
     $pdf->AliasNbPages();
     $pdf->SetFont('Arial','B',11);
-    $pdf->Cell(10,7,$subject.' '.$lang[$_SESSION['lang']]["MarksheetFor"].' '.$className." - ".$Model->YearNameDigits($year_id),0);
+    $pdf->Cell(10,5,$subject.' '.$lang[$_SESSION['lang']]["MarksheetFor"].' '.$className." - ".$Model->YearNameDigits($year_id),0);
     $pdf->Ln();
-    $pdf->Cell(10,7,'SN',1);
-    $pdf->Cell(90,7,$lang[$_SESSION['lang']]["Name"],1);
-    $pdf->Cell(20,7,$lang[$_SESSION['lang']]["Gender"],1);
-    $pdf->Cell(13,7,'T1',1);
-    $pdf->Cell(13,7,'T2',1);
-    $pdf->Cell(13,7,'T3',1);
-    $pdf->Cell(13,7,'T4',1);
-    $pdf->Cell(13,7,'T5',1);
-    $pdf->Cell(13,7,'T6',1);
+    $pdf->Cell(10,5,'SN',1);
+    $pdf->Cell(90,5,$lang[$_SESSION['lang']]["Name"],1);
+    $pdf->Cell(20,5,$lang[$_SESSION['lang']]["Gender"],1);
+    $pdf->Cell(13,5,'T1',1);
+    $pdf->Cell(13,5,'T2',1);
+    $pdf->Cell(13,5,'T3',1);
+    $pdf->Cell(13,5,'T4',1);
+    $pdf->Cell(13,5,'T5',1);
+    $pdf->Cell(13,5,'T6',1);
     $pdf->SetFont('Arial','',9);
     foreach($result as $row) {
-        $pdf->Ln(7);
+        $pdf->Ln(5);
         foreach($row as $key=> $column){
             if($key == 'sn'){
-                $pdf->Cell(10,7,$column,1);
+                $pdf->Cell(10,5,$column,1);
             }elseif ($key == 'name'){
-                $pdf->Cell(90,7,$column,1);
+                $pdf->Cell(90,5,$column,1);
             }elseif($key == 'gender'){
-                $pdf->Cell(20,7,$column,1);
+                $pdf->Cell(20,5,$column,1);
             }elseif($key == 't1'){
                 if(isset($exams[0])){
-                    $pdf->Cell(13,7,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[0], $row['code'], $subject),1);
+                    $pdf->Cell(13,5,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[0], $row['code'], $subject),1);
                 }else{
-                    $pdf->Cell(13,7,$column,1);
+                    $pdf->Cell(13,5,$column,1);
                 }
             }elseif($key == 't2'){
                 if(isset($exams[1])){
-                    $pdf->Cell(13,7,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[1], $row['code'], $subject),1);
+                    $pdf->Cell(13,5,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[1], $row['code'], $subject),1);
                 }else{
-                    $pdf->Cell(13,7,$column,1);
+                    $pdf->Cell(13,5,$column,1);
                 }
             }elseif($key == 't3'){
                 if(isset($exams[2])){
-                    $pdf->Cell(13,7,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[2], $row['code'], $subject),1);
+                    $pdf->Cell(13,5,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[2], $row['code'], $subject),1);
                 }else{
-                    $pdf->Cell(13,7,$column,1);
+                    $pdf->Cell(13,5,$column,1);
                 }
             }elseif($key == 't4'){
                 if(isset($exams[3])){
-                    $pdf->Cell(13,7,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[3], $row['code'], $subject),1);
+                    $pdf->Cell(13,5,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[3], $row['code'], $subject),1);
                 }else{
-                    $pdf->Cell(13,7,$column,1);
+                    $pdf->Cell(13,5,$column,1);
                 }
             }elseif($key == 't5'){
                 if(isset($exams[4])){
-                    $pdf->Cell(13,7,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[4], $row['code'], $subject),1);
+                    $pdf->Cell(13,5,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[4], $row['code'], $subject),1);
                 }else{
-                    $pdf->Cell(13,7,$column,1);
+                    $pdf->Cell(13,5,$column,1);
                 }
             }elseif($key == 't6'){
                 if(isset($exams[5])){
-                    $pdf->Cell(13,7,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[5], $row['code'], $subject),1);
+                    $pdf->Cell(13,5,$Model->GetStudentsMarksForSubject($year_id, $class_id, $exams[5], $row['code'], $subject),1);
                 }else{
-                    $pdf->Cell(13,7,$column,1);
+                    $pdf->Cell(13,5,$column,1);
                 }
             }
         }
@@ -138,18 +138,18 @@ $pdf = new PDF();
     $pdf->Ln();
     $pdf->Ln();
     $pdf->SetFont('Arial','B',11);
-    $pdf->Cell(10,7,utf8_decode($lang[$_SESSION['lang']]["AnalysesSeq"]),0);
+    $pdf->Cell(10,5,utf8_decode($lang[$_SESSION['lang']]["AnalysesSeq"]),0);
     $pdf->Ln();
     $pdf->SetFont('Arial','B',9);
-    $pdf->Cell(15,7,'Eval.',1);
-    $pdf->Cell(25,7,utf8_decode($lang[$_SESSION['lang']]["HighestMark"]),1);
-    $pdf->Cell(25,7,utf8_decode($lang[$_SESSION['lang']]["LowestMark"]),1);
-    $pdf->Cell(25,7,$lang[$_SESSION['lang']]["AverageMark"],1);
-    $pdf->Cell(10,7,utf8_decode($lang[$_SESSION['lang']]["Sat"]),1);
-    $pdf->Cell(15,7,$lang[$_SESSION['lang']]["Passed"],1);
-    $pdf->Cell(25,7,$lang[$_SESSION['lang']]["MalesPassed"],1);
-    $pdf->Cell(28,7,$lang[$_SESSION['lang']]["FemalesPassed"],1);
-    $pdf->Cell(20,7,$lang[$_SESSION['lang']]["PercentPass"],1);
+    $pdf->Cell(15,5,'Eval.',1);
+    $pdf->Cell(25,5,utf8_decode($lang[$_SESSION['lang']]["HighestMark"]),1);
+    $pdf->Cell(25,5,utf8_decode($lang[$_SESSION['lang']]["LowestMark"]),1);
+    $pdf->Cell(25,5,$lang[$_SESSION['lang']]["AverageMark"],1);
+    $pdf->Cell(10,5,utf8_decode($lang[$_SESSION['lang']]["Sat"]),1);
+    $pdf->Cell(15,5,$lang[$_SESSION['lang']]["Passed"],1);
+    $pdf->Cell(25,5,$lang[$_SESSION['lang']]["MalesPassed"],1);
+    $pdf->Cell(28,5,$lang[$_SESSION['lang']]["FemalesPassed"],1);
+    $pdf->Cell(20,5,$lang[$_SESSION['lang']]["PercentPass"],1);
     $pdf->Ln();
     $pdf->SetFont('Arial','',9);
     if(isset($exams[0])){
@@ -160,26 +160,53 @@ $pdf = new PDF();
             $percent = round(($passed/$sat)*100, 2);
         }
         
-        $pdf->Cell(15,7,'T1',1);
-        $pdf->Cell(25,7,$Model->HighestMark($year_id, $class_id, $exams[0], $subject),1);
-        $pdf->Cell(25,7,$Model->LowestMark($year_id, $class_id, $exams[0], $subject),1);
-        $pdf->Cell(25,7,round($Model->AverageMark($year_id, $class_id, $exams[0], $subject), 2),1);
-        $pdf->Cell(10,7,$sat,1);
-        $pdf->Cell(15,7,$passed,1);
-        $pdf->Cell(25,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[0], $subject)[0],1);
-        $pdf->Cell(28,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[0], $subject)[1],1);
-        $pdf->Cell(20,7,$percent,1);
+        $pdf->Cell(15,5,'T1',1);
+        $pdf->Cell(25,5,$Model->HighestMark($year_id, $class_id, $exams[0], $subject),1);
+        $pdf->Cell(25,5,$Model->LowestMark($year_id, $class_id, $exams[0], $subject),1);
+        $avMark = $Model->AverageMark($year_id, $class_id, $exams[0], $subject);
+        if(is_numeric($avMark)){
+            $pdf->Cell(25,5,round($Model->AverageMark($year_id, $class_id, $exams[0], $subject), 2),1);
+        }else{
+            $pdf->Cell(25,5,' ',1);
+        }
+        
+        if($sat != 0){
+            $pdf->Cell(10,5,$sat,1);
+        }else{
+            $pdf->Cell(10,5,'',1);
+        }
+
+        if($passed != 0){
+            
+        }else{
+            $pdf->Cell(15,5,'',1);
+        }
+
+        $genderPassed = $Model->GetGenderPassedExam($year_id, $class_id, $exams[0], $subject);
+        if ($genderPassed[0] != 0){
+            $pdf->Cell(25,5,$genderPassed[0],1);
+        }else{
+            $pdf->Cell(25,5,'',1);
+        }
+
+        if ($genderPassed[1] != 0){
+            $pdf->Cell(28,5,$genderPassed[1],1);
+        }else{
+            $pdf->Cell(28,5,'',1);
+        }
+        
+        $pdf->Cell(20,5,$percent,1);
         $pdf->Ln();
     }else{
-        $pdf->Cell(15,7,'T1',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(10,7,'',1);
-        $pdf->Cell(15,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(28,7,'',1);
-        $pdf->Cell(20,7,'',1);
+        $pdf->Cell(15,5,'T1',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(10,5,'',1);
+        $pdf->Cell(15,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(28,5,'',1);
+        $pdf->Cell(20,5,'',1);
         $pdf->Ln();
     }
 
@@ -190,26 +217,52 @@ $pdf = new PDF();
         if($sat != 0){
             $percent = round(($passed/$sat)*100, 2);
         }
-        $pdf->Cell(15,7,'T2',1);
-        $pdf->Cell(25,7,$Model->HighestMark($year_id, $class_id, $exams[1], $subject),1);
-        $pdf->Cell(25,7,$Model->LowestMark($year_id, $class_id, $exams[1], $subject),1);
-        $pdf->Cell(25,7,round($Model->AverageMark($year_id, $class_id, $exams[1], $subject), 2),1);
-        $pdf->Cell(10,7,$sat,1);
-        $pdf->Cell(15,7,$passed,1);
-        $pdf->Cell(25,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[1], $subject)[0],1);
-        $pdf->Cell(28,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[1], $subject)[1],1);
-        $pdf->Cell(20,7,$percent,1);
+        $pdf->Cell(15,5,'T2',1);
+        $pdf->Cell(25,5,$Model->HighestMark($year_id, $class_id, $exams[1], $subject),1);
+        $pdf->Cell(25,5,$Model->LowestMark($year_id, $class_id, $exams[1], $subject),1);
+        $avMark = $Model->AverageMark($year_id, $class_id, $exams[0], $subject);
+        if(is_numeric($avMark)){
+            $pdf->Cell(25,5,round($Model->AverageMark($year_id, $class_id, $exams[0], $subject), 2),1);
+        }else{
+            $pdf->Cell(25,5,' ',1);
+        }
+        
+        if($sat != 0){
+            $pdf->Cell(10,5,$sat,1);
+        }else{
+            $pdf->Cell(10,5,'',1);
+        }
+
+        if($passed != 0){
+            
+        }else{
+            $pdf->Cell(15,5,'',1);
+        }
+
+        $genderPassed = $Model->GetGenderPassedExam($year_id, $class_id, $exams[0], $subject);
+        if ($genderPassed[0] != 0){
+            $pdf->Cell(25,5,$genderPassed[0],1);
+        }else{
+            $pdf->Cell(25,5,'',1);
+        }
+
+        if ($genderPassed[1] != 0){
+            $pdf->Cell(28,5,$genderPassed[1],1);
+        }else{
+            $pdf->Cell(28,5,'',1);
+        }
+        $pdf->Cell(20,5,$percent,1);
         $pdf->Ln();
     }else{
-        $pdf->Cell(15,7,'T2',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(10,7,'',1);
-        $pdf->Cell(15,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(28,7,'',1);
-        $pdf->Cell(20,7,'',1);
+        $pdf->Cell(15,5,'T2',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(10,5,'',1);
+        $pdf->Cell(15,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(28,5,'',1);
+        $pdf->Cell(20,5,'',1);
         $pdf->Ln();
     }
 
@@ -220,26 +273,52 @@ $pdf = new PDF();
         if($sat != 0){
             $percent = round(($passed/$sat)*100, 2);
         }
-        $pdf->Cell(15,7,'T3',1);
-        $pdf->Cell(25,7,$Model->HighestMark($year_id, $class_id, $exams[2], $subject),1);
-        $pdf->Cell(25,7,$Model->LowestMark($year_id, $class_id, $exams[2], $subject),1);
-        $pdf->Cell(25,7,round($Model->AverageMark($year_id, $class_id, $exams[2], $subject), 2),1);
-        $pdf->Cell(10,7,$sat,1);
-        $pdf->Cell(15,7,$passed,1);
-        $pdf->Cell(25,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[2], $subject)[0],1);
-        $pdf->Cell(28,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[2], $subject)[1],1);
-        $pdf->Cell(20,7,$percent,1);
+        $pdf->Cell(15,5,'T3',1);
+        $pdf->Cell(25,5,$Model->HighestMark($year_id, $class_id, $exams[2], $subject),1);
+        $pdf->Cell(25,5,$Model->LowestMark($year_id, $class_id, $exams[2], $subject),1);
+        $avMark = $Model->AverageMark($year_id, $class_id, $exams[0], $subject);
+        if(is_numeric($avMark)){
+            $pdf->Cell(25,5,round($Model->AverageMark($year_id, $class_id, $exams[0], $subject), 2),1);
+        }else{
+            $pdf->Cell(25,5,' ',1);
+        }
+        
+        if($sat != 0){
+            $pdf->Cell(10,5,$sat,1);
+        }else{
+            $pdf->Cell(10,5,'',1);
+        }
+
+        if($passed != 0){
+            
+        }else{
+            $pdf->Cell(15,5,'',1);
+        }
+
+        $genderPassed = $Model->GetGenderPassedExam($year_id, $class_id, $exams[0], $subject);
+        if ($genderPassed[0] != 0){
+            $pdf->Cell(25,5,$genderPassed[0],1);
+        }else{
+            $pdf->Cell(25,5,'',1);
+        }
+
+        if ($genderPassed[1] != 0){
+            $pdf->Cell(28,5,$genderPassed[1],1);
+        }else{
+            $pdf->Cell(28,5,'',1);
+        }
+        $pdf->Cell(20,5,$percent,1);
         $pdf->Ln();
     }else{
-        $pdf->Cell(15,7,'T3',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(10,7,'',1);
-        $pdf->Cell(15,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(28,7,'',1);
-        $pdf->Cell(20,7,'',1);
+        $pdf->Cell(15,5,'T3',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(10,5,'',1);
+        $pdf->Cell(15,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(28,5,'',1);
+        $pdf->Cell(20,5,'',1);
         $pdf->Ln();
     }
 
@@ -250,26 +329,52 @@ $pdf = new PDF();
         if($sat != 0){
             $percent = round(($passed/$sat)*100, 2);
         }
-        $pdf->Cell(15,7,'T4',1);
-        $pdf->Cell(25,7,$Model->HighestMark($year_id, $class_id, $exams[3], $subject),1);
-        $pdf->Cell(25,7,$Model->LowestMark($year_id, $class_id, $exams[3], $subject),1);
-        $pdf->Cell(25,7,round($Model->AverageMark($year_id, $class_id, $exams[3], $subject), 2),1);
-        $pdf->Cell(10,7,$sat,1);
-        $pdf->Cell(15,7,$passed,1);
-        $pdf->Cell(25,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[3], $subject)[0],1);
-        $pdf->Cell(28,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[3], $subject)[1],1);
-        $pdf->Cell(20,7,$percent,1);
+        $pdf->Cell(15,5,'T4',1);
+        $pdf->Cell(25,5,$Model->HighestMark($year_id, $class_id, $exams[3], $subject),1);
+        $pdf->Cell(25,5,$Model->LowestMark($year_id, $class_id, $exams[3], $subject),1);
+        $avMark = $Model->AverageMark($year_id, $class_id, $exams[0], $subject);
+        if(is_numeric($avMark)){
+            $pdf->Cell(25,5,round($Model->AverageMark($year_id, $class_id, $exams[0], $subject), 2),1);
+        }else{
+            $pdf->Cell(25,5,' ',1);
+        }
+        
+        if($sat != 0){
+            $pdf->Cell(10,5,$sat,1);
+        }else{
+            $pdf->Cell(10,5,'',1);
+        }
+
+        if($passed != 0){
+            
+        }else{
+            $pdf->Cell(15,5,'',1);
+        }
+
+        $genderPassed = $Model->GetGenderPassedExam($year_id, $class_id, $exams[0], $subject);
+        if ($genderPassed[0] != 0){
+            $pdf->Cell(25,5,$genderPassed[0],1);
+        }else{
+            $pdf->Cell(25,5,'',1);
+        }
+
+        if ($genderPassed[1] != 0){
+            $pdf->Cell(28,5,$genderPassed[1],1);
+        }else{
+            $pdf->Cell(28,5,'',1);
+        }
+        $pdf->Cell(20,5,$percent,1);
         $pdf->Ln();
     }else{
-        $pdf->Cell(15,7,'T4',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(10,7,'',1);
-        $pdf->Cell(15,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(28,7,'',1);
-        $pdf->Cell(20,7,'',1);
+        $pdf->Cell(15,5,'T4',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(10,5,'',1);
+        $pdf->Cell(15,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(28,5,'',1);
+        $pdf->Cell(20,5,'',1);
         $pdf->Ln();
     }
 
@@ -280,26 +385,52 @@ $pdf = new PDF();
         if($sat != 0){
             $percent = round(($passed/$sat)*100, 2);
         }
-        $pdf->Cell(15,7,'T5',1);
-        $pdf->Cell(25,7,$Model->HighestMark($year_id, $class_id, $exams[4], $subject),1);
-        $pdf->Cell(25,7,$Model->LowestMark($year_id, $class_id, $exams[4], $subject),1);
-        $pdf->Cell(25,7,round($Model->AverageMark($year_id, $class_id, $exams[4], $subject), 2),1);
-        $pdf->Cell(10,7,$sat,1);
-        $pdf->Cell(15,7,$passed,1);
-        $pdf->Cell(25,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[4], $subject)[0],1);
-        $pdf->Cell(28,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[4], $subject)[1],1);
-        $pdf->Cell(20,7,$percent,1);
+        $pdf->Cell(15,5,'T5',1);
+        $pdf->Cell(25,5,$Model->HighestMark($year_id, $class_id, $exams[4], $subject),1);
+        $pdf->Cell(25,5,$Model->LowestMark($year_id, $class_id, $exams[4], $subject),1);
+        $avMark = $Model->AverageMark($year_id, $class_id, $exams[0], $subject);
+        if(is_numeric($avMark)){
+            $pdf->Cell(25,5,round($Model->AverageMark($year_id, $class_id, $exams[0], $subject), 2),1);
+        }else{
+            $pdf->Cell(25,5,' ',1);
+        }
+        
+        if($sat != 0){
+            $pdf->Cell(10,5,$sat,1);
+        }else{
+            $pdf->Cell(10,5,'',1);
+        }
+
+        if($passed != 0){
+            
+        }else{
+            $pdf->Cell(15,5,'',1);
+        }
+
+        $genderPassed = $Model->GetGenderPassedExam($year_id, $class_id, $exams[0], $subject);
+        if ($genderPassed[0] != 0){
+            $pdf->Cell(25,5,$genderPassed[0],1);
+        }else{
+            $pdf->Cell(25,5,'',1);
+        }
+
+        if ($genderPassed[1] != 0){
+            $pdf->Cell(28,5,$genderPassed[1],1);
+        }else{
+            $pdf->Cell(28,5,'',1);
+        }
+        $pdf->Cell(20,5,$percent,1);
         $pdf->Ln();
     }else{
-        $pdf->Cell(15,7,'T5',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(10,7,'',1);
-        $pdf->Cell(15,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(28,7,'',1);
-        $pdf->Cell(20,7,'',1);
+        $pdf->Cell(15,5,'T5',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(10,5,'',1);
+        $pdf->Cell(15,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(28,5,'',1);
+        $pdf->Cell(20,5,'',1);
         $pdf->Ln();
     }
 
@@ -310,26 +441,52 @@ $pdf = new PDF();
         if($sat != 0){
             $percent = round(($passed/$sat)*100, 2);
         }
-        $pdf->Cell(15,7,'T6',1);
-        $pdf->Cell(25,7,$Model->HighestMark($year_id, $class_id, $exams[5], $subject),1);
-        $pdf->Cell(25,7,$Model->LowestMark($year_id, $class_id, $exams[5], $subject),1);
-        $pdf->Cell(25,7,round($Model->AverageMark($year_id, $class_id, $exams[5], $subject), 2),1);
-        $pdf->Cell(10,7,$sat,1);
-        $pdf->Cell(15,7,$passed,1);
-        $pdf->Cell(25,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[5], $subject)[0],1);
-        $pdf->Cell(28,7,$Model->GetGenderPassedExam($year_id, $class_id, $exams[5], $subject)[1],1);
-        $pdf->Cell(20,7,$percent,1);
+        $pdf->Cell(15,5,'T6',1);
+        $pdf->Cell(25,5,$Model->HighestMark($year_id, $class_id, $exams[5], $subject),1);
+        $pdf->Cell(25,5,$Model->LowestMark($year_id, $class_id, $exams[5], $subject),1);
+        $avMark = $Model->AverageMark($year_id, $class_id, $exams[0], $subject);
+        if(is_numeric($avMark)){
+            $pdf->Cell(25,5,round($Model->AverageMark($year_id, $class_id, $exams[0], $subject), 2),1);
+        }else{
+            $pdf->Cell(25,5,' ',1);
+        }
+        
+        if($sat != 0){
+            $pdf->Cell(10,5,$sat,1);
+        }else{
+            $pdf->Cell(10,5,'',1);
+        }
+
+        if($passed != 0){
+            
+        }else{
+            $pdf->Cell(15,5,'',1);
+        }
+
+        $genderPassed = $Model->GetGenderPassedExam($year_id, $class_id, $exams[0], $subject);
+        if ($genderPassed[0] != 0){
+            $pdf->Cell(25,5,$genderPassed[0],1);
+        }else{
+            $pdf->Cell(25,5,'',1);
+        }
+
+        if ($genderPassed[1] != 0){
+            $pdf->Cell(28,5,$genderPassed[1],1);
+        }else{
+            $pdf->Cell(28,5,'',1);
+        }
+        $pdf->Cell(20,5,$percent,1);
         $pdf->Ln();
     }else{
-        $pdf->Cell(15,7,'T6',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(10,7,'',1);
-        $pdf->Cell(15,7,'',1);
-        $pdf->Cell(25,7,'',1);
-        $pdf->Cell(28,7,'',1);        
-        $pdf->Cell(20,7,'',1);
+        $pdf->Cell(15,5,'T6',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(10,5,'',1);
+        $pdf->Cell(15,5,'',1);
+        $pdf->Cell(25,5,'',1);
+        $pdf->Cell(28,5,'',1);        
+        $pdf->Cell(20,5,'',1);
         $pdf->Ln();
     }
 

@@ -59,6 +59,7 @@ $termBest = $Model->GetTermBest($year_id, $class_id, strToUpper($term_name).' TE
 $classAv = round($Model->ClassAverageForTerm($year_id, $class_id, strToUpper($term_name).' TERM'),2);
 $averages = $Model->GetTermAverageForStudent($year_id, $class_id, strToUpper($term_name).' TERM');
 $pass_av = 0;
+$number_of_papers = 0;
 foreach($averages as $av){
     if ($av >= 10){
         $pass_av++;
@@ -81,6 +82,7 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
  if(!empty($positions)){
     $pdf = new PDF();
     foreach($positions as $code => $pos){
+        $number_of_papers = 0;
         $general_coef = 0;
         $general_total = 0;
         $s = $Model->GetStudent($code, $section);
@@ -104,20 +106,31 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
             $eval1 = 7; $eval2 = 8;
         }
         
+        //Student information
         $pdf->Ln();
-        $pdf->Cell(90,5,$lang[$_SESSION['lang']]["Name"].': '.$s[0]['name'],0);
-        $pdf->Cell(30,5,$lang[$_SESSION['lang']]["Gender"].': '.$s[0]['gender'],0);
-        $pdf->Cell(60,5,$lang[$_SESSION['lang']]["DOB"].': '.$s[0]['dob'].' at '.$s[0]['pob'],0);
+        $pdf->Cell(110,4,$lang[$_SESSION['lang']]["Name"].': '.$s[0]['name'],0);
+        $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Class"].': '.$Model->GetAClassName($class_id),0);
+        if($s[0]['picture'] != ""){
+            $data = base64_decode($s[0]['picture']);
+            $file = "../img/students/" . $s[0]["student_code"] . '.'.$s[0]["picture_ext"];
+            $success = file_put_contents($file, $data);
+            $pdf->Image($file,170,40,30, 30);
+        }
+                            
         $pdf->Ln();
-        $pdf->Cell(90,5,$lang[$_SESSION['lang']]["AdmissionNum"].': '.$s[0]['adm_num'],0);
-        $pdf->Cell(50,5,$lang[$_SESSION['lang']]["Class"].':'.$Model->GetAClassName($class_id),0);
-        $pdf->Cell(70,5,$lang[$_SESSION['lang']]["Onroll"].':'.count($positions),0);
+        $pdf->Cell(110,4,$lang[$_SESSION['lang']]["Gender"].': '.$s[0]['gender'],0);
+        $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Onroll"].': '.count($positions),0);
         $pdf->Ln();
-        $pdf->Cell(90,5,$lang[$_SESSION['lang']]["Classmaster"].':___________________________________ ',0);
-        $pdf->Cell(70,5,$lang[$_SESSION['lang']]["Repeater"].':',0);
+        $pdf->Cell(110,4,$lang[$_SESSION['lang']]["DOB"].': '.$s[0]['dob'].' at '.$s[0]['pob'],0);
+        $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Repeater"].':',0);
+        $pdf->Ln();
+        $pdf->Cell(90,4,$lang[$_SESSION['lang']]["AdmissionNum"].': '.$s[0]['adm_num'],0);
+        $pdf->Ln();
+        $pdf->Cell(90,4,$lang[$_SESSION['lang']]["Classmaster"].': '.$Model->GetAllWithCriteria('classes', ['id'=>$class_id])[0]['cm'],0);
         $pdf->Ln(10);
         $pdf->SetFont('Arial','',8);
-
+        //End student information
+        
         $group_av1 = ''; $group_av2 = ''; $group_av3 = ''; //Group averages
 
         foreach($subject_groups as $group_name => $group){
@@ -149,74 +162,76 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
                         $total_sub_total = 0.0;
                         $mark1 = $Model->GetAMark([$code,$class_id, $year_id, $subject['subject'], $exam_ids[0]['id']]);
                         $mark2 = $Model->GetAMark([$code,$class_id, $year_id, $subject['subject'], $exam_ids[1]['id']]);
-                        $av_mark = round(((float)$mark1 + (float)$mark2)/2, 2);
-                        $coef = $Model->GetCoefficient($subject['subject'], $class_id);
-                        $total_coef += $coef;
-                        $total_sub_total += $av_mark * $coef;
-                        $total_mark += $total_sub_total;
-                        $rank1 = $Model->GetStudentTotals($exam_ids[0]['id'], $class_id, $year_id, $code, $subject['subject']);
-                        $rank2 = $Model->GetStudentTotals($exam_ids[1]['id'], $class_id, $year_id, $code, $subject['subject']);
-                        $rnk1 = 0;
-                        $rnk2 = 0;
-                        $av_rank = '';
-
-                        if(!empty($rank1) && !empty($rank2)){
-                            $av_rank = round(($rank1['rank'] + $rank2['rank'] )/2, 0);
-                        }elseif(empty($rank1) && !empty($rank2)){
-                            $av_rank = $rank2['rank'];
-                        }elseif(!empty($rank1) && empty($rank2)){
-                            $av_rank = $rank1['rank'];
-                        }else{
+                        //Check if marks exist
+                        if($mark1 != '' || $mark2 != ''){
+                            $av_mark = round(((float)$mark1 + (float)$mark2)/2, 2);
+                            $coef = $Model->GetCoefficient($subject['subject'], $class_id);
+                            $total_coef += $coef;
+                            $total_sub_total += $av_mark * $coef;
+                            $total_mark += $total_sub_total;
+                            $rank1 = $Model->GetStudentTotals($exam_ids[0]['id'], $class_id, $year_id, $code, $subject['subject']);
+                            $rank2 = $Model->GetStudentTotals($exam_ids[1]['id'], $class_id, $year_id, $code, $subject['subject']);
+                            $rnk1 = 0;
+                            $rnk2 = 0;
                             $av_rank = '';
-                        }
 
-                        if(strlen($subject['subject']) > 18){
-                            $pdf->SetFont('Arial','',6);
-                            $pdf->Cell(35,5,$subject['subject'],1);
-                            //$pdf->Cell(35,5,substr($subject['subject'], 0, 18),1);
-                        }else{
-                            $pdf->Cell(35,5,$subject['subject'],1);
-                        }
+                            if(!empty($rank1) && !empty($rank2)){
+                                $av_rank = round(($rank1['rank'] + $rank2['rank'] )/2, 0);
+                            }elseif(empty($rank1) && !empty($rank2)){
+                                $av_rank = $rank2['rank'];
+                            }elseif(!empty($rank1) && empty($rank2)){
+                                $av_rank = $rank1['rank'];
+                            }else{
+                                $av_rank = '';
+                            }
 
-                        $pdf->Cell(50,5,$Model->GetSequenceCompetence($year_id, $class_id, $exam_ids[1]['id'], $code, $subject['subject']),1);
-                        if($mark1 < 10){
-                            $pdf->SetTextColor(255,0,0);
-                            $pdf->Cell(10,5,$mark1,1);
-                        }else{
+                            if(strlen($subject['subject']) > 18){
+                                //$pdf->Cell(35,5,$subject['subject'],1);
+                                $pdf->Cell(35,5,substr($subject['subject'], 0, 18),1);
+                            }else{
+                                $pdf->Cell(35,5,$subject['subject'],1);
+                            }
+
+                            $pdf->Cell(50,5,substr($Model->GetSequenceCompetence($year_id, $class_id, $exam_ids[1]['id'], $code, $subject['subject']),0,38),1);
+                            if($mark1 < 10){
+                                $pdf->SetTextColor(255,0,0);
+                                $pdf->Cell(10,5,$mark1,1);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,$mark1,1);
+                            }
+
+                            if($mark2 < 10){
+                                $pdf->SetTextColor(255,0,0);
+                                $pdf->Cell(10,5,$mark2,1);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,$mark2,1);
+                            }
+
+                            if($av_mark < 10){
+                                $pdf->SetTextColor(255,0,0);
+                                $pdf->Cell(10,5,$av_mark,1);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,$av_mark,1);
+                                $number_of_papers++;
+                            }
                             $pdf->SetTextColor(0,0,0);
-                            $pdf->Cell(10,5,$mark1,1);
-                        }
-
-                        if($mark2 < 10){
-                            $pdf->SetTextColor(255,0,0);
-                            $pdf->Cell(10,5,$mark2,1);
-                        }else{
-                            $pdf->SetTextColor(0,0,0);
-                            $pdf->Cell(10,5,$mark2,1);
-                        }
-
-                        if($av_mark < 10){
-                            $pdf->SetTextColor(255,0,0);
-                            $pdf->Cell(10,5,$av_mark,1);
-                        }else{
-                            $pdf->SetTextColor(0,0,0);
-                            $pdf->Cell(10,5,$av_mark,1);
-                        }
-                        $pdf->SetTextColor(0,0,0);
-                        $pdf->Cell(10,5,$coef,1);
-                        $pdf->Cell(10,5,$total_sub_total,1);
-                        $pdf->Cell(10,5,$av_rank,1);
-                        $appr = '';
-                        if($av_mark < 10){$appr = "B.Av";}elseif($av_mark >= 10 && $av_mark <= 13){$appr = "Good";}elseif($av_mark > 13 && $av_mark <= 16){$appr = "V.good";}elseif($av_mark > 16){$appr = "Excel";}
-                        $pdf->Cell(10,5,$appr,1);
-            
-                        $remark = "";
-                        if($av_mark < 10){$remark = "NA";}elseif($av_mark >= 10 && $av_mark <= 13){$remark = "ATBA";}elseif($av_mark > 13 && $av_mark <= 16){$remark = "A";}elseif($av_mark > 16){$remark = "A+";}
-            
-                        $pdf->Cell(10,5,$remark,1);
-                        $pdf->Cell(30,5,strToUpper($Model->GetStaffName($Model->GetSubjectTeacher($subject['subject'], $class_id, $year_id))),1);
-                        $pdf->Ln();
-            
+                            $pdf->Cell(10,5,$coef,1);
+                            $pdf->Cell(10,5,$total_sub_total,1);
+                            $pdf->Cell(10,5,$av_rank,1);
+                            $appr = '';
+                            if($av_mark < 10){$appr = "B.Av";}elseif($av_mark >= 10 && $av_mark <= 13){$appr = "Good";}elseif($av_mark > 13 && $av_mark <= 16){$appr = "V.good";}elseif($av_mark > 16){$appr = "Excel";}
+                            $pdf->Cell(10,5,$appr,1);
+                
+                            $remark = "";
+                            if($av_mark < 10){$remark = "NA";}elseif($av_mark >= 10 && $av_mark <= 13){$remark = "ATBA";}elseif($av_mark > 13 && $av_mark <= 16){$remark = "A";}elseif($av_mark > 16){$remark = "A+";}
+                
+                            $pdf->Cell(10,5,$remark,1);
+                            $pdf->Cell(30,5,strToUpper($Model->GetStaffName($Model->GetSubjectTeacher($subject['subject'], $class_id, $year_id))),1);
+                            $pdf->Ln();
+                        }//End test
                     }
                 }
                 
@@ -252,11 +267,47 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         }
         
         $general_av = round($general_total/$general_coef,2);
+
+        //Display number of papers and sequence averages
+        $pdf->SetFillColor(128,128,128);
+        $pdf->SetTextColor(255,255,255);
+        $pdf->Cell(50,5,'Subjects passed: '.$number_of_papers,1,0,'C', true);
+        $seq1 = $Model->GetAllWithCriteria('computed_averages', [
+            'student'=>$code, 
+            'exam_id'=>$exam_ids[0]['id'], 
+            'year_id'=>$year_id,
+            'term'=>strToUpper($term_name).' TERM',
+            'class_id'=>$class_id
+        ])[0]['average'];
+
+        $seq2 = $Model->GetAllWithCriteria('computed_averages', [
+            'student'=>$code, 
+            'exam_id'=>$exam_ids[1]['id'], 
+            'year_id'=>$year_id,
+            'term'=>strToUpper($term_name).' TERM',
+            'class_id'=>$class_id
+        ])[0]['average'];
         
+        $pdf->Cell(50,5,'Evaluation'.$eval1.' Average: '.$seq1,1,0,'', true);
+        $pdf->Cell(50,5,'Evaluation'.$eval2.' Average: '.$seq2,1, 0,'', true);
+        if(round($seq1,0) > round($seq2,0)){
+            $pdf->Cell(45,5,'Decline',1, 0,'', true);
+        }else if(round($seq1,0) < round($seq2,0)){
+            $pdf->Cell(45,5,'Improvement',1, 0,'', true);
+        }else{
+            $pdf->Cell(45,5,'No Improvement',1, 0,'', true);
+        }
+        
+        $pdf->Ln();
+
+        
+        //Display general total and final average
+        $pdf->SetTextColor(0,0,0);
         $pdf->Cell(105,5,$lang[$_SESSION['lang']]["GeneralTotal"],1,0,'R', false);
         $pdf->Cell(10,5,'',1);//could fill with general average
         $pdf->Cell(10,5,$general_coef,1);
         $pdf->Cell(10,5,$general_total,1);
+        $pdf->SetTextColor(0,128,0);
         $pdf->Cell(60,5,$lang[$_SESSION['lang']]["FinAverage"].' '.$averages[$code],1);
         $pdf->Ln();
         $pdf->SetFillColor(0,0,128);
@@ -320,6 +371,11 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         $pdf->Cell(16,5,$termBest['best'],1,0,'C', false);
         $pdf->Cell(16,5,$termBest['last'],1,0,'C', false);
         $pdf->Cell(65,5,'',0,0,'L', false);
+        $pdf->Ln();
+        //Last thing: any alteration
+        $pdf->SetTextColor(0,0,0);
+        $pdf->SetFont('Arial','B',6);
+        $pdf->Cell(10,4,"Any alteration on the report card is not the handiwork of ".$Model->GetSchoolInfo(1)[0]['name'],0);
     }
        $pdf->Output();
  }

@@ -761,11 +761,11 @@ if ($action == 'ShowClassList'){
             asort($id_array);
         }
     }
-
+    $sn = 0;
     foreach ($id_array as $student_code => $student){
         $student_data = [$student_code, $class_id, $Model->GetCurrentYear()[0]['id'], $subject, $Model->GetCurrentExam()[0]['id'] ];
         $mark = $Model->GetAMark($student_data);
-        $data .= '<div class="row"><div class="col-xs-7"><label>'.$student.'</label></div>  <div class="col-xs-5"><input data-subject="'.$subject.'" data-exam="'.$Model->GetCurrentExam()[0]['id'].'" data-klass="'.$class_id.'" id="'.$student_code.'" type="text" onfocusout="SaveMark(this)" class="form-control" value="'.$mark.'"></div></div><hr>';
+        $data .= '<div class="row"><div class="col-xs-7"><label>'.++$sn.'. '.$student.'</label></div>  <div class="col-xs-5"><input data-subject="'.$subject.'" data-exam="'.$Model->GetCurrentExam()[0]['id'].'" data-klass="'.$class_id.'" id="'.$student_code.'" type="text" onfocusout="SaveMark(this)" class="form-control" value="'.$mark.'"></div></div><hr>';
     }
 
    echo $data;
@@ -795,15 +795,15 @@ if ($action == 'ShowFillMarksList'){
             asort($id_array);
         }
     }
-
+    $sn = 0;
     foreach ($id_array as $student_code => $student){
         $student_data = [$student_code, $class_id, $Model->GetCurrentYear()[0]['id'], $subject, $Model->GetCurrentExam()[0]['id'] ];
         $mark = $Model->GetAMark($student_data);
         if($mark == ""){
-            $data .= '<div class="row"><div class="col-xs-7"><label>'.$student.'</label></div>  <div class="col-xs-5"><input data-subject="'.$subject.'" data-exam="'.$Model->GetCurrentExam()[0]['id'].'" data-klass="'.$class_id.'" id="'.$student_code.'" type="text" onfocusout="SaveMark(this)" class="form-control" value="'.$mark.'"></div></div><hr>';
+            $data .= '<div class="row"><div class="col-xs-7"><label>'.++$sn.'. '.$student.'</label></div>  <div class="col-xs-5"><input data-subject="'.$subject.'" data-exam="'.$Model->GetCurrentExam()[0]['id'].'" data-klass="'.$class_id.'" id="'.$student_code.'" type="text" onfocusout="SaveMark(this)" class="form-control" value="'.$mark.'"></div></div><hr>';
 
         }else{
-            $data .= '<div class="row"><div class="col-xs-7"><label>'.$student.'</label></div>  <div class="col-xs-5"><input disabled="disabled" type="text" class="form-control" value="'.$mark.'"></div></div><hr>';
+            $data .= '<div class="row"><div class="col-xs-7"><label>'.++$sn.'. '.$student.'</label></div>  <div class="col-xs-5"><input disabled="disabled" type="text" class="form-control" value="'.$mark.'"></div></div><hr>';
         }
 
     }
@@ -831,11 +831,11 @@ if ($action == "ShowClosedExamList"){
             asort($id_array);
         }
     }
-
+    $sn = 0;
     foreach ($id_array as $student_code => $student){
         $student_data = [$student_code, $class_id, $Model->GetCurrentYear()[0]['id'], $subject, $exam_id ];
         $mark = $Model->GetAMark($student_data);
-        $data .= '<div class="row"><div class="col-xs-7"><label>'.$student.'</label></div>  <div class="col-xs-5"><input data-subject="'.$subject.'" data-exam="'.$exam_id.'" data-klass="'.$class_id.'" id="'.$student_code.'" type="text" onfocusout="SaveMark(this)" class="form-control" value="'.$mark.'"></div></div><hr>';
+        $data .= '<div class="row"><div class="col-xs-7"><label>'.++$sn.'. '.$student.'</label></div>  <div class="col-xs-5"><input data-subject="'.$subject.'" data-exam="'.$exam_id.'" data-klass="'.$class_id.'" id="'.$student_code.'" type="text" onfocusout="SaveMark(this)" class="form-control" value="'.$mark.'"></div></div><hr>';
     }
 
     echo $data;
