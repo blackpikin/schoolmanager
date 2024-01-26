@@ -49,28 +49,24 @@ function Header()
 $year_id = $_GET['year_id'];
 $class_id = $_GET['class_id'];
 $exam_name = $_GET['exam_name'];
-
 $page_title = $exam_name." RESULTS - ".$Model->GetAClassName($class_id)." - ".$Model->GetYearName($year_id);
-
 $class_cycle = $Model->GetAClass($class_id)[0]['cycle'];
-
 $exam_id = $Model->GetMockExam($year_id, $exam_name)[0]['id'];
-
 $pdf = new PDF();
-
-
+$limits = $Model->Grade();
 $student_codes = $Model->GetStudentsInClass($class_id, $year_id);
 foreach($student_codes as $student){
     $marks = $Model-> GetStudentsMarks($year_id, $class_id, $exam_id, $student['student_code']);
     $sat = count($marks);
     $passed = 0;
+    
     foreach($marks as $mark){
         if($class_cycle == "FIRST"){
-            if($mark['mark'] >= 10){
+            if($mark['mark'] >= $limits['OL']['OLCmin']){
                 $passed++;
             }
         }else{
-            if($mark['mark'] >= 9){
+            if($mark['mark'] >= $limits['AL']['ALEmin']){
                 $passed++;
             }
         }
@@ -78,9 +74,7 @@ foreach($student_codes as $student){
     $pdf->AddPage();
     $pdf->AliasNbPages();
     $pdf->SetFont('Arial','B',11);
-
     $s = $Model->GetStudent($student['student_code'],$section);
-    
     $pdf->Cell(30, 7, "", 0);
     $pdf->Ln();
     $pdf->Cell(30, 7, "", 0);
@@ -103,7 +97,6 @@ foreach($student_codes as $student){
     $pdf->Cell(90,7,'Subject',1);
     $pdf->Cell(30,7,'Grade',1);
     $pdf->Cell(50,7,'Remark',1);
-    $limits = $Model->Grade();
     foreach($marks as $mark){
         $remark = ""; $decision = "";
         if($class_cycle == "FIRST"){

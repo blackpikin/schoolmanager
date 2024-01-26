@@ -64,7 +64,24 @@ if($action == 'ComputeTerm'){
                     if($mark['mark'] < 10){$remark = "NA";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$remark = "ATBA";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$remark = "A";}elseif($mark['mark'] > 16){$remark = "A+";}
                     $rank = $Model->SubjectRank($mark['subject'], $student, $year_id, $class_id, $exam_id['id'] );
                     $grade = '';
-                    if($mark['mark'] < 10){$grade = "B.Av";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$grade = "Good";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$grade = "V.Good";}elseif($mark['mark'] > 16){$grade = "Excel";}
+                    if($mark['mark'] < 8){
+                        $grade = "Weak";
+                    }elseif($mark['mark'] >= 8 && $mark['mark'] <= 9.99){
+                        $grade = "B.Av";
+                    }elseif($mark['mark'] >= 10 && $mark['mark'] <= 11.99){
+                        $grade = "Average";
+                    }elseif($mark['mark'] >= 12 && $mark['mark'] <= 12.99){
+                        $grade = "Fair";
+                    }elseif($mark['mark'] >= 13 && $mark['mark'] <= 13.99){
+                        $grade = "Fairly good";
+                    }elseif($mark['mark'] >= 14 && $mark['mark'] <= 15.99){
+                        $grade = "Good";
+                    }elseif($mark['mark'] >= 16 && $mark['mark'] <= 17.99){
+                        $grade = "Very good";
+                    }elseif($mark['mark'] >= 18){
+                        $grade = "Excellent";
+                    }
+                    
                     $rep_group = $Model->GetRepGroup($mark['subject'], $class_id, 1);
                     $teacher = $Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id);
                     $total_coef = $total_coef + $coef;
@@ -131,7 +148,23 @@ if($action == 'ComputeSequence'){
             if($mark['mark'] < 10){$remark = "NA";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$remark = "ATBA";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$remark = "A";}elseif($mark['mark'] > 16){$remark = "A+";}
             $rank = $Model->SubjectRank($mark['subject'], $student, $year_id, $class_id, $exam_id );
             $grade = '';
-            if($mark['mark'] < 10){$grade = "B.Av";}elseif($mark['mark'] >= 10 && $mark['mark'] <= 13){$grade = "Good";}elseif($mark['mark'] > 13 && $mark['mark'] <= 16){$grade = "V.Good";}elseif($mark['mark'] > 16){$grade = "Excel";}
+            if($mark['mark'] < 8){
+                $grade = "Weak";
+            }elseif($mark['mark'] >= 8 && $mark['mark'] <= 9.99){
+                $grade = "B.Av";
+            }elseif($mark['mark'] >= 10 && $mark['mark'] <= 11.99){
+                $grade = "Average";
+            }elseif($mark['mark'] >= 12 && $mark['mark'] <= 12.99){
+                $grade = "Fair";
+            }elseif($mark['mark'] >= 13 && $mark['mark'] <= 13.99){
+                $grade = "Fairly good";
+            }elseif($mark['mark'] >= 14 && $mark['mark'] <= 15.99){
+                $grade = "Good";
+            }elseif($mark['mark'] >= 16 && $mark['mark'] <= 17.99){
+                $grade = "Very good";
+            }elseif($mark['mark'] >= 18){
+                $grade = "Excellent";
+            }
             $rep_group = $Model->GetRepGroup($mark['subject'], $class_id, 0);
             $teacher = $Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id);
             $total_coef = $total_coef + $coef;

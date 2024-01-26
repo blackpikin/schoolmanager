@@ -61,13 +61,32 @@ $pdf = new PDF();
     $pdf->Cell(30, 7, "", 0);
     $pdf->Cell(10,7,$page_title,0);
     $pdf->Ln();
-    $pdf->Cell(70,7,'STUDENT',1);
+    $pdf->SetFont('Arial','B',9);
+    $pdf->Cell(82,7,'STUDENT',1);
     $subjects = $Model->ViewClassSubjects($class_id);
     foreach($subjects as $subject){
-        $pdf->Cell(15,7,substr($subject['subject'], 0, 4),1);
+        if($subject['subject'] == 'PURE MATHS WITH STATS'){
+            $pdf->Cell(12,7,'PMS',1);
+        }else if($subject['subject'] == 'PURE MATHS WITH MECHS'){
+            $pdf->Cell(12,7,'PMM',1);
+        }else if($subject['subject'] == 'INFORMATION AND COMMUNICATION TECHNOLOGY'){
+            $pdf->Cell(12,7,'ICT',1);
+        }else if($subject['subject'] == 'RELIGIOUS STUDIES'){
+            $pdf->Cell(12,7,'REL',1);
+        }else if($subject['subject'] == 'ENGLISH LANGUAGE'){
+            $pdf->Cell(12,7,'ENG',1);    
+        }else{
+            $subj = explode(' ',$subject['subject']);
+            if(count($subj) >1){
+                $subjectName = substr($subj[0], 0, 1).substr($subj[1], 0, 2);
+                $pdf->Cell(12,7,$subjectName,1);  
+            }else{
+                $pdf->Cell(12,7,substr($subject['subject'], 0, 3),1);  
+            }
+        }
     }
-    $pdf->Cell(20,7,"PAPERS",1);
-    $pdf->Cell(20,7,"POINTS",1);
+    $pdf->Cell(18,7,"PAPERS",1);
+    $pdf->Cell(18,7,"POINTS",1);
 
     $class_cycle = $Model->GetAClass($class_id)[0]['cycle'];
 $students = $Model->GetStudentsSatForExam($year_id, $class_id, $exam_id);
@@ -75,7 +94,7 @@ $pdf->SetFont('Arial','B',9);
 foreach($students as $student){
     $papers = 0; $points = 0;
     $pdf->Ln();
-    $pdf->Cell(70,7,$Model->GetStudent($student['student_code'], $section)[0]['name'],1);
+    $pdf->Cell(82,7,$Model->GetStudent($student['student_code'], $section)[0]['name'],1);
 
     foreach($subjects as $subject){
         if($class_cycle == 'FIRST'){
@@ -90,7 +109,7 @@ foreach($students as $student){
                 $papers++;
                 $points = $points + 1;
             }
-            $pdf->Cell(15,7,$grade,1);
+            $pdf->Cell(12,7,$grade,1);
         }else{
             $grade = $Model->ALGrade($student['student_code'], $year_id, $class_id, $exam_id, $subject['subject'] );
             if($grade == "A"){
@@ -109,11 +128,11 @@ foreach($students as $student){
                 $papers++;
                 $points = $points + 1;
             }
-            $pdf->Cell(15,7,$grade,1);
+            $pdf->Cell(12,7,$grade,1);
         }
     } 
-    $pdf->Cell(20,7,$papers,1);
-    $pdf->Cell(20,7,$points,1);
+    $pdf->Cell(18,7,$papers,1);
+    $pdf->Cell(18,7,$points,1);
 }
 $pdf->Output();
 }else{

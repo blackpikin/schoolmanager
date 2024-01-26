@@ -122,7 +122,7 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Onroll"].': '.count($positions),0);
         $pdf->Ln();
         $pdf->Cell(110,4,$lang[$_SESSION['lang']]["DOB"].': '.$s[0]['dob'].' at '.$s[0]['pob'],0);
-        $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Repeater"].':',0);
+        $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Repeater"].': No',0);
         $pdf->Ln();
         $pdf->Cell(90,4,$lang[$_SESSION['lang']]["AdmissionNum"].': '.$s[0]['adm_num'],0);
         $pdf->Ln();
@@ -148,10 +148,10 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
                 $pdf->Cell(10,5,$lang[$_SESSION['lang']]["Mark"],1,0,'', true);
                 $pdf->Cell(10,5,'Coef',1,0,'', true);
                 $pdf->Cell(10,5,'Total',1,0,'', true);
-                $pdf->Cell(10,5,$lang[$_SESSION['lang']]["Rank"],1,0,'', true);
-                $pdf->Cell(10,5,'Appr',1,0,'', true);
+                $pdf->Cell(9,5,$lang[$_SESSION['lang']]["Rank"],1,0,'', true);
+                $pdf->Cell(16,5,'Appreciation',1,0,'', true);
                 $pdf->Cell(10,5,'Grade',1,0,'', true);
-                $pdf->Cell(30,5,$lang[$_SESSION['lang']]["Teacher"],1,0,'', true);
+                $pdf->Cell(25,5,$lang[$_SESSION['lang']]["Teacher"],1,0,'', true);
                 $pdf->Ln();
                 $pdf->SetTextColor(0,0,0);
                 $subjects = $Model->ViewClassSubjects($class_id);
@@ -220,16 +220,32 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
                             $pdf->SetTextColor(0,0,0);
                             $pdf->Cell(10,5,$coef,1);
                             $pdf->Cell(10,5,$total_sub_total,1);
-                            $pdf->Cell(10,5,$av_rank,1);
+                            $pdf->Cell(9,5,$av_rank,1);
                             $appr = '';
-                            if($av_mark < 10){$appr = "B.Av";}elseif($av_mark >= 10 && $av_mark <= 13){$appr = "Good";}elseif($av_mark > 13 && $av_mark <= 16){$appr = "V.good";}elseif($av_mark > 16){$appr = "Excel";}
-                            $pdf->Cell(10,5,$appr,1);
+                            if($av_mark < 8){
+                                $appr = "Weak";
+                            }elseif($av_mark >= 8 && $av_mark <= 9.99){
+                                $appr = "B.Av";
+                            }elseif($av_mark >= 10 && $av_mark <= 11.99){
+                                $appr = "Average";
+                            }elseif($av_mark >= 12 && $av_mark <= 12.99){
+                                $appr = "Fair";
+                            }elseif($av_mark >= 13 && $av_mark <= 13.99){
+                                $appr = "Fairly good";
+                            }elseif($av_mark >= 14 && $av_mark <= 15.99){
+                                $appr = "Good";
+                            }elseif($av_mark >= 16 && $av_mark <= 17.99){
+                                $appr = "Very good";
+                            }elseif($av_mark >= 18){
+                                $appr = "Excellent";
+                            }
+                            $pdf->Cell(16,5,$appr,1);
                 
                             $remark = "";
                             if($av_mark < 10){$remark = "NA";}elseif($av_mark >= 10 && $av_mark <= 13){$remark = "ATBA";}elseif($av_mark > 13 && $av_mark <= 16){$remark = "A";}elseif($av_mark > 16){$remark = "A+";}
                 
                             $pdf->Cell(10,5,$remark,1);
-                            $pdf->Cell(30,5,strToUpper($Model->GetStaffName($Model->GetSubjectTeacher($subject['subject'], $class_id, $year_id))),1);
+                            $pdf->Cell(25,5,strToUpper($Model->GetStaffName($Model->GetSubjectTeacher($subject['subject'], $class_id, $year_id))),1);
                             $pdf->Ln();
                         }//End test
                     }
@@ -258,7 +274,7 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
                 }
                 $pdf->Cell(10,5,$total_coef,1);
                 $pdf->Cell(10,5,$total_mark,1);
-                $pdf->Cell(60,5,'Remarks: ',1);
+                $pdf->Cell(60,5,'Remarks ',1);
                 $pdf->Ln();
             
                 $general_coef += $total_coef;
@@ -303,18 +319,18 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         
         //Display general total and final average
         $pdf->SetTextColor(0,0,0);
-        $pdf->Cell(105,5,$lang[$_SESSION['lang']]["GeneralTotal"],1,0,'R', false);
-        $pdf->Cell(10,5,'',1);//could fill with general average
-        $pdf->Cell(10,5,$general_coef,1);
-        $pdf->Cell(10,5,$general_total,1);
+        $pdf->Cell(105,10,$lang[$_SESSION['lang']]["GeneralTotal"],1,0,'R', false);
+        $pdf->Cell(10,10,'',1);//could fill with general average
+        $pdf->Cell(10,10,$general_coef,1, 0,'C');
+        $pdf->Cell(10,10,$general_total,1);
         $pdf->SetTextColor(0,128,0);
-        $pdf->Cell(60,5,$lang[$_SESSION['lang']]["FinAverage"].' '.$averages[$code],1);
+        $pdf->Cell(60,10,$lang[$_SESSION['lang']]["FinAverage"].': '.$averages[$code],1, 0, 'C');
         $pdf->Ln();
         $pdf->SetFillColor(0,0,128);
         $pdf->SetTextColor(255,255,255);
         $pdf->Cell(65,5,$lang[$_SESSION['lang']]["WorkAppr"],1,0,'C', true);
         $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Averages"],1,0,'C', true);
-        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Rank"].': ',1,0,'C', true);
+        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Rank"].' ',1,0,'C', true);
         $pdf->Ln();
         $pdf->SetTextColor(0,0,0);
         $work ='';
@@ -331,11 +347,11 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         
         $pdf->Ln();
         $pdf->SetTextColor(255,255,255);
-        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Conduct"].':',1,0,'C', true);
-        $pdf->Cell(33,5,$lang[$_SESSION['lang']]["Discipline"].':',1,0,'C', true);
-        $pdf->Cell(32,5,$lang[$_SESSION['lang']]["ClassProfile"].':',1,0,'C', true);
+        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Conduct"].'',1,0,'C', true);
+        $pdf->Cell(33,5,$lang[$_SESSION['lang']]["Discipline"].'',1,0,'C', true);
+        $pdf->Cell(32,5,$lang[$_SESSION['lang']]["ClassProfile"].'',1,0,'C', true);
         $pdf->SetTextColor(0,0,0);
-        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Principal"].':',0,0,'C', false);
+        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Principal"].'',0,0,'C', false);
         $pdf->Ln();
         $pdf->SetTextColor(0,0,0);
         $pdf->Cell(27,5,$lang[$_SESSION['lang']]["JustAbs"],1,0,'C', false);

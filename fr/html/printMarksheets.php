@@ -77,6 +77,9 @@
            <br>
             <button class="btn btn-primary button-width" onclick="MarksheetPrint()"><i class="glyphicon glyphicon-print"></i> <?= $lang[$_SESSION['lang']]['Print']?></button>
             <br>
+            <br>
+            <button class="btn btn-primary button-width" onclick="MarksheetPremock()"><i class="glyphicon glyphicon-print"></i> <?= $lang[$_SESSION['lang']]['Pre-mock/Mock']?></button>
+            <br>
         </div>
        </div>
     </div>

@@ -1614,13 +1614,21 @@ class Model extends Database
     }
 
     public function GetStudentsPassPapers($year_id, $class_id, $exam_id, $student_code){
+        $class_cycle = $this->GetAClass($class_id)[0]['cycle'];
+        $limits = $this->Grade();
+        $lim = 0;
+        if ($class_cycle == "FIRST"){
+            $lim = $limits['OL']['OLCmin'];
+        }else{
+            $lim = $limits['AL']['ALEmin'];
+        }
         $rows = array();
         try {
             $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $conn->prepare("SELECT * FROM mark_sheet WHERE academic_year = ? AND class_id = ? AND exam =? AND student_code = ? AND mark >= 10 ORDER BY subject ASC");
+            $stmt = $conn->prepare("SELECT * FROM mark_sheet WHERE academic_year = ? AND class_id = ? AND exam =? AND student_code = ? AND mark >= $lim ORDER BY subject ASC");
 
             $stmt->execute([$year_id, $class_id, $exam_id, $student_code]);
 

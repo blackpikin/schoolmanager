@@ -118,10 +118,10 @@ if(!empty($means)){
     }          
     $pdf->Ln();
     $pdf->Cell(110,4,$lang[$_SESSION['lang']]["Gender"].': '.$s[0]['gender'],0);
-    $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Onroll"].': '.count($positions),0);
+    $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Onroll"].': '.count($means),0);
     $pdf->Ln();
     $pdf->Cell(110,4,$lang[$_SESSION['lang']]["DOB"].': '.$s[0]['dob'].' at '.$s[0]['pob'],0);
-    $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Repeater"].':',0);
+    $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Repeater"].': No',0);
     $pdf->Ln();
     $pdf->Cell(90,4,$lang[$_SESSION['lang']]["AdmissionNum"].': '.$s[0]['adm_num'],0);
     $pdf->Ln();
@@ -148,10 +148,10 @@ if(!empty($means)){
             $pdf->Cell(10,5,$lang[$_SESSION['lang']]["Mark"],1,0,'',true);
             $pdf->Cell(10,5,'Coef',1,0,'',true);
             $pdf->Cell(10,5,'Total',1,0,'',true);
-            $pdf->Cell(10,5,$lang[$_SESSION['lang']]["Rank"],1,0,'',true);
-            $pdf->Cell(10,5,'Appr',1,0,'',true);
-            $pdf->Cell(10,5,'Grade',1,0,'',true);
-            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["Teacher"],1,0,'',true);
+            $pdf->Cell(9,5,$lang[$_SESSION['lang']]["Rank"],1,0,'', true);
+            $pdf->Cell(16,5,'Appreciation',1,0,'', true);
+            $pdf->Cell(10,5,'Grade',1,0,'', true);
+            $pdf->Cell(25,5,$lang[$_SESSION['lang']]["Teacher"],1,0,'', true);
             $pdf->Ln();
             $marks = $Model->GetStudentsMarks($year_id, $class_id, $exam_id, $stud_av['student']);
             $total_coef = 0;
@@ -204,10 +204,10 @@ if(!empty($means)){
                     $pdf->SetTextColor(0,0,0);
                     $pdf->Cell(10,5,$coef,1);
                     $pdf->Cell(10,5,$sub_total['total'],1);
-                    $pdf->Cell(10,5,$sub_total['rank'],1);
-                    $pdf->Cell(10,5,$sub_total['grade'],1);
+                    $pdf->Cell(9,5,$sub_total['rank'],1);
+                    $pdf->Cell(16,5,$sub_total['grade'],1);
                     $pdf->Cell(10,5,$sub_total['remark'],1);
-                    $pdf->Cell(30,5,strToUpper($Model->GetStaffName($Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id))),1);
+                    $pdf->Cell(25,5,strToUpper($Model->GetStaffName($Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id))),1);
                     $pdf->Ln();
                     }
                 }
@@ -248,11 +248,11 @@ if(!empty($means)){
     //Calculate General average
     $general_av = round($general_total/$general_coef,2);
     //Display general avaerage
-    $pdf->Cell(105,5,$lang[$_SESSION['lang']]["GeneralTotal"],1,0,'R', false);
-    $pdf->Cell(10,5,$general_av,1);
-    $pdf->Cell(10,5,$general_coef,1);
-    $pdf->Cell(10,5,$general_total,1);
-    $pdf->Cell(60,5,$lang[$_SESSION['lang']]["FinAverage"].$stud_av['average'],1);
+    $pdf->Cell(105,10,$lang[$_SESSION['lang']]["GeneralTotal"],1,0,'R', false);
+    $pdf->Cell(10,10,$general_av,1);
+    $pdf->Cell(10,10,$general_coef,1);
+    $pdf->Cell(10,10,$general_total,1);
+    $pdf->Cell(60,10,$lang[$_SESSION['lang']]["FinAverage"].$stud_av['average'],1,0,'C');
     $pdf->Ln();
 
     //Work appreciation header
@@ -260,7 +260,7 @@ if(!empty($means)){
     $pdf->SetTextColor(255,255,255);
     $pdf->Cell(65,5,$lang[$_SESSION['lang']]["WorkAppr"],1,0,'C', true);
     $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Averages"],1,0,'C', true);
-    $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Rank"].': ',1,0,'C', true);
+    $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Rank"].'',1,0,'C', true);
     $pdf->Ln();
 
     //Display work appreciation
@@ -279,11 +279,11 @@ if(!empty($means)){
 
     //Display discipline headers
     $pdf->SetTextColor(255,255,255);
-    $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Conduct"].':',1,0,'C', true);
-    $pdf->Cell(33,5,$lang[$_SESSION['lang']]["Discipline"].':',1,0,'C', true);
-    $pdf->Cell(32,5,$lang[$_SESSION['lang']]["ClassProfile"].':',1,0,'C', true);
+    $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Conduct"].'',1,0,'C', true);
+    $pdf->Cell(33,5,$lang[$_SESSION['lang']]["Discipline"].'',1,0,'C', true);
+    $pdf->Cell(32,5,$lang[$_SESSION['lang']]["ClassProfile"].'',1,0,'C', true);
     $pdf->SetTextColor(0,0,0);
-    $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Principal"].':',0,0,'C', false);
+    $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Principal"].'',0,0,'C', false);
     $pdf->Ln();
 
     //Display discipline information

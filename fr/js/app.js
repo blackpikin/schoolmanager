@@ -1,5 +1,38 @@
 //Functionality functions
 
+function MarksheetPremock(){
+    let year = $('#year').val();
+    let cls = $('#c_name').val();
+    let subj = $('#subjects').val();
+    if(year !== "" && cls !== ""){
+        window.open('./pdf/MarkSheetMockPdf.php?year_id='+year+'&class_id='+cls+'&subject='+subj+'&type=PRE-MOCK');
+    }else{
+        alert("You must select the three parameters : Year, Class and subject");
+    }
+}
+
+function MarkClassMasterSheet(){
+    let year = $('#year').val();
+    let cls = $('#c_name').val();
+    let exam = $('#exam').val();
+    if(year !== "" && cls !== "" && exam !== ""){
+        window.location.href = 'index.php?p=mockClassSheet&year_id='+year+'&class_id='+cls+'&exam_name='+exam;
+    }else{
+        alert("You must select the three parameters: year, class and exam");
+    }
+}
+
+function MarksheetMock(){
+    let year = $('#year').val();
+    let cls = $('#c_name').val();
+    let subj = $('#subjects').val();
+    if(year !== "" && cls !== ""){
+        window.open('./pdf/MarkSheetMockPdf.php?year_id='+year+'&class_id='+cls+'&subject='+subj+'&type=MOCK');
+    }else{
+        alert("You must select the three parameters : Year, Class and subject");
+    }
+}
+
 function SchoolTimeTable(){
     let type = $('#timetable').val();
     if (type !== undefined && type !== ""){

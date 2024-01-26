@@ -72,7 +72,7 @@
 
         $alevel = implode(',', [$ALA, $ALB, $ALC, $ALD, $ALE, $ALO, $ALF]);
 
-        if(!empty($_POST['sec'])){
+        if(empty($_POST['sec'])){
             if(empty($Model->ContentExists('mock_grades', 'id', 1))){
                 $result = $Model->Insert('mock_grades', ['AL'=>$alevel, 'OL'=>$olevel]);
             }else{

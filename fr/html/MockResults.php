@@ -18,6 +18,7 @@ $year_id = $_GET['year_id'];
 $class_id = $_GET['class_id'];
 $exam_name = $_GET['exam_id'];
 $url = 'year_id='.$year_id.'&class_id='.$class_id.'&exam_name='.$exam_name;
+$limits = $Model->Grade();
 ?>
 <br>
 <h4 id="label1" style="text-align:center;"><?= $exam_name ?>  RESULTS - <?= $Model->GetAClassName($class_id) ?> - <?= $Model->GetYearName($year_id) ?></h4>
@@ -36,10 +37,7 @@ $url = 'year_id='.$year_id.'&class_id='.$class_id.'&exam_name='.$exam_name;
 <?php
 
 $class_cycle = $Model->GetAClass($class_id)[0]['cycle'];
-
-
 $exam_id = $Model->GetMockExam($year_id, $exam_name)[0]['id'];
-
 $student_codes = $Model->GetStudentsInClass($class_id, $year_id);
 foreach($student_codes as $student){
     $marks = $Model-> GetStudentsMarks($year_id, $class_id, $exam_id, $student['student_code']);
@@ -47,11 +45,11 @@ foreach($student_codes as $student){
     $passed = 0;
     foreach($marks as $mark){
         if($class_cycle == "FIRST"){
-            if($mark['mark'] >= 10){
+            if($mark['mark'] >= $limits['OL']['OLCmin']){
                 $passed++;
             }
         }else{
-            if($mark['mark'] >= 9){
+            if($mark['mark'] >= $limits['AL']['ALEmin']){
                 $passed++;
             }
         }
@@ -78,7 +76,7 @@ foreach($student_codes as $student){
                 <td> </td>
             </tr>
     <?php
-        $limits = $Model->Grade();
+       
     foreach($marks as $mark){
         $remark = ""; $decision = "";
         if($class_cycle == "FIRST"){

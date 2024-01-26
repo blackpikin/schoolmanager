@@ -79,7 +79,9 @@
             <br>
             <br>
             <button class="btn btn-primary button-width" onclick="ClassMasterSheet()">Class Master sheet</button>
-
+            <br>
+            <br>
+            <button class="btn btn-primary button-width" onclick="MarkClassMasterSheet()">Marks Master sheet</button>
        </div>
        </div>
     </div>
