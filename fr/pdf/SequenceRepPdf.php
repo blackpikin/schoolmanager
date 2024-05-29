@@ -113,7 +113,7 @@ if(!empty($means)){
     if($s[0]['picture'] != ""){
         $data = base64_decode($s[0]['picture']);
         $file = "../img/students/" . $s[0]["student_code"] . '.'.$s[0]["picture_ext"];
-        $success = file_put_contents($file, $data);
+        //$success = file_put_contents($file, $data);
         $pdf->Image($file,170,40,30, 30);
     }          
     $pdf->Ln();
@@ -283,7 +283,7 @@ if(!empty($means)){
     $pdf->Cell(33,5,$lang[$_SESSION['lang']]["Discipline"].'',1,0,'C', true);
     $pdf->Cell(32,5,$lang[$_SESSION['lang']]["ClassProfile"].'',1,0,'C', true);
     $pdf->SetTextColor(0,0,0);
-    $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Principal"].'',0,0,'C', false);
+    $pdf->Cell(65,5,'',0,0,'C', false);
     $pdf->Ln();
 
     //Display discipline information
@@ -328,7 +328,7 @@ if(!empty($means)){
     $pdf->Cell(33,5,'',1,0,'C', false);
     $pdf->Cell(16,5,$Model->GetClassBest($exam_id, $class_id, $year_id),1,0,'C', false);
     $pdf->Cell(16,5,$Model->GetClassLast($exam_id, $class_id, $year_id),1,0,'C', false);
-    $pdf->Cell(65,5,'',0,0,'L', false);
+    $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Principal"].'',0,0,'C', false);
     $pdf->Ln();
 
     //Last thing: any alteration

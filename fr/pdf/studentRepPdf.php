@@ -37,7 +37,7 @@ function Header()
     // Page footer
     function Footer()
     {
-        $this->Image('../img/footer-Blue.png',0,240,220);
+        $this->Image('../img/footer-Blue.png',0,260,300);
         // Position at 1.5 cm from bottom
         $this->SetY(-15);
         // Arial italic 8
@@ -59,6 +59,15 @@ $positions = $Model->GetPosition($year_id, $class_id, strToUpper($term_name).' T
 $termBest = $Model->GetTermBest($year_id, $class_id, strToUpper($term_name).' TERM');
 $classAv = round($Model->ClassAverageForTerm($year_id, $class_id, strToUpper($term_name).' TERM'),2);
 $averages = $Model->GetTermAverageForStudent($year_id, $class_id, strToUpper($term_name).' TERM');
+
+if($term_name == 'Third'){
+    $annual_averages = $Model->GetAnnualAverage($year_id, $class_id);
+    $students = $Model->GetAnnualPosition($year_id, $class_id);
+    $term1 = $Model->GetTermAverageForStudent($year_id, $class_id, 'FIRST TERM');
+    $term2 = $Model->GetTermAverageForStudent($year_id, $class_id, 'SECOND TERM');
+    $term3 = $Model->GetTermAverageForStudent($year_id, $class_id, 'THIRD TERM');
+}
+
 $pass_av = 0;
 $number_of_papers = 0;
 foreach($averages as $av){
@@ -101,8 +110,8 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
             $pdf->Cell(30,5,$lang[$_SESSION['lang']]["SecondTermRep"] ,0);
             $eval1 = 3; $eval2 = 4; 
         }elseif($term_name == 'Third'){
-            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["ThirdTermRep"] ,0);
-            $eval1 = 5; $eval2 = 6; ;
+            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["AnnualReport"] ,0);
+            $eval1 = 5; $eval2 = 6;
         }else{
             $pdf->Cell(30,5,$lang[$_SESSION['lang']]["SpecialTermRep"] ,0);
             $eval1 = 7; $eval2 = 8;
@@ -289,7 +298,7 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         //Display number of papers and sequence averages
         $pdf->SetFillColor(128,128,128);
         $pdf->SetTextColor(255,255,255);
-        $pdf->Cell(50,5,'Subjects passed: '.$number_of_papers,1,0,'C', true);
+        $pdf->Cell(35,5,'Subjects passed: '.$number_of_papers,1,0,'', true);
         $seq1 = $Model->GetAllWithCriteria('computed_averages', [
             'student'=>$code, 
             'exam_id'=>$exam_ids[0]['id'], 
@@ -306,14 +315,23 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
             'class_id'=>$class_id
         ])[0]['average'];
         
-        $pdf->Cell(50,5,'Evaluation'.$eval1.' Average: '.$seq1,1,0,'', true);
-        $pdf->Cell(50,5,'Evaluation'.$eval2.' Average: '.$seq2,1, 0,'', true);
-        if(round($seq1,0) > round($seq2,0)){
-            $pdf->Cell(45,5,'Decline',1, 0,'', true);
-        }else if(round($seq1,0) < round($seq2,0)){
-            $pdf->Cell(45,5,'Improvement',1, 0,'', true);
+        $pdf->Cell(40,5,'Evaluation'.$eval1.' Average: '.$seq1,1,0,'', true);
+        $pdf->Cell(40,5,'Evaluation'.$eval2.' Average: '.$seq2,1, 0,'', true);
+        
+
+        if($term_name == 'Third'){
+            $pdf->Cell(26,5,'Term 1 Av. '.$term1[$code],1, 0,'', true);
+            $pdf->Cell(27,5,'Term 2 Av. '.$term2[$code],1, 0,'', true);
+            $pdf->Cell(27,5,'Term 3 Av. '.$averages[$code],1, 0,'', true);
         }else{
-            $pdf->Cell(45,5,'No Improvement',1, 0,'', true);
+		if(round($seq1,0) > round($seq2,0)){
+		    $pdf->Cell(30,5,'Decline',1, 0,'', true);
+		}else if(round($seq1,0) < round($seq2,0)){
+		    $pdf->Cell(35,5,'Improvement',1, 0,'', true);
+		}else{
+		    $pdf->Cell(35,5,'No Improvement',1, 0,'', true);
+		}
+            	$pdf->Cell(45,5,'',1, 0,'', true);
         }
         
         $pdf->Ln();
@@ -325,14 +343,23 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         $pdf->Cell(10,10,'',1);//could fill with general average
         $pdf->Cell(10,10,$general_coef,1, 0,'C');
         $pdf->Cell(10,10,$general_total,1);
-        $pdf->SetTextColor(0,128,0);
-        $pdf->Cell(60,10,$lang[$_SESSION['lang']]["FinAverage"].': '.$averages[$code],1, 0, 'C');
+        $pdf->SetTextColor(0,120,0);
+        if($term_name == 'Third'){
+            $pdf->Cell(60,10,$lang[$_SESSION['lang']]["AnnualAverage"].': '.$annual_averages[$code],1, 0, 'C');
+        }else{
+            $pdf->Cell(60,10,$lang[$_SESSION['lang']]["FinAverage"].': '.$averages[$code],1, 0, 'C');
+        }
         $pdf->Ln();
         $pdf->SetFillColor(0,0,128);
         $pdf->SetTextColor(255,255,255);
         $pdf->Cell(65,5,$lang[$_SESSION['lang']]["WorkAppr"],1,0,'C', true);
         $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Averages"],1,0,'C', true);
-        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Rank"].' ',1,0,'C', true);
+        if($term_name == 'Third') {
+            $pdf->Cell(20,5,$lang[$_SESSION['lang']]["Rank"].' ',1,0,'C', true);
+            $pdf->Cell(45,5,$lang[$_SESSION['lang']]["AnnualRank"].' ',1,0,'C', true);
+        }else{
+            $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Rank"].' ',1,0,'C', true);
+        }
         $pdf->Ln();
         $pdf->SetTextColor(0,0,0);
         $work ='';
@@ -342,18 +369,24 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         $pdf->Cell(21,5,isset($group_av2)?$group_av2:'',1,0,'C', false);
         $pdf->Cell(23,5,isset($group_av3)?$group_av3:'',1,0,'C', false);
         $eff = count($positions);
-
         $num = $positions[$code];
         $position = $num."/".$eff;
-        $pdf->Cell(65,5,$position,1,0,'C', false);
-        
+        if($term_name == 'Third') {
+            $annEff = count($students);
+            $annNum = $students[$code];
+            $annPosition = $annNum.'/'.$annEff;
+            $pdf->Cell(20,5,$position,1,0,'C', false);
+            $pdf->Cell(45,5,$annPosition,1,0,'C', false);
+        }else{
+            $pdf->Cell(65,5,$position,1,0,'C', false);
+        }
         $pdf->Ln();
         $pdf->SetTextColor(255,255,255);
         $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Conduct"].'',1,0,'C', true);
         $pdf->Cell(33,5,$lang[$_SESSION['lang']]["Discipline"].'',1,0,'C', true);
         $pdf->Cell(32,5,$lang[$_SESSION['lang']]["ClassProfile"].'',1,0,'C', true);
         $pdf->SetTextColor(0,0,0);
-        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Principal"].'',0,0,'C', false);
+        $pdf->Cell(65,5,'',0,0,'C', false);
         $pdf->Ln();
         $pdf->SetTextColor(0,0,0);
         $pdf->Cell(27,5,$lang[$_SESSION['lang']]["JustAbs"],1,0,'C', false);
@@ -388,7 +421,7 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         $pdf->Cell(33,5,'',1,0,'C', false);
         $pdf->Cell(16,5,$termBest['best'],1,0,'C', false);
         $pdf->Cell(16,5,$termBest['last'],1,0,'C', false);
-        $pdf->Cell(65,5,'',0,0,'L', false);
+        $pdf->Cell(65,5,$lang[$_SESSION['lang']]["Principal"].'',0,0,'C', false);
         $pdf->Ln();
         //Last thing: any alteration
         $pdf->SetTextColor(0,0,0);

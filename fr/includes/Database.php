@@ -1,12 +1,13 @@
 <?php
 class Database
 {
-    private $serverName = "localhost";
+    private $serverName = "localhost:3306";
     private $username = "root";
-    //private $password = "solidus84B52@";
-    private $password = "";
-   //private $dbName = "schoolmanager_live";
-    private $dbName = "skoo_manager";
+    private $password = "solidus84B52@";
+    //private $password = "";
+   private $dbName = "qisdb";
+   //private $dbName = "classmaster";
+    //private $dbName = "skoo_manager";
     private $defaultPw = "12345678";
 
     public function ServerName(){return $this->serverName;}

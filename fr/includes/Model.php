@@ -1916,7 +1916,11 @@ class Model extends Database
         $sum = 0;
         $avg = 0.0;
         for ($i = 0; $i < $count; $i++){
-            $sum += $numbers[$i];
+            if(!is_numeric($numbers[$i])){
+                $sum = $sum + 0;
+            }else{
+                $sum += $numbers[$i];
+            }
         }
 
         if ($count > 0 ){
