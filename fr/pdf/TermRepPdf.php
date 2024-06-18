@@ -324,9 +324,9 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
 		if(round($seq1,0) > round($seq2,0)){
 		    $pdf->Cell(30,5,'Decline',1, 0,'', true);
 		}else if(round($seq1,0) < round($seq2,0)){
-		    $pdf->Cell(45,5,'Improvement',1, 0,'', true);
+		    $pdf->Cell(30,5,'Improvement',1, 0,'', true);
 		}else{
-		    $pdf->Cell(45,5,'No Improvement',1, 0,'', true);
+		    $pdf->Cell(30,5,'No Improvement',1, 0,'', true);
 		}
             $pdf->Cell(50,5,'',1, 0,'', true);
         }

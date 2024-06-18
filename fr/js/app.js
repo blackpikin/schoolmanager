@@ -373,30 +373,133 @@ function ResetUserPassword(userid){
     }
 }
 
-function ShowClosedExamList(){
-    let exam = $('#exam').val();
-    let klass = $('#c_name').val();
-    let subject = $('#subjects').val();
-    if(exam !== "" && klass !== "" && subject !== ""){
-        $.ajax({
-            type: "POST",
-            url: "./html/ajax.php",
-            data: {Exam:exam, Klass:klass, Subject:subject, 'action':"ShowClosedExamList"},
-            dataType: 'html',
-            success: function (data) {
-                $('#closed_exam_list').html(data);
-            },
-            error: function () {
-                console.log(Error().message);
-            }
-        });
+function ShowClosedExamList(num){
+    if(num !== undefined && num !== null && num !== ''){
+        let exam = $('#exam2').val();
+        let klass = $('#c_name2').val();
+        let subject = $('#subjects2').val();
+        if(exam !== "" && klass !== "" && subject !== ""){
+            $.ajax({
+                type: "POST",
+                url: "./html/ajax.php",
+                data: {Exam:exam, Klass:klass, Subject:subject, 'action':"ShowClosedExamList"},
+                dataType: 'html',
+                success: function (data) {
+                    $('#closed_exam_list_copy').html(data);
+                },
+                error: function () {
+                    console.log(Error().message);
+                }
+            });
+        }else{
+            alert("You must select the three parameters: exam, class and subject");
+        }
     }else{
-        alert("You must select the three parameters: exam, class and subject");
+        let exam = $('#exam').val();
+        let klass = $('#c_name').val();
+        let subject = $('#subjects').val();
+        if(exam !== "" && klass !== "" && subject !== ""){
+            $.ajax({
+                type: "POST",
+                url: "./html/ajax.php",
+                data: {Exam:exam, Klass:klass, Subject:subject, 'action':"ShowClosedExamList"},
+                dataType: 'html',
+                success: function (data) {
+                    $('#closed_exam_list').html(data);
+                },
+                error: function () {
+                    console.log(Error().message);
+                }
+            });
+        }else{
+            alert("You must select the three parameters: exam, class and subject");
+        }
     }
 }
 
-function SetClassId(elem){
+function CopyMarks(){
+        let exam = $('#exam').val();
+        let klass = $('#c_name').val();
+        let subject = $('#subjects').val();
+
+        let exam2 = $('#exam2').val();
+        let klass2 = $('#c_name2').val();
+        let subject2 = $('#subjects2').val();
+
+        if (exam == exam2) {
+            alert("You can't copy an exam to itself");
+            return;
+        }
+
+        if (klass !== klass2){
+            alert("Unmatched Class");
+            return;
+        }
+
+        if (subject !== subject2){
+            alert("Unmatched Subject");
+            return;
+        }
+
+        if(exam !== "" && klass !== "" && subject !== "" && exam2 !== "" && klass2 !== "" && subject2 !== ""){
+            if(confirm("Are you sure you want to copy these marks to the selected exam?")){
+                ShowBlankExam();
+                $.ajax({
+                    type: "POST",
+                    url: "./html/ajax.php",
+                    data: {Exam:exam, Klass:klass, Subject:subject, Exam2:exam2, Klass2:klass, Subject2:subject2, 'action':"CopyMarks"},
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#closed_exam_list_copy').html(data);
+                    },
+                    error: function () {
+                        console.log(Error().message);
+                    }
+                });
+            }
+        }else{
+            alert("You must select the six parameters: exam, class and subject");
+        }
+}
+
+function ShowBlankExam(){
+        let exam = $('#exam').val();
+        let klass = $('#c_name').val();
+        let subject = $('#subjects').val();
+        if(exam !== "" && klass !== "" && subject !== ""){
+            $.ajax({
+                type: "POST",
+                url: "./html/ajax.php",
+                data: {Exam:exam, Klass:klass, Subject:subject, 'action':"ShowBlankExam"},
+                dataType: 'html',
+                success: function (data) {
+                    $('#closed_exam_list').html(data);
+                },
+                error: function () {
+                    console.log(Error().message);
+                }
+            });
+        }else{
+            alert("You must select the three parameters: exam, class and subject");
+        }
+}
+
+function SetClassId(elem, num){
     let class_id = elem.value;
+if(num !== undefined && num !== null && num !== ''){
+    $.ajax({
+        type: "POST",
+        url: "./html/ajax.php",
+        data: {classID:class_id,'action':"SetClassId"},
+        dataType: 'html',
+        success: function (data) {
+            $('#subjects'+num).html(data); 
+        },
+        error: function () {
+            console.log(Error().message);
+        }
+    });
+}else{
     $.ajax({
         type: "POST",
         url: "./html/ajax.php",
@@ -409,6 +512,7 @@ function SetClassId(elem){
             console.log(Error().message);
         }
     });
+} 
 }
 
 function TermSummary(){

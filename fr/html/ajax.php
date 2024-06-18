@@ -874,3 +874,70 @@ if ($action == "ShowClosedExamList"){
     echo $data;
 
 }
+
+if ($action == "ShowBlankExam"){
+    $exam_id = $_POST['Exam'];
+    $class_id = $_POST['Klass'];
+    $subject = $_POST['Subject'];
+
+    $students_id = $Model->GetAcademicYearClass($class_id, $Model->GetCurrentYear()[0]['id']);
+    $class_name = "";
+
+    $class_name = $Model->GetAClassName($class_id); 
+    
+    $data = '<h4>'.$lang[$_SESSION['lang']]['Mark registration list for']. '<span id="c_name">'.$class_name.' - '.$subject.'</span></h4><br><span id="result" style="color:green;"></span><input disabled id="competence" type="text" placeholder="'.$lang[$_SESSION['lang']]['Competences tested']. '" class="form-control"><hr>';
+    $id_array = [];
+    
+    if(!empty($students_id)){
+        foreach ($students_id as $id){
+            $student = $Model->GetStudent($id['student_code'], $section);
+            $id_array[$student[0]['student_code']] = $student[0]['name'];
+            asort($id_array);
+        }
+    }
+    $sn = 0;
+    foreach ($id_array as $student_code => $student){
+        $student_data = [$student_code, $class_id, $Model->GetCurrentYear()[0]['id'], $subject, $exam_id ];
+        $mark = $Model->GetAMark($student_data);
+        $data .= '<div class="row"><div class="col-xs-7"><label>'.++$sn.'. '.$student.'</label></div>  <div class="col-xs-5"><input data-subject="'.$subject.'" data-exam="'.$exam_id.'" data-klass="'.$class_id.'" id="" type="text"  class="form-control" value="'.$mark.'"></div></div><hr>';
+    }
+
+    echo $data;
+
+}
+
+
+if ($action == "CopyMarks"){
+    $exam_id = $_POST['Exam'];
+    $class_id = $_POST['Klass'];
+    $subject = $_POST['Subject'];
+
+    $exam_id2 = $_POST['Exam2'];
+    $class_id2 = $_POST['Klass2'];
+    $subject2 = $_POST['Subject2'];
+
+    $students_id = $Model->GetAcademicYearClass($class_id, $Model->GetCurrentYear()[0]['id']);
+    $class_name = "";
+
+    $class_name = $Model->GetAClassName($class_id); 
+    
+    $data = '<h4>'.$lang[$_SESSION['lang']]['Mark registration list for']. '<span id="c_name">'.$class_name.' - '.$subject.'</span></h4><br><span id="result" style="color:green;"></span><input disabled id="competence" type="text" placeholder="'.$lang[$_SESSION['lang']]['Competences tested']. '" class="form-control"><hr>';
+    $id_array = [];
+    
+    if(!empty($students_id)){
+        foreach ($students_id as $id){
+            $student = $Model->GetStudent($id['student_code'], $section);
+            $id_array[$student[0]['student_code']] = $student[0]['name'];
+            asort($id_array);
+        }
+    }
+    $sn = 0;
+    foreach ($id_array as $student_code => $student){
+        $student_data = [$student_code, $class_id, $Model->GetCurrentYear()[0]['id'], $subject, $exam_id ];
+        $mark = $Model->GetAMark($student_data);
+        $data .= '<div class="row"><div class="col-xs-7"><label>'.++$sn.'. '.$student.'</label></div>  <div class="col-xs-5"><input data-subject="'.$subject.'" data-exam="'.$exam_id2.'" data-klass="'.$class_id.'" id="'.$student_code.'" type="text" onfocusout="SaveMark(this)" class="form-control" value="'.$mark.'"></div></div><hr>';
+    }
+
+    echo $data;
+
+}

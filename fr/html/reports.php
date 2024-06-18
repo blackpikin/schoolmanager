@@ -39,7 +39,8 @@
         <button class="btn btn-primary button-width" onclick="GotoPage('mockRep')"><?= $lang[$_SESSION['lang']]['Pre-mock/Mock'] ?></button>
         <br>  
         <br> 
-        <button class="btn btn-primary button-width" onclick="GotoPage('timeTable')"><?= $lang[$_SESSION['lang']]['timetable'] ?></button>
+        <!-- <button class="btn btn-primary button-width" onclick="GotoPage('timeTable')"><?= ''//$lang[$_SESSION['lang']]['timetable'] ?></button> -->
+        <button class="btn btn-primary button-width" onclick="GotoPage('convertMarks')"><?= $lang[$_SESSION['lang']]['ConvertMarks'] ?></button>
         <br>        
     </div>
     <div class="col-xs-2">

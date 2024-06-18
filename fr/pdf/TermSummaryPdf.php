@@ -48,7 +48,7 @@ $year_id = $_GET['year_id'];
 $class_id = $_GET['class_id'];
 $term_id = $_GET['term_id'];
 $sequences = ['ONE'=>$lang[$_SESSION['lang']]['ONE'], 'TWO'=>$lang[$_SESSION['lang']]["TWO"]];
-$terms = ['FIRST TERM'=>$lang[$_SESSION['lang']]["FIRST TERM"], 'SECOND TERM'=>$lang[$_SESSION['lang']]["SECOND TERM"], 'THIRD'=>$lang[$_SESSION['lang']]["THIRD TERM"]];
+$terms = ['FIRST TERM'=>$lang[$_SESSION['lang']]["FIRST TERM"], 'SECOND TERM'=>$lang[$_SESSION['lang']]["SECOND TERM"], 'THIRD TERM'=>$lang[$_SESSION['lang']]["THIRD TERM"]];
 $page_title = $terms[strToUpper($term_id).' TERM']." - ".utf8_decode($lang[$_SESSION['lang']]["resultSummary"])." - ".$Model->GetAClassName($class_id);
 
 
