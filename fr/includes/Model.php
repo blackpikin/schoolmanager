@@ -2726,19 +2726,30 @@ class Model extends Database
             $exam2 = $term_exams_ids[1]['id'];
             $mark1 = $this->GetStudentsMarksForSubject($year_id, $class_id, $exam1, $student_code, $subject);
             $mark2 = $this->GetStudentsMarksForSubject($year_id, $class_id, $exam2, $student_code, $subject);
-            $coef = $this->GetCoefficient($subject, $class_id);
+            //$coef = $this->GetCoefficient($subject, $class_id);
+            if(!is_numeric($mark1)){
+                $mark1 = 0;
+            }
+            if(!is_numeric($mark2)){
+                $mark2 = 0;
+            }
+
             $av = ($mark1 + $mark2)/2;
-            $final_mark = $av * $coef;
+            $final_mark = $av;
         }elseif(count($term_exams_ids) == 1){
             $exam1 = $term_exams_ids[0]['id'];
             $mark1 = $this->GetStudentsMarksForSubject($year_id, $class_id, $exam1, $student_code, $subject);
-            $coef = $this->GetCoefficient($subject, $class_id);
-            $final_mark = $mark1 * $coef;
+            //$coef = $this->GetCoefficient($subject, $class_id);
+            $final_mark = $mark1;
         }elseif(count($term_exams_ids) == 0){
 
         }
-        
-        return $final_mark;
+
+        if(!is_numeric($final_mark)){
+            return '';
+        }else{
+            return round($final_mark,2);
+        }
     }
 
     public function GetStudentsMarksForSubject($year_id, $class_id, $exam_id, $student_code, $subject){
@@ -2865,8 +2876,11 @@ class Model extends Database
         ];
         
     }
-
+//print_r($students_totals2);
             foreach ($term_student_codes as $student){
+                if(!isset($students_totals1[$student]) || !isset($students_totals2[$student])){
+                    continue;
+                }
                 $av1 =  $students_totals1[$student]['average'];
                 $av2 =  $students_totals2[$student]['average'];
                 $average = round(($av1 + $av2)/2, 2);
@@ -4814,6 +4828,14 @@ public function NewCash($amount, $source, $user_id, $dateof, $monthYear, $yearOn
         
         return $teachers;
     }
-    
 
+    public function Initials($word){
+        $words = explode(' ', $word);
+        $initials = [];
+        foreach($words as $w){
+            $s = substr($w, 0,1);
+            array_push($initials, $s);
+        }
+        return implode('', $initials);
+    }
 }
