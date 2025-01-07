@@ -1,21 +1,21 @@
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["Sequence statistics"] ?></label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
        <div class="row curved-box">
        <h4><?= $lang[$_SESSION['lang']]["SelectCriteria"] ?></h4>
-       <div class="col-xs-2">
+       <div class="col-md-2 col-sm-2 col-xs-2">
             <label><?= $lang[$_SESSION['lang']]["AcademicYear"] ?></label>
             <br>
         <select id="year" class="form-control" onchange="LoadSequences('exam')">
@@ -37,7 +37,7 @@
 
         </select>
        </div>
-       <div class="col-xs-2">
+       <div class="col-md-2 col-sm-2 col-xs-2">
        <label><?= $lang[$_SESSION['lang']]["Select the subject"] ?></label>
         <select id="c_name" class="form-control">
             <option value=""><?= $lang[$_SESSION['lang']]["Choose one"] ?></option>
@@ -58,17 +58,17 @@
 
         </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
            <label value=""><?= $lang[$_SESSION['lang']]["Select examination"] ?></label>
            <select id="exam" class="form-control">
            <option value=""><?= $lang[$_SESSION['lang']]["Choose one"] ?></option>
            </select>
        </div>
-       <div class="col-xs-2">
+       <div class="col-md-2 col-sm-2 col-xs-2">
            <br>
             <button class="btn btn-primary button-width" onclick="SequenceStatPDF()"><?= $lang[$_SESSION['lang']]["Generate"] ?></button>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2 col-sm-2 col-xs-2">
            <br>            
             <button class="btn btn-primary button-width" onclick="SequenceStatAnnualPDF()"><?= $lang[$_SESSION['lang']]["GenerateAnnual"] ?></button>
         </div>
@@ -77,12 +77,12 @@
 </div>
 <br>
 <div class="row">
-    <div class="col-xs-11">
+    <div class="col-md-11 col-sm-11 col-xs-11">
         <div id="class_list">
             <span><i></i></span>
         </div>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>

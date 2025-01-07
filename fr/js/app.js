@@ -872,6 +872,32 @@ function CheckLoggedInUser(){
     });
 }
 
+function DownloadCSVFile(){
+    let ref = document.getElementById('c_name').value
+    if(ref == ''){
+        return
+    }else{
+        window.location.href = './csv/saveClassCSV.php'+'?ref='+ref;
+    }
+    
+}
+
+function PhoneList(elem){
+    let class_id = elem.value;
+    $.ajax({
+        type: "POST",
+        url: "./html/ajax.php",
+        data: {classID:class_id, 'action':"PhoneList"},
+        dataType: 'html',
+        success: function (data) {
+            $('#class_list').html(data);
+        },
+        error: function () {
+            console.log(Error().message);
+        }
+    });
+}
+
 //////// END Functionality Functions///////////////////////
 //////////////////////////////////////////////////////////
 

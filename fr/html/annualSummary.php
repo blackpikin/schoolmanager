@@ -5,20 +5,20 @@ $students = $Model->GetStudentsInClass($class_id, $year_id);
 $url = 'year_id='.$year_id.'&class_id='.$class_id;
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <p>
             <label id="label1">ANNUAL RESULT SUMMARY - <?= $Model->GetAClassName($class_id) ?> - <?= $Model->YearNameDigits($year_id) ?></label>
         </p>
     </div>
 </div>
 <div class="row">
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 
         </div>
-        <div class="col-xs-3">
-            <p><a target="blank" href="./pdf/annualSummaryPDF.php?<?= $url ?>" title="Save as PDF" class="btn btn-primary"><i class="glyphicon glyphicon-download"></i> Save as PDF</a></p>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <p><a target="blank" href="./pdf/annualSummaryPDF.php?<?= $url ?>" title="Save as PDF" class="btn btn-primary"><i class="fa fa-download"></i> Save as PDF</a></p>
         </div>
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 
         </div>
 </div>

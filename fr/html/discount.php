@@ -30,43 +30,43 @@
 ?>
 <p style="color:red; font-weight:bold;"><?= $resultats ?></p>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1">Discount</label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
     <div class="row">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
     <label>Search student</label>
             <form id="search" method="post" action="">
                 <input type="text" required="required" class="form-control" name="srch" id="name" value="<?= $srch ?>">
             </form>
             <br>
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
         <br>
-        <button onclick="SubmitSearch()" class="btn btn-warning glyphicon glyphicon-search"></button>
+        <button onclick="SubmitSearch()" class="btn btn-warning fa fa-search"></button>
     </div>
 </div>
     
             <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="curved-box">
             <h4><u>Search results</u></h4>
             <form id="payment" action="" method="post">
@@ -107,7 +107,7 @@
                 ?>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="curved-box">
         <h4><u>Fees</u></h4>
             <label>Select discount type</label>
@@ -131,7 +131,7 @@
         </div>
     </div>
             </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>

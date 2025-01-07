@@ -10,21 +10,21 @@
     $second_cycle_classes = $Model->TranscriptClasses($student_code, 'SECOND');
 ?>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-8 ">
+    <div class="col-md-8 col-sm-8 col-xs-8 ">
         <label id="label1"><?= $lang[$_SESSION['lang']]["Report cards"] ?> of <?= $student_data[0]['name'] ?></label>
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-9 ">
+    <div class="col-md-9 col-sm-9 col-xs-9 ">
     <?php 
     if (!empty($first_cycle_classes) or !empty($second_cycle_classes)){
         ?>

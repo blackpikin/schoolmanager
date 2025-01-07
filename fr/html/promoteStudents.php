@@ -36,25 +36,25 @@ $err = false; $result = "";
 
 ?>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-9">
+    <div class="col-md-9 col-sm-9 col-xs-9">
         <h2 id="label1"><?= $lang[$_SESSION['lang']]['PromoteStudents'] ?></h2>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 <div class="row ">
 <span style="color:red;"><?= $result ?></span>
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             
-        <div class="col-xs-2 ">
+        <div class="col-md-2 col-sm-2 col-xs-2 ">
            
            </div>
-            <div class="col-xs-8 curved-box">
+            <div class="col-md-8 col-sm-8 col-xs-8 curved-box">
                     <label><?= $lang[$_SESSION['lang']]['SelectCurrentClass'] ?></label>
                     <select id="curr_class" class="form-control">
                     <option value=""><?= $lang[$_SESSION['lang']]['Choose one'] ?></option>
@@ -110,7 +110,7 @@ $err = false; $result = "";
                 
         </div>
         </div>
-            <div class="col-xs-2 ">
+            <div class="col-md-2 col-sm-2 col-xs-2 ">
            
             </div>
         </div>

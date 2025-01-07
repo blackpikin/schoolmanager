@@ -77,23 +77,23 @@ if (!empty($staff_subjects)){
 <p style="color:red;"><?= $result ?></p>
 <br>
 <div class="row" >
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["SubjectsFor"] ?> <?= $Model->GetUser($_GET['ref'])[0]['name'] ?></label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-5">
+    <div class="col-md-5 col-sm-5 col-xs-5">
        <div class="curved-box">
            <form action="" method="post" >
             <h4><?= $lang[$_SESSION['lang']]["Subject"] ?>s</h4>
@@ -110,7 +110,7 @@ if (!empty($staff_subjects)){
             </select>
             <br>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                 <?php 
                     $cycle1 = $Model->GetSchoolClasses('FIRST', $section);
                     if (!empty($cycle1)){
@@ -130,7 +130,7 @@ if (!empty($staff_subjects)){
                     }
                 ?>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-md-6 col-sm-6 col-xs-6">
                 <?php 
                     $cycle1 = $Model->GetSchoolClasses('SECOND', $section);
                     if (!empty($cycle1)){
@@ -156,7 +156,7 @@ if (!empty($staff_subjects)){
            </form>
        </div>
     </div>
-    <div class="col-xs-5">
+    <div class="col-md-5 col-sm-5 col-xs-5">
        <div class="curved-box">
        <h4><?= $lang[$_SESSION['lang']]["ExistingSubjects"] ?></h4>
                 <table class="table table-bordered table-responsive">
@@ -182,7 +182,7 @@ if (!empty($staff_subjects)){
                                              echo $cl[0]['general_name'];
                                          }
                                     ?></td>
-                                    <td><button title="<?= $lang[$_SESSION['lang']]["DeleteThis"] ?>" class="btn btn-danger glyphicon glyphicon-trash"></button></td>
+                                    <td><button title="<?= $lang[$_SESSION['lang']]["DeleteThis"] ?>" class="btn btn-danger fa fa-trash"></button></td>
                                 </tr>
 
                                 <?php
@@ -193,7 +193,7 @@ if (!empty($staff_subjects)){
                 </table>    
        </div>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>

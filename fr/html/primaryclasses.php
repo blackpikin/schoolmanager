@@ -45,8 +45,8 @@
                 <td><?= $class['general_name'] ?></td>
                 <td><?= $class['sub_name'] ?></td>
                 <td>
-                    <button title="<?= $lang[$_SESSION['lang']]["EditClass"] ?>" class="glyphicon glyphicon-edit" onclick="GotoPage('modifyClass&ref=<?= $class['id']?>')"></button>
-                    <button title="<?= $lang[$_SESSION['lang']]["viewClassSubjects"] ?>" class="glyphicon glyphicon-list" onclick="GotoPage('viewClassSubjects&ref=<?= $class['id'] ?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["EditClass"] ?>" class="fa fa-edit" onclick="GotoPage('modifyClass&ref=<?= $class['id']?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["viewClassSubjects"] ?>" class="fa fa-list" onclick="GotoPage('viewClassSubjects&ref=<?= $class['id'] ?>')"></button>
                 </td>
             </tr>
             <?php

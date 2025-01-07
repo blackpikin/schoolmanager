@@ -240,7 +240,7 @@
         </div>
         <div class="col-xs-2">
             <br>
-        <button onclick="SubmitSearch()" class="btn btn-warning glyphicon glyphicon-search"></button>
+        <button onclick="SubmitSearch()" class="btn btn-warning fa fa-search"></button>
         </div>
     </div>
 </div>

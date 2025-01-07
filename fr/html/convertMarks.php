@@ -11,7 +11,7 @@
         }
     ?>
     
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <label>Copy from</label>
        <div class="row curved-box">
        <div class="col-xs-4">
@@ -88,7 +88,7 @@
         </div>
        </div>
     </div>
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <label>To</label>
        <div class="row curved-box">
        <div class="col-xs-4">
@@ -168,13 +168,13 @@
     </div>
 </div>
 <div  class="row curved-box">
-<div id="closed_exam_list" class="col-xs-5">
+<div id="closed_exam_list" class="col-md-5 col-sm-5 col-xs-5">
     
 </div>
-<div class="col-xs-2">
+<div class="col-md-2 col-sm-2 col-xs-2">
     
 </div>
-<div id="closed_exam_list_copy" class="col-xs-5">
+<div id="closed_exam_list_copy" class="col-md-5 col-sm-5 col-xs-5">
     
 </div>
 </div>

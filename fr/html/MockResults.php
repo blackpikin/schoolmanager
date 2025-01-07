@@ -24,13 +24,13 @@ $limits = $Model->Grade();
 <h4 id="label1" style="text-align:center;"><?= $exam_name ?>  RESULTS - <?= $Model->GetAClassName($class_id) ?> - <?= $Model->GetYearName($year_id) ?></h4>
 <br>
 <div class="row">
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 
         </div>
-        <div class="col-xs-3">
-            <p><a target="blank" href="./pdf/MockResultPdf.php?<?= $url ?>" title="Save as PDF" class="btn btn-primary"><i class="glyphicon glyphicon-download"></i> Save the Slips as PDF</a></p>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <p><a target="blank" href="./pdf/MockResultPdf.php?<?= $url ?>" title="Save as PDF" class="btn btn-primary"><i class="fa fa-download"></i> Save the Slips as PDF</a></p>
         </div>
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 
         </div>
 </div>

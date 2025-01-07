@@ -5,22 +5,22 @@ $staff_subjects = $Model->GetStaffSubjects($staff_id, $academic_year);
 ?>
 <br>
 <div class="row">
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1">Register Marks For <?= $Model->GetStaffName($staff_id) ?></label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-11">
+    <div class="col-md-11 col-sm-11 col-xs-11">
     <div class="row">
-        <div class="col-xs-5">
+        <div class="col-md-5 col-sm-5 col-xs-5">
         <div class="curved-box">
        <h4>Existing subjects</h4>
                 <table class="table table-bordered table-responsive">
@@ -52,7 +52,7 @@ $staff_subjects = $Model->GetStaffSubjects($staff_id, $academic_year);
                                             echo $term.' TERM'.' SEQUENCE '.$sequence;
                                         ?>
                                     </td>
-                                    <td><button onclick="ShowFillMarksList('<?= $cl[0]['id'] ?>','<?= $subject['subject'] ?>')" title="Fill marks for this subject" class="btn btn-success glyphicon glyphicon-check"></button></td>
+                                    <td><button onclick="ShowFillMarksList('<?= $cl[0]['id'] ?>','<?= $subject['subject'] ?>')" title="Fill marks for this subject" class="btn btn-success fa fa-check"></button></td>
                                 </tr>
                                    <?php
                                 }else{
@@ -72,7 +72,7 @@ $staff_subjects = $Model->GetStaffSubjects($staff_id, $academic_year);
                                             echo $term.' TERM'.' '.$sequence;
                                         ?>
                                     </td>
-                                    <td><button onclick="ShowFillMarksList('<?= $cl[0]['id'] ?>','<?= $subject['subject'] ?>')" title="Fill marks for this subject" class="btn btn-success glyphicon glyphicon-check"></button></td>
+                                    <td><button onclick="ShowFillMarksList('<?= $cl[0]['id'] ?>','<?= $subject['subject'] ?>')" title="Fill marks for this subject" class="btn btn-success fa fa-check"></button></td>
                                 </tr>
                                    <?php
                                     }
@@ -85,7 +85,7 @@ $staff_subjects = $Model->GetStaffSubjects($staff_id, $academic_year);
                 </table>    
        </div>
         </div>
-        <div class="col-xs-7">
+        <div class="col-md-7 col-sm-7 col-xs-7">
             <div class="curved-box">
                 <label id="result"></label>
                 <div id="c_list">

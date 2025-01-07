@@ -50,24 +50,24 @@
     }
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]['EditStudent'] ?><label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 <label style="color:red;"><?=  $result ?></label>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-7 curved-box">
+    <div class="col-md-7 col-sm-7 col-xs-7 curved-box">
         <form action="" method="post">
             <label>Name:<sup>*</sup></label>
             <input type="text" value="<?= $student[0]['full_name'] ?>" name="name" class="form-control" placeholder="Enter the name of the student" required/>
@@ -97,7 +97,7 @@
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
 </div>

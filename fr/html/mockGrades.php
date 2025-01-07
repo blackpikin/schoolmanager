@@ -82,24 +82,24 @@
     }
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["MockGrades"] ?></label>
         </p>
         <span style="color:red;"><?= $result ?></span>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
         
     </div>
-    <div class="col-xs-4 curved-box">
+    <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
     <form action="" method="post">
             <h3>Ordinary Level</h3>
             <label>A grade</label>
@@ -144,7 +144,7 @@
             <br>
             <button class="btn btn-primary button-width">Save</button>
     </div>
-    <div class="col-xs-4 curved-box">
+    <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
     <h3>Advanced Level</h3>
             <label>A grade</label>
             <br>
@@ -189,7 +189,7 @@
             <span>To</span><input type="text" class="form-control" value="<?= $ALFmax ?>" name="ALFmax"  required min="0" max="20"> 
         </form>         
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>

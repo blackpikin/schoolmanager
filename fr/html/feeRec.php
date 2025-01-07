@@ -124,22 +124,22 @@
  }
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1">Receive fees (Secondary)</label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         
     </div>
 </div>
 <div id="recFee">
 <p style="color:red; font-weight:bold;"><?= $resultat ?></p>
     <div class="row">
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
             <div id="fee_bkd" class="curved-box">
                 <h4><u>Fees</u></h4>
                 <label>Student's name</label>
@@ -180,14 +180,14 @@
                 <br>
             </div>
         </div>
-        <div class="col-xs-7">
+        <div class="col-md-7 col-sm-7 col-xs-7">
         <label>Search student</label>
             <form id="search" method="post" action="">
                 <input type="text" required="required" class="form-control" name="srch" id="name" value="<?= $srch ?>">
             </form>
             <br>
             <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="curved-box">
             <h4><u>Search results</u></h4>
             <?php 
@@ -225,7 +225,7 @@
                 ?>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="curved-box">
         <h4><u>Fees</u></h4>
             <form id="payment" action="" method="post">
@@ -238,9 +238,9 @@
         </div>
     </div>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2 col-sm-2 col-xs-2">
             <br>
-        <button onclick="SubmitSearch()" class="btn btn-warning glyphicon glyphicon-search"></button>
+        <button onclick="SubmitSearch()" class="btn btn-warning fa fa-search"></button>
         </div>
     </div>
 </div>

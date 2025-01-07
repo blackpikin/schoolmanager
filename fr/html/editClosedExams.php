@@ -11,9 +11,9 @@
         }
     ?>
     
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
        <div class="row curved-box">
-       <div class="col-xs-4">
+       <div class="col-md-4 col-sm-4 col-xs-4">
        <?php 
             $lng = $_SESSION['lang'];
             $section = 0;
@@ -45,7 +45,7 @@
            ?>
            </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
        <label><?= $lang[$_SESSION['lang']]['Select the class'] ?></label>
         <select id="c_name" class="form-control" onchange="SetClassId(this)">
             <option value=""><?= $lang[$_SESSION['lang']]['Choose one'] ?></option>
@@ -75,13 +75,13 @@
 
         </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
        <label><?= $lang[$_SESSION['lang']]['Select the subject'] ?></label>
        <select id="subjects" class="form-control">
        <option value=""><?= $lang[$_SESSION['lang']]['Choose one'] ?></option>
        </select>
        </div>
-       <div class="col-xs-2">
+       <div class="col-md-2 col-sm-2 col-xs-2">
            <br>
             <button class="btn btn-primary" onclick="ShowClosedExamList()"><?= $lang[$_SESSION['lang']]['View'] ?></button>
         </div>
@@ -89,7 +89,7 @@
     </div>
 </div>
 <div  class="row curved-box">
-<div id="closed_exam_list" class="col-xs-12">
+<div id="closed_exam_list" class="col-md-12 col-sm-12 col-xs-12">
     
 </div>
 </div>

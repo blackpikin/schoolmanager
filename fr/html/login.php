@@ -41,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     <label style="color:red"><?= isset($_GET['sub']) ? $_GET['sub'] : "" ?></label>
     <br>
     <div class="row">
-        <div class="col-md-2 col-sm-2 hidden-xs">
+        <div class="col-md-3 col-sm-3 hidden-xs">
 
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <h4 style="color: red;"><?php echo $result ?></h4>
             <form action="" method="post">
-                <h4 id="label1" style="text-align:center;"><?= $lang[$_SESSION['lang']]["Login"] ?></h4>
+                <h4 id="label1" class="h3 mb-3 fw-normal" style="text-align:center;"><?= $lang[$_SESSION['lang']]["Login"] ?></h4>
                 <div class="curved-box">
                 <label style="color: #74b3d1;font-weight: bold"><?= $lang[$_SESSION['lang']]["Username"] ?></label>
                 <input type="text" value="<?php echo $username ?>" name="username" class="form-control" required="required" placeholder="<?= $lang[$_SESSION['lang']]["UsernamePlaceHolder"] ?>" />
@@ -60,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                 
             </form>
             <br>
-            <a href="./?p=forgottenPw" ><?= $lang[$_SESSION['lang']]["I forgot my password"] ?></a>
+            <a class="btn btn-outline-secondary" href="./?p=forgottenPw" ><?= $lang[$_SESSION['lang']]["I forgot my password"] ?></a>
             &nbsp;&nbsp;||&nbsp;&nbsp;
-            <a style="color:white; background-color:orangered;padding:5px;border-radius:8px;" href="../" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["ChangeSubsystem"] ?></a>
+            <a class="btn btn-outline-warning" href="../" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["ChangeSubsystem"] ?></a>
             <hr>
-            <span style="color:white; background-color:blue;padding:5px;border-radius:8px;" onclick="GotoPage('viewchild')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["ForParents"] ?></span>
+            <span class="btn btn-outline-primary" onclick="GotoPage('viewchild')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["ForParents"] ?></span>
         </div>
-        <div class="col-md-4 col-sm-4 hidden-xs">
+        <div class="col-md-3 col-sm-3 hidden-xs">
 
         </div>
     </div>

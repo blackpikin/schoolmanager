@@ -20,9 +20,10 @@ include "../includes/Model.php";
 include "../includes/Lang.php";
 $Model = new Model($section);
 include_once('../lib/fpdf.php');
- 
+$report_style = $Model->GetAllWithCriteria('report_templates', ['selected' => 1])[0]['template'];
 class PDF extends FPDF
 {
+
 // Page header
 function Header()
     {
@@ -38,6 +39,7 @@ function Header()
     // Page footer
     function Footer()
     {
+        
         $this->Image('../img/footer-Blue.png',0,240,220);
         // Position at 1.5 cm from bottom
         $this->SetY(-15);
@@ -60,6 +62,42 @@ $succ = round((count($pass_means)/count($means))* 100, 2);
 $general_coef = 0;
 $general_total = 0;
 $subject_groups = [];
+
+$langs = $Model->Languages();
+$science = $Model->Sciences();
+$art = $Model->Arts();
+$others = $Model->OtherSubjects();
+
+$hasSci = false;
+$hasArt = false;
+$hasLang = false;
+$hasOther = false;
+$class_subjects = $Model->GetAllWithCriteria('subjects',['class_name' => $class_id]);
+
+foreach ($class_subjects as $s){
+    if(in_array($s['subject'], $langs)){
+        $hasLang = true;
+    }
+}
+
+foreach ($class_subjects as $s){
+    if(in_array($s['subject'], $science)){
+        $hasSci = true;
+    }
+}
+
+foreach ($class_subjects as $s){
+    if(in_array($s['subject'], $art)){
+        $hasArt = true;
+    }
+}
+
+foreach ($class_subjects as $s){
+    if(in_array($s['subject'], $others)){
+        $hasOther = true;
+    }
+}
+
 $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'ThirdGroupSubs'=>3];
 //Get subject groups
     $first_group = $Model->GetAllWithCriteria('subjects', ['class_name' => $class_id, 'rep_group'=>1,'section' => $section]);
@@ -74,8 +112,422 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
 
 
 if(!empty($means)){
-   $pdf = new PDF();
-   foreach($means as $pos => $stud_av){
+    if($report_style == 'british') {
+        $pdf = new PDF();
+        foreach($means as $pos => $stud_av){
+            $s = $Model->GetStudent($stud_av['student'], $section);
+            $general_coef = 0;
+            $general_total = 0;
+            $pdf->AddPage();
+            $pdf->AliasNbPages();
+            $pdf->SetFont('Arial','B',8);
+            $pdf->SetFillColor(0,0,128);
+            $pdf->SetTextColor(0,0,0);
+            $pdf->Cell(60, 5, "", 0);
+            
+            if($stud_av['term'] == 'FIRST TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE ONE'){
+                $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["FirstSeqEval"] ,0);
+                $eval1 = 1; $eval2 = 2; $sequence = '1';
+            }elseif($stud_av['term'] == 'FIRST TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE TWO'){
+                $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["SecondSeqEval"] ,0);
+                $eval1 = 1; $eval2 = 2; $sequence = '2';
+            }elseif($stud_av['term'] == 'SECOND TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE ONE'){
+                $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["ThirdSeqEval"] ,0);
+                $eval1 = 3; $eval2 = 4; $sequence = '3';
+            }elseif($stud_av['term'] == 'SECOND TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE TWO'){
+                $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["FourthSeqEval"] ,0);
+                $eval1 = 3; $eval2 = 4;  $sequence = '4';
+            }elseif($stud_av['term'] == 'THIRD TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE ONE'){
+                $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["FifthSeqEval"] ,0);
+                $eval1 = 5; $eval2 = 6; $sequence = '5';
+            }elseif($stud_av['term'] == 'THIRD TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE TWO'){
+                $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["SixthSeqEval"] ,0);
+                $eval1 = 5; $eval2 = 6; $sequence = '6';
+            }
+            
+            //Student information
+            $pdf->Ln();
+            $pdf->Cell(110,4,$lang[$_SESSION['lang']]["Name"].': '.$s[0]['name'],0);
+            $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Class"].': '.$Model->GetAClassName($class_id),0);
+            if($s[0]['picture'] != ""){
+                $data = base64_decode($s[0]['picture']);
+                $file = "../img/students/" . $s[0]["student_code"] . '.'.$s[0]["picture_ext"];
+                //$success = file_put_contents($file, $data);
+                $pdf->Image($file,170,40,25, 25);
+            }          
+            $pdf->Ln();
+            $pdf->Cell(110,4,$lang[$_SESSION['lang']]["Gender"].': '.$s[0]['gender'],0);
+            $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Onroll"].': '.count($means),0);
+            $pdf->Ln();
+            $pdf->Cell(110,4,$lang[$_SESSION['lang']]["DOB"].': '.$s[0]['dob'].' at '.$s[0]['pob'],0);
+            $pdf->Cell(50,4,$lang[$_SESSION['lang']]["Repeater"].': No',0);
+            $pdf->Ln();
+            $pdf->Cell(90,4,$lang[$_SESSION['lang']]["AdmissionNum"].': '.$s[0]['adm_num'],0);
+            $pdf->Ln();
+            $pdf->Cell(90,4,$lang[$_SESSION['lang']]["Classmaster"].': '.$Model->GetAllWithCriteria('classes', ['id'=>$class_id])[0]['cm'],0);
+            $pdf->Ln(10);
+            //End student information
+
+            //Main report table header
+            $pdf->Cell(60,5,$lang[$_SESSION['lang']]["Subject"],0,0,'',false);
+            $pdf->Cell(10,5,'Coef',0,0,'',false);
+            $pdf->Cell(10,5,'Eval'.$eval1,0,0,'',false);
+            $pdf->Cell(10,5,'Eval'.$eval2,0,0,'',false);
+            $pdf->Cell(10,5,$lang[$_SESSION['lang']]["avg"],0,0,'',false);
+            $pdf->Cell(10,5,'Total',0,0,'',false);
+            $pdf->Cell(9,5,$lang[$_SESSION['lang']]["Rank"],0,0,'', false);
+            $pdf->Cell(16,5,'Remarks',0,0,'', false);
+            $pdf->Cell(60,5,'Class performance',0,0,'C', false);
+            $pdf->Ln();
+            //End main table header
+
+            if($hasLang){
+                //Print languages
+            $pdf->Cell(195,5,'LANGUAGES',0,0,'',false);
+            $pdf->Ln();
+            $marks = $Model->GetStudentsMarks($year_id, $class_id, $exam_id, $stud_av['student']);
+            $total_coef = 0;
+            $total_mark = 0;
+            foreach($marks as $mark){
+                $sub_total = $Model->GetStudentTotals($exam_id, $class_id, $year_id, $stud_av['student'], $mark['subject']);
+                    if(!empty($sub_total)){
+                    if(in_array($mark['subject'],$langs)){
+                        $coef = $Model->GetCoefficient($mark['subject'], $class_id);
+                        $total_coef += $coef;
+                        $total_mark += $sub_total['total'];
+                        $general_coef += $coef;
+                        $general_total += $sub_total['total'];
+                        if(strlen($mark['subject']) > 30){
+                            $pdf->Cell(60,5,substr($mark['subject'], 0, 30),1);
+                        }else{
+                            $pdf->Cell(60,5,$mark['subject'],1);
+                        }
+                        $pdf->Cell(10,5,$coef,1,0,'',false);
+                        if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+                            if($mark['mark'] < 10){
+                                $pdf->SetTextColor(128,0,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }elseif($mark['mark'] >= 17){
+                                $pdf->SetTextColor(0,128,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }   
+                        }else{
+                            if($mark['mark'] < 10){
+                                $pdf->SetTextColor(128,0,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }elseif($mark['mark'] >= 17){
+                                $pdf->SetTextColor(0,128,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }   
+                        }
+                        if($mark['mark'] < 10){
+                            $pdf->SetTextColor(128,0,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }elseif($mark['mark'] >= 17){
+                            $pdf->SetTextColor(0,128,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }else{
+                            $pdf->SetTextColor(0,0,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }
+                        $pdf->SetTextColor(0,0,0);
+                        $pdf->Cell(10,5,$sub_total['total'],1,0,'',false);
+                        $pdf->Cell(9,5,$sub_total['rank'],1,0,'', false);
+                        $pdf->Cell(16,5,$sub_total['remark'],1,0,'', false);
+                        $pdf->Cell(60,5,'',1,0,'', false);
+                        $pdf->Ln();
+                    }  
+                }
+            }
+            $pdf->Cell(60,5,'Summary',0,0,'C',false);
+            $pdf->Cell(10,5,$total_coef,0,0,'',false);
+            $pdf->Cell(10,5,'',0,0,'',false);
+            $pdf->Cell(10,5,'',0,0,'',false);
+            $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+            $pdf->Cell(10,5,$total_mark,0,0,'',false);
+            $pdf->Cell(9,5,'',0,0,'', false);
+            $pdf->Cell(16,5,'',0,0,'', false);
+            $pdf->Cell(60,5,'',0,0,'C', false);
+            $pdf->Ln();
+            //End print languages
+            }
+
+             if($hasSci){
+                 //Print Sciences
+              $pdf->Cell(195,5,'SCIENCES',0,0,'',false);
+              $pdf->Ln();
+              $marks = $Model->GetStudentsMarks($year_id, $class_id, $exam_id, $stud_av['student']);
+              $total_coef = 0;
+              $total_mark = 0;
+              foreach($marks as $mark){
+                  $sub_total = $Model->GetStudentTotals($exam_id, $class_id, $year_id, $stud_av['student'], $mark['subject']);
+                      if(!empty($sub_total)){ 
+                      if(in_array($mark['subject'],$science)){
+                        $coef = $Model->GetCoefficient($mark['subject'], $class_id);
+                      $total_coef += $coef;
+                      $total_mark += $sub_total['total'];
+                      $general_coef += $coef;
+                        $general_total += $sub_total['total'];
+                          if(strlen($mark['subject']) > 30){
+                              $pdf->Cell(60,5,substr($mark['subject'], 0, 30),1);
+                          }else{
+                              $pdf->Cell(60,5,$mark['subject'],1);
+                          }
+                          $pdf->Cell(10,5,$coef,1,0,'',false);
+                          if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+                            if($mark['mark'] < 10){
+                                $pdf->SetTextColor(128,0,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }elseif($mark['mark'] >= 17){
+                                $pdf->SetTextColor(0,128,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }   
+                        }else{
+                            if($mark['mark'] < 10){
+                                $pdf->SetTextColor(128,0,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }elseif($mark['mark'] >= 17){
+                                $pdf->SetTextColor(0,128,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }   
+                        }
+                        if($mark['mark'] < 10){
+                            $pdf->SetTextColor(128,0,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }elseif($mark['mark'] >= 17){
+                            $pdf->SetTextColor(0,128,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }else{
+                            $pdf->SetTextColor(0,0,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }
+                        $pdf->SetTextColor(0,0,0);
+                          $pdf->Cell(10,5,$sub_total['total'],1,0,'',false);
+                          $pdf->Cell(9,5,$sub_total['rank'],1,0,'', false);
+                          $pdf->Cell(16,5,$sub_total['remark'],1,0,'', false);
+                          $pdf->Cell(60,5,'',1,0,'', false);
+                          $pdf->Ln();
+                      }  
+                  }
+              }
+              $pdf->Cell(60,5,'Summary',0,0,'C',false);
+              $pdf->Cell(10,5,$total_coef,0,0,'',false);
+            $pdf->Cell(10,5,'',0,0,'',false);
+            $pdf->Cell(10,5,'',0,0,'',false);
+            $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+            $pdf->Cell(10,5,$total_mark,0,0,'',false);
+              $pdf->Cell(9,5,'',0,0,'', false);
+              $pdf->Cell(16,5,'',0,0,'', false);
+              $pdf->Cell(60,5,'',0,0,'C', false);
+              $pdf->Ln();
+              //End Print sciences
+             }
+
+               if($hasArt){
+                 //Print Arts
+            $pdf->Cell(195,5,'ARTS',0,0,'',false);
+            $pdf->Ln();
+            $marks = $Model->GetStudentsMarks($year_id, $class_id, $exam_id, $stud_av['student']);
+            $total_coef = 0;
+            $total_mark = 0;
+            foreach($marks as $mark){
+                $sub_total = $Model->GetStudentTotals($exam_id, $class_id, $year_id, $stud_av['student'], $mark['subject']);
+                    if(!empty($sub_total)){
+                    if(in_array($mark['subject'],$art)){
+                        $coef = $Model->GetCoefficient($mark['subject'], $class_id);
+                        $total_coef += $coef;
+                        $total_mark += $sub_total['total'];
+                        $general_coef += $coef;
+                        $general_total += $sub_total['total'];
+                        if(strlen($mark['subject']) > 30){
+                            $pdf->Cell(60,5,substr($mark['subject'], 0, 30),1);
+                        }else{
+                            $pdf->Cell(60,5,$mark['subject'],1);
+                        }
+                        $pdf->Cell(10,5,$coef,1,0,'',false);
+                        if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+                            if($mark['mark'] < 10){
+                                $pdf->SetTextColor(128,0,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }elseif($mark['mark'] >= 17){
+                                $pdf->SetTextColor(0,128,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }   
+                        }else{
+                            if($mark['mark'] < 10){
+                                $pdf->SetTextColor(128,0,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }elseif($mark['mark'] >= 17){
+                                $pdf->SetTextColor(0,128,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }   
+                        }
+                        if($mark['mark'] < 10){
+                            $pdf->SetTextColor(128,0,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }elseif($mark['mark'] >= 17){
+                            $pdf->SetTextColor(0,128,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }else{
+                            $pdf->SetTextColor(0,0,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }
+                        $pdf->SetTextColor(0,0,0);
+                          $pdf->Cell(10,5,$sub_total['total'],1,0,'',false);
+                        $pdf->Cell(9,5,$sub_total['rank'],1,0,'', false);
+                        $pdf->Cell(16,5,$sub_total['remark'],1,0,'', false);
+                        $pdf->Cell(60,5,'',1,0,'', false);
+                        $pdf->Ln();
+                    }  
+                }
+            }
+            $pdf->Cell(60,5,'Summary',0,0,'C',false);
+            $pdf->Cell(10,5,$total_coef,0,0,'',false);
+            $pdf->Cell(10,5,'',0,0,'',false);
+            $pdf->Cell(10,5,'',0,0,'',false);
+            $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+            $pdf->Cell(10,5,$total_mark,0,0,'',false);
+            $pdf->Cell(9,5,'',0,0,'', false);
+            $pdf->Cell(16,5,'',0,0,'', false);
+            $pdf->Cell(60,5,'',0,0,'C', false);
+            $pdf->Ln();
+            // End print Arts
+               }
+
+              if($hasOther){
+                //Print Others
+              $pdf->Cell(195,5,'OTHERS',0,0,'',false);
+              $pdf->Ln();
+              $marks = $Model->GetStudentsMarks($year_id, $class_id, $exam_id, $stud_av['student']);
+              $total_coef = 0;
+              $total_mark = 0;
+              foreach($marks as $mark){
+                  $sub_total = $Model->GetStudentTotals($exam_id, $class_id, $year_id, $stud_av['student'], $mark['subject']);
+                      if(!empty($sub_total)){
+                      if(in_array($mark['subject'],$others)){
+                        $coef = $Model->GetCoefficient($mark['subject'], $class_id);
+                        $total_coef += $coef;
+                        $total_mark += $sub_total['total'];
+                        $general_coef += $coef;
+                        $general_total += $sub_total['total'];
+                          if(strlen($mark['subject']) > 30){
+                              $pdf->Cell(60,5,substr($mark['subject'], 0, 30),1);
+                          }else{
+                              $pdf->Cell(60,5,$mark['subject'],1);
+                          }
+                          $pdf->Cell(10,5,$coef,1,0,'',false);
+                          if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+                            if($mark['mark'] < 10){
+                                $pdf->SetTextColor(128,0,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }elseif($mark['mark'] >= 17){
+                                $pdf->SetTextColor(0,128,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                            }   
+                        }else{
+                            if($mark['mark'] < 10){
+                                $pdf->SetTextColor(128,0,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }elseif($mark['mark'] >= 17){
+                                $pdf->SetTextColor(0,128,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }else{
+                                $pdf->SetTextColor(0,0,0);
+                                $pdf->Cell(10,5,'',1,0,'',false);
+                                $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                            }   
+                        }
+                        if($mark['mark'] < 10){
+                            $pdf->SetTextColor(128,0,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }elseif($mark['mark'] >= 17){
+                            $pdf->SetTextColor(0,128,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }else{
+                            $pdf->SetTextColor(0,0,0);
+                            $pdf->Cell(10,5,$mark['mark'],1,0,'',false);
+                        }
+                        $pdf->SetTextColor(0,0,0);
+                          $pdf->Cell(10,5,$sub_total['total'],1,0,'',false);
+                          $pdf->Cell(9,5,$sub_total['rank'],1,0,'', false);
+                          $pdf->Cell(16,5,$sub_total['remark'],1,0,'', false);
+                          $pdf->Cell(60,5,'',1,0,'', false);
+                          $pdf->Ln();
+                      }  
+                  }
+              }
+              $pdf->Cell(60,5,'Summary',0,0,'C',false);
+              $pdf->Cell(10,5,$total_coef,0,0,'',false);
+              $pdf->Cell(10,5,'',0,0,'',false);
+              $pdf->Cell(10,5,'',0,0,'',false);
+              $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+              $pdf->Cell(10,5,$total_mark,0,0,'',false);
+              $pdf->Cell(9,5,'',0,0,'', false);
+              $pdf->Cell(16,5,'',0,0,'', false);
+              $pdf->Cell(60,5,'',0,0,'C', false);
+              $pdf->Ln();
+              //End print Others
+              }
+
+              $pdf->Cell(60,5,'TOTAL',0,0,'C',false);
+              $pdf->Cell(10,5,$general_coef,0,0,'',false);
+              $pdf->Cell(10,5,'',0,0,'',false);
+              $pdf->Cell(10,5,'',0,0,'',false);
+              $pdf->Cell(10,5,round($general_total/$general_coef, 2),0,0,'',false);
+              $pdf->Cell(10,5,$general_total,0,0,'',false);
+              $pdf->Cell(9,5,'',0,0,'', false);
+              $pdf->Cell(16,5,'',0,0,'', false);
+              $pdf->Cell(60,5,'',0,0,'C', false);
+              $pdf->Ln();
+        }
+
+    }else{
+    $pdf = new PDF();
+    foreach($means as $pos => $stud_av){
     $s = $Model->GetStudent($stud_av['student'], $section);
     $general_coef = 0;
     $general_total = 0;
@@ -87,22 +539,22 @@ if(!empty($means)){
     $pdf->Cell(60, 5, "", 0);
     
     if($stud_av['term'] == 'FIRST TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE ONE'){
-        $pdf->Cell(30,5,$lang[$_SESSION['lang']]["FirstSeqEval"] ,0);
+        $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["FirstSeqEval"] ,0);
         $eval1 = 1; $eval2 = 2; $sequence = '1';
     }elseif($stud_av['term'] == 'FIRST TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE TWO'){
-        $pdf->Cell(30,5,$lang[$_SESSION['lang']]["SecondSeqEval"] ,0);
+        $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["SecondSeqEval"] ,0);
         $eval1 = 1; $eval2 = 2; $sequence = '2';
     }elseif($stud_av['term'] == 'SECOND TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE ONE'){
-        $pdf->Cell(30,5,$lang[$_SESSION['lang']]["ThirdSeqEval"] ,0);
+        $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["ThirdSeqEval"] ,0);
         $eval1 = 3; $eval2 = 4; $sequence = '3';
     }elseif($stud_av['term'] == 'SECOND TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE TWO'){
-        $pdf->Cell(30,5,$lang[$_SESSION['lang']]["FourthSeqEval"] ,0);
+        $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["FourthSeqEval"] ,0);
         $eval1 = 3; $eval2 = 4;  $sequence = '4';
     }elseif($stud_av['term'] == 'THIRD TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE ONE'){
-        $pdf->Cell(30,5,$lang[$_SESSION['lang']]["FifthSeqEval"] ,0);
+        $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["FifthSeqEval"] ,0);
         $eval1 = 5; $eval2 = 6; $sequence = '5';
     }elseif($stud_av['term'] == 'THIRD TERM' && $Model->GetSequenceName($exam_id) == 'SEQUENCE TWO'){
-        $pdf->Cell(30,5,$lang[$_SESSION['lang']]["SixthSeqEval"] ,0);
+        $pdf->Cell(30,5,$Model->YearNameDigits($year_id)." ".$stud_av['term']." - ".$lang[$_SESSION['lang']]["SixthSeqEval"] ,0);
         $eval1 = 5; $eval2 = 6; $sequence = '6';
     }
     
@@ -335,9 +787,8 @@ if(!empty($means)){
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('Arial','B',6);
     $pdf->Cell(10,4,"Any alteration on the report card is not the handiwork of ".$Model->GetSchoolInfo(1)[0]['name'],0);
+    } 
+    }
 }
-
-}
-   
 $pdf->Output();
 }

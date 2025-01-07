@@ -5,10 +5,10 @@ $subjects = $Model->ViewClassSubjects($_GET['ref']);
 <label id="label1"><?= $lang[$_SESSION['lang']]['SubjectsFor']. ' '.$Model->GetAClass($_GET['ref'])[0]['general_name'].' '.$Model->GetAClass($_GET['ref'])[0]['sub_name']?></label>
 <br>
 <div class="row">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-10">
+    <div class="col-md-10 col-sm-10 col-xs-10">
         <table class="table tabel-responsive table-bordered">
         <tr class="table-header">
             <td><?= $lang[$_SESSION['lang']]['Subject'] ?></td>
@@ -22,8 +22,8 @@ $subjects = $Model->ViewClassSubjects($_GET['ref']);
                     <td><?= $subject['subject'] ?></td>
                     <td><?= $subject['coef'] ?></td>
                     <td>
-                        <button title="Add a subject" class="glyphicon glyphicon-plus" onclick="GotoPage('subjectSettings')"></button>
-                        <button title="Modify this subject" class="glyphicon glyphicon-pencil" onclick="GotoPage('modifySubject&ref=<?= $_GET['ref'] ?>&title=<?= $subject['subject'] ?>')"></button>
+                        <button title="Add a subject" class="fa fa-plus" onclick="GotoPage('subjectSettings')"></button>
+                        <button title="Modify this subject" class="fa fa-pencil" onclick="GotoPage('modifySubject&ref=<?= $_GET['ref'] ?>&title=<?= $subject['subject'] ?>')"></button>
                     </td>
                 </tr>
                 <?php
@@ -31,7 +31,7 @@ $subjects = $Model->ViewClassSubjects($_GET['ref']);
         ?>
         </table>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>

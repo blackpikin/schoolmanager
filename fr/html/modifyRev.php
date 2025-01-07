@@ -23,24 +23,24 @@
 
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1">Modify revenue source</label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <p style="color:red; font-weight:bold;"><?= $result ?></p>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <div class="curved-box">
     <form action="" method="post">
         <p>
@@ -51,7 +51,7 @@
     </form>
 </div>
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>

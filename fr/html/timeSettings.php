@@ -58,23 +58,23 @@
 <p style="color:red;"><?= $result ?></p>
 <br>
 <div class="row" >
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["TimeSettings"] ?></label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 <div class="row" >
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-6 curved-box">
+    <div class="col-md-6 col-sm-6 col-xs-6 curved-box">
         <form action="" method="post">
         <p>
        <label>Lessons' start time</label>
@@ -131,7 +131,7 @@
         </div>
         </form>
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
 </div>

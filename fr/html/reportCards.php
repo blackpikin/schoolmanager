@@ -1,21 +1,21 @@
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]['GenerateReportCards'] ?></label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
        <div class="row curved-box">
        <h4><?= $lang[$_SESSION['lang']]['SequenceReps'] ?></h4>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
             <label><?= $lang[$_SESSION['lang']]['AcademicYear'] ?></label>
             <br>
         <select id="year" class="form-control" onchange="LoadSequences('exam')">
@@ -42,7 +42,7 @@
 
         </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
        <label><?= $lang[$_SESSION['lang']]['Select the class'] ?></label>
         <select id="c_name" class="form-control">
             <option value=""><?= $lang[$_SESSION['lang']]['Choose one'] ?></option>
@@ -67,13 +67,13 @@
 
         </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
            <label value=""><?= $lang[$_SESSION['lang']]['Select examination'] ?></label>
            <select id="exam" class="form-control">
            <option value=""><?= $lang[$_SESSION['lang']]['Choose one'] ?></option>
            </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
            <br>
             <button class="btn btn-primary button-width" onclick="SequenceReport()"><?= $lang[$_SESSION['lang']]['SequenceReps'] ?></button>
             <br>
@@ -86,10 +86,10 @@
 </div>
 <br>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
        <div class="row curved-box">
        <h4><?= $lang[$_SESSION['lang']]['TermReps'] ?></h4>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
             <label><?= $lang[$_SESSION['lang']]['AcademicYear'] ?></label>
             <br>
         <select id="term_year" class="form-control" onchange="LoadTerms('term_term')">
@@ -111,7 +111,7 @@
 
         </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
        <label><?= $lang[$_SESSION['lang']]['Select the class'] ?></label>
         <select id="term_class" class="form-control">
             <option value=""><?= $lang[$_SESSION['lang']]['Choose one'] ?></option>
@@ -136,7 +136,7 @@
 
         </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
        <?php 
         if(isset($Model->GetCurrentYear()[0]['id'])){
             $exams = $Model->GetAllTerms($Model->GetCurrentYear()[0]['id']);
@@ -160,7 +160,7 @@
            ?>
            </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
            <br>
             <button class="btn btn-primary button-width" onclick="TermReport()"><?= $lang[$_SESSION['lang']]['TermReps'] ?></button>
             <br><br>

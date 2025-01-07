@@ -7,10 +7,19 @@
  */
 ?>
 <div>
-    <h1 style="color:grey;"><label id="label1"><?= $lang[$_SESSION['lang']]["Welcome"] ?>,  <?= $_SESSION['username']; ?></label>
-    <br>
-    <div class="row">
-        <div class="col-xs-7 curved-box" style="background-color:white;">
+<div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-4">
+
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <h1 id="label1"><?= $lang[$_SESSION['lang']]["Welcome"] ?>,  <?= $_SESSION['username']; ?></h1>  
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+
+    </div>
+ </div>   
+<div class="row">
+        <div class="col-md-7 col-sm-7 col-xs-7 curved-box" style="background-color:white;">
          <?php
             $events = $Model->GetEvents(date('Y-m'));
             if(!empty($events)){
@@ -22,8 +31,8 @@
          echo $calendar; 
          ?>
         </div>
-        <div class="col-xs-4 curved-box">
-            <h3><?= $lang[$_SESSION['lang']]["UpcomingEvents"] ?></h3>
+        <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
+            <h3 class=""><?= $lang[$_SESSION['lang']]["UpcomingEvents"] ?></h3>
           <?php
             $year = date('Y');
             $m = date('m');
@@ -39,15 +48,15 @@
                 ?>
                 <table class="table table-responsive table-bordered" style="font-size:10pt;">
                     <tr class="table-header">
-                            <td><?= $lang[$_SESSION['lang']]["Event"] ?></td>
-                            <td>Date</td>
+                            <td class="text-white"><?= $lang[$_SESSION['lang']]["Event"] ?></td>
+                            <td class="text-white">Date</td>
                     </tr>
                 <?php
                 foreach($events as $ev){
                     ?>
                     <tr class="normal-tr">
-                        <td><?= $ev['event'] ?></td>
-                        <td>
+                        <td class="text-white"><?= $ev['event'] ?></td>
+                        <td class="text-white">
                         <?php
                             $evDate = new DateTime($ev['dateof']);
                             echo date_format($evDate, "d F Y")
@@ -57,7 +66,7 @@
                 <?php
                 }
             }else{
-                echo "<h5>".$lang[$_SESSION['lang']]["NoUpcomingEvents"]."</h5>";
+                echo '<h5 class="">'.$lang[$_SESSION['lang']]["NoUpcomingEvents"]."</h5>";
             }    
           ?>
           </table>

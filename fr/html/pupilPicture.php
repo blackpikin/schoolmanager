@@ -38,21 +38,21 @@ $result = "";
 ?>
 <p style="color:red;"><?= $result ?></p>
 <div class="row" style="margin-top: 50px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
             <label id="label1"><?= $lang[$_SESSION['lang']]["SetStudentPhoto"] ?></label>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <div class="row" style="margin-top: 50px;">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-10">
+    <div class="col-md-10 col-sm-10 col-xs-10">
         <form action="" method="post" enctype="multipart/form-data">
             <label><?= $lang[$_SESSION['lang']]["SelectPicture"] ?></label>
             <input type="file" name="picture" class="form-control" required="required">
@@ -60,7 +60,7 @@ $result = "";
             <button type="submit" class="btn btn-primary"><?= $lang[$_SESSION['lang']]["Save"] ?></button>
         </form>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>

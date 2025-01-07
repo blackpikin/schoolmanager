@@ -8,12 +8,29 @@ html, body {
     overflow-x: hidden;
 }
 
+.bkg-page-body{
+    /*background-image: url("../img/htmlbkg.jpeg"); 
+    background-size: 100%;*/
+    background-color: white;
+}
+
+label{
+    color:darkgrey;
+    font-weight: bold;
+    font-size:16pt;
+    background-color: whitesmoke;
+    padding:6px;
+    border-radius: 6px;
+}
+
 .sec{
     display:none;
 }
 
 header{
     background-color: navy;
+    opacity:1;
+    backdrop-filter: blur(10px);
 }
 .system-menu-title{
     font-weight: bold;
@@ -69,11 +86,13 @@ header{
     font-family: ps3font, 'cursive';
     color:whitesmoke;
     text-align: center;
+    opacity: 1!important;;
 }
 .app_name{
     color:whitesmoke;
     margin-left: 20px;
     text-align: center;
+    opacity: 1!important;
 }
 .white-label{
     color:whitesmoke
@@ -87,10 +106,13 @@ header{
 
 .sidebar-decor{
     border-right:thin grey solid;
-    padding-right:10px;
+    padding:10px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: whitesmoke;
 }
 .grey-body{
-    background-color: whitesmoke;
+    background-color: white;
 }
 
 .button-width{
@@ -103,6 +125,7 @@ header{
     padding: 10px;
     border-radius: 8px;
     margin:5px;
+    background-color: whitesmoke;
 }
 .bold-header{
     font-weight: bold;
@@ -134,7 +157,7 @@ header{
 #Log{font-size: 28pt; color: blueviolet;}
 #Labeluser{margin-bottom: 10px;}
 
-#label1{font-size: 24pt; color: navy;font-family:'cursive';}
+#label1{font-size: 24pt; font-weight: 800; color: navy;font-family:'cursive'; padding:6px; border-radius: 8px;}
 .selectareas{width: 236px; height: 40px; border-radius: 5px; border: solid thin black; margin-top: -65px;padding-left: 10px;}
 .footers{width: 250px; height: 38px;}
 #selectarea4{width: 150px; background-color: navy; color: white; font-size: 14pt; height: 40px; border-radius: 5px; border: solid thin black; margin-top: -65px;padding-left: 10px;}

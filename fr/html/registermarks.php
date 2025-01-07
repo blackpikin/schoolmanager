@@ -11,22 +11,22 @@
 ?>
 <br>
 <div class="row">
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["FillMarksFor"] ?> <?= $Model->GetStaffName($staff_id) ?></label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-11">
+    <div class="col-md-11 col-sm-11 col-xs-11">
     <div class="row">
-        <div class="col-xs-5">
+        <div class="col-md-5 col-sm-5 col-xs-5">
         <div class="curved-box">
        <h4><?= $lang[$_SESSION['lang']]["ExistingSubjects"] ?></h4>
                 <table class="table table-bordered table-responsive">
@@ -63,7 +63,7 @@
                                                 echo $lang[$_SESSION['lang']][strToUpper($term)].' '.$lang[$_SESSION['lang']]['TERM'].' SEQUENCE '.$lang[$_SESSION['lang']][$sequence];
                                             ?>
                                         </td>
-                                        <td><button onclick="ShowClassList('<?= $cl[0]['id'] ?>','<?= $subject['subject'] ?>')" title="<?= $lang[$_SESSION['lang']]["FillMarks"] ?>" class="btn btn-success glyphicon glyphicon-check"></button></td>
+                                        <td><button onclick="ShowClassList('<?= $cl[0]['id'] ?>','<?= $subject['subject'] ?>')" title="<?= $lang[$_SESSION['lang']]["FillMarks"] ?>" class="btn btn-success fa fa-check"></button></td>
                                     </tr>
                                        <?php
                                     }else{
@@ -83,7 +83,7 @@
                                                 echo $lang[$_SESSION['lang']][strToUpper($term)].' '.strtoupper($lang[$_SESSION['lang']]['TERM']).' '.$lang[$_SESSION['lang']][$sequence];
                                             ?>
                                         </td>
-                                        <td><button onclick="ShowClassList('<?= $cl[0]['id'] ?>','<?= $subject['subject'] ?>')" title="<?= $lang[$_SESSION['lang']]["FillMarks"] ?>" class="btn btn-success glyphicon glyphicon-check"></button></td>
+                                        <td><button onclick="ShowClassList('<?= $cl[0]['id'] ?>','<?= $subject['subject'] ?>')" title="<?= $lang[$_SESSION['lang']]["FillMarks"] ?>" class="btn btn-success fa fa-check"></button></td>
                                     </tr>
                                        <?php
                                         }
@@ -99,7 +99,7 @@
                 </table>    
        </div>
         </div>
-        <div class="col-xs-7">
+        <div class="col-md-7 col-sm-7 col-xs-7">
             <div class="curved-box">
                 <label id="result"></label>
                 <div id="c_list">

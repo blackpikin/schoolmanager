@@ -1,18 +1,18 @@
 <div class="row">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-6 ">
+    <div class="col-md-6 col-sm-6 col-xs-6 ">
         <label id="label1"><?= $lang[$_SESSION['lang']]["School identity cards"] ?></label>
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
        <div class="row curved-box">
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
             <label><?= $lang[$_SESSION['lang']]["Academic year"] ?></label>
             <br>
         <select id="year" class="form-control">
@@ -34,7 +34,7 @@
 
         </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
        <label><?= $lang[$_SESSION['lang']]["Select the class"] ?></label>
         <select id="c_name" class="form-control">
             <option value=""><?= $lang[$_SESSION['lang']]["Choose one"] ?></option>
@@ -59,11 +59,11 @@
 
         </select>
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
            <label value=""><?= $lang[$_SESSION['lang']]["expirationdate"] ?></label>
            <input id="expire" type="date" class="form-control" placeholder="e.g 01/08/2020" >
        </div>
-       <div class="col-xs-3">
+       <div class="col-md-3 col-sm-3 col-xs-3">
            <br>
             <button class="btn btn-primary button-width" onclick="GenerateSchoolIDs()">Show list</button>
        </div>

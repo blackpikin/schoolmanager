@@ -5,6 +5,7 @@ include "includes/PrimaryModel.php";
 include 'includes/Calendar.php';
 include 'includes/Lang.php';
 
+
 if (isset($_SESSION['id'])){
     if (time() - $_SESSION['timer']  > 3400 ){
         session_destroy();
@@ -68,9 +69,9 @@ $calendar = new Calendar();
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 </head>
-<body class="grey-body" oncontextmenu="return false">
-<header class="row">
-         <div id="logo" class="col-xs-2" onclick="Goto()" onmouseover="SetPointer(this)">
+<body class="bkg-page-body" oncontextmenu="return false">
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+         <div id="logo" class="col-md-2 col-sm-2 col-xs-2" onclick="Goto()" onmouseover="SetPointer(this)">
          <?php 
                 if (!isset($Model->GetCurrentYear()[0]['id'])){
                     ?>
@@ -83,7 +84,7 @@ $calendar = new Calendar();
                 }
             ?>
          </div>
-         <div class="col-xs-8">
+         <div class="col-md-8 col-sm-8 col-xs-8">
             <h3 class="school-title"><?= isset($Model->GetSchoolInfo(1)[0]['name']) ? $Model->GetSchoolInfo(1)[0]['name'] : "Unknown School" ?></h3>
             <h4 class="app_name"><?= strToUpper($lang[$_SESSION['lang']]["SystemName"]) ?></h4>
             <?php 
@@ -99,7 +100,7 @@ $calendar = new Calendar();
             ?>
             
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2 col-sm-2 col-xs-2">
             <?php 
                 if(isset($_SESSION['username']) && $_SESSION['username'] !== ""){
                     ?>
@@ -107,7 +108,7 @@ $calendar = new Calendar();
                         <span class="white-label"><?= $lang[$_SESSION['lang']]["User"] ?> : <?= $_SESSION['username']; ?></span><br></br>
                         <span class="white-label"><?= $lang[$_SESSION['lang']]["Role"] ?>: <?= $_SESSION['role'] ?></span><br>
                         <br>
-                        <button onclick="GotoPage('logout')"><?= $lang[$_SESSION['lang']]["Logout"] ?></button>
+                        <button class="btn btn-secondary" onclick="GotoPage('logout')"><?= $lang[$_SESSION['lang']]["Logout"] ?></button>
                     </div>
                     <?php
                 }
@@ -115,23 +116,22 @@ $calendar = new Calendar();
         </div>
      </header>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
         <?php 
         if(isset($_SESSION['username']) && $_SESSION['username'] !== ""){
             ?>
-            <div class="sidebar-decor">
+            <div class="d-flex flex-column flex-shrink-0 p-3 sidebar-decor">
                 <?php 
                 if($_SESSION['role'] == "Admin"){ ?>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('users')" onmouseover="SetPointer(this)"> <?= $lang[$_SESSION['lang']]["Staff"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('students')"onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Students"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('reports')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Reports"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Calendar"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('events')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Add events"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('sendEmail')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["SendAnEmail"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('users')" onmouseover="SetPointer(this)"><i class="fa fa-user"></i>  <?= $lang[$_SESSION['lang']]["Staff"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('students')"onmouseover="SetPointer(this)"> <i class="fa fa-users"></i>  <?= $lang[$_SESSION['lang']]["Students"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('reports')" onmouseover="SetPointer(this)"><i class="fa fa-signal"></i>  <?= $lang[$_SESSION['lang']]["Reports"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><i class="fa fa-calendar"></i>   <?= $lang[$_SESSION['lang']]["Calendar"]?></li>
+                        <li class="menu-list-item  btn-primary" onclick="GotoPage('sendEmail')" onmouseover="SetPointer(this)"> <i class="fa fa-envelope"></i>  <?= $lang[$_SESSION['lang']]["SendAnEmail"]?></li>
                         <!--<li class="menu-list-item" onclick="GotoPage('sendSMS')" onmouseover="SetPointer(this)">Envoyer des SMS</li> -->
-                        <li class="menu-list-item" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Change your password"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('settings')"onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Settings"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><i class="fa fa-recycle"></i>  <?= $lang[$_SESSION['lang']]["Change your password"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('settings')"onmouseover="SetPointer(this)"><i class="fa fa-cogs"></i>  <?= $lang[$_SESSION['lang']]["Settings"]?></li>
                     </ul>
                     <hr>
                 <?php
@@ -139,15 +139,15 @@ $calendar = new Calendar();
 
                 if($_SESSION['role'] == "Admin-p"){ ?>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('primaryUsers')" onmouseover="SetPointer(this)"> <?= $lang[$_SESSION['lang']]["Staff"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('pupils')"onmouseover="SetPointer(this)">Pupils</li>
-                        <li class="menu-list-item" onclick="GotoPage('primaryReports')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Reports"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Calendar"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('events')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Add events"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('primarySendEmail')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["SendAnEmail"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primaryUsers')" onmouseover="SetPointer(this)"> <?= $lang[$_SESSION['lang']]["Staff"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('pupils')"onmouseover="SetPointer(this)">Pupils</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primaryReports')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Reports"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Calendar"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('events')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Add events"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primarySendEmail')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["SendAnEmail"]?></li>
                         <!--<li class="menu-list-item" onclick="GotoPage('sendSMS')" onmouseover="SetPointer(this)">Envoyer des SMS</li> -->
-                        <li class="menu-list-item" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Change your password"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('primarySettings')"onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Settings"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Change your password"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primarySettings')"onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Settings"]?></li>
                     </ul>
                     <hr>
                 <?php
@@ -155,9 +155,9 @@ $calendar = new Calendar();
 
                 if($_SESSION['role'] == "Teacher"){ ?>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('fillmarks')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["FillMarks"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Change your password"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Calendar"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('fillmarks')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["FillMarks"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Change your password"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Calendar"]?></li>
                     </ul>
                     <hr>
                 <?php
@@ -165,26 +165,26 @@ $calendar = new Calendar();
 
                 if($_SESSION['role'] == "Bursar"){ ?>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('primaryFeeRec')" onmouseover="SetPointer(this)">Receive fees (Pri)</li>
-                        <li class="menu-list-item" onclick="GotoPage('feeRec')" onmouseover="SetPointer(this)">Receive fees (Sec)</li>
-                        <li class="menu-list-item" onclick="GotoPage('cashRec')" onmouseover="SetPointer(this)">Receive cash</li>
-                        <li class="menu-list-item" onclick="GotoPage('cashPay')" onmouseover="SetPointer(this)">Pay out cash</li>
-                        <li class="menu-list-item" onclick="GotoPage('discount')" onmouseover="SetPointer(this)">Discount</li>
-                        <li class="menu-list-item" onclick="GotoPage('bursarReports')" onmouseover="SetPointer(this)">Reports</li>
-                        <li class="menu-list-item" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)">Change password</li>
-                        <li class="menu-list-item" onclick="GotoPage('home')" onmouseover="SetPointer(this)">Calendar</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primaryFeeRec')" onmouseover="SetPointer(this)">Receive fees (Pri)</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('feeRec')" onmouseover="SetPointer(this)">Receive fees (Sec)</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('cashRec')" onmouseover="SetPointer(this)">Receive cash</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('cashPay')" onmouseover="SetPointer(this)">Pay out cash</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('discount')" onmouseover="SetPointer(this)">Discount</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('bursarReports')" onmouseover="SetPointer(this)">Reports</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)">Change password</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('home')" onmouseover="SetPointer(this)">Calendar</li>
                     </ul>
                     <hr>
                 <?php
                 }
                 if($_SESSION['role'] == "Manager"){ ?>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('feeSettings')" onmouseover="SetPointer(this)">Fee settings</li>
-                        <li class="menu-list-item" onclick="GotoPage('discountReasons')" onmouseover="SetPointer(this)">Discount reasons</li>
-                        <li class="menu-list-item" onclick="GotoPage('revenueSources')" onmouseover="SetPointer(this)">Revenue sources</li>
-                        <li class="menu-list-item" onclick="GotoPage('finReports')" onmouseover="SetPointer(this)">Reports</li>
-                        <li class="menu-list-item" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)">Change password</li>
-                        <li class="menu-list-item" onclick="GotoPage('home')" onmouseover="SetPointer(this)">Calendar</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('feeSettings')" onmouseover="SetPointer(this)">Fee settings</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('discountReasons')" onmouseover="SetPointer(this)">Discount reasons</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('revenueSources')" onmouseover="SetPointer(this)">Revenue sources</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('finReports')" onmouseover="SetPointer(this)">Reports</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)">Change password</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('home')" onmouseover="SetPointer(this)">Calendar</li>
                     </ul>
                     <hr>
                 <?php
@@ -193,54 +193,54 @@ $calendar = new Calendar();
                 if($_SESSION['role'] == "System"){ ?>
                 <h5 class="system-menu-title">Primary Menu</h5>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('primaryUsers')" onmouseover="SetPointer(this)"> <?= $lang[$_SESSION['lang']]["Staff"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('pupils')"onmouseover="SetPointer(this)">Pupils</li>
-                        <li class="menu-list-item" onclick="GotoPage('primaryReports')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Reports"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Calendar"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('events')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Add events"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('primarySendEmail')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["SendAnEmail"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primaryUsers')" onmouseover="SetPointer(this)"> <?= $lang[$_SESSION['lang']]["Staff"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('pupils')"onmouseover="SetPointer(this)">Pupils</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primaryReports')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Reports"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Calendar"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('events')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Add events"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primarySendEmail')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["SendAnEmail"]?></li>
                         <!--<li class="menu-list-item" onclick="GotoPage('sendSMS')" onmouseover="SetPointer(this)">Envoyer des SMS</li> -->
-                        <li class="menu-list-item" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Change your password"]?></li>
-                        <li class="menu-list-item" onclick="GotoPage('primarySettings')"onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Settings"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Change your password"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primarySettings')"onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Settings"]?></li>
                     </ul>
                     <hr>
                     <h5 class="system-menu-title">Secondary Menu</h5>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('users')" onmouseover="SetPointer(this)">Staff</li>
-                        <li class="menu-list-item" onclick="GotoPage('students')"onmouseover="SetPointer(this)">Students</li>
-                        <li class="menu-list-item" onclick="GotoPage('reports')" onmouseover="SetPointer(this)">Reports</li>
-                        <li class="menu-list-item" onclick="GotoPage('home')" onmouseover="SetPointer(this)">Calendar</li>
-                        <li class="menu-list-item" onclick="GotoPage('events')" onmouseover="SetPointer(this)">Add events</li>
-                        <li class="menu-list-item" onclick="GotoPage('sendEmail')" onmouseover="SetPointer(this)">Send Emails</li>
-                        <li class="menu-list-item" onclick="GotoPage('sendSMS')" onmouseover="SetPointer(this)">Send SMS</li>
-                        <li class="menu-list-item" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)">Change password</li>
-                        <li class="menu-list-item" onclick="GotoPage('settings')"onmouseover="SetPointer(this)">Settings</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('users')" onmouseover="SetPointer(this)">Staff</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('students')"onmouseover="SetPointer(this)">Students</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('reports')" onmouseover="SetPointer(this)">Reports</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('home')" onmouseover="SetPointer(this)">Calendar</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('events')" onmouseover="SetPointer(this)">Add events</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('sendEmail')" onmouseover="SetPointer(this)">Send Emails</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('sendSMS')" onmouseover="SetPointer(this)">Send SMS</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)">Change password</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('settings')"onmouseover="SetPointer(this)">Settings</li>
                     </ul>
                     <hr>
                     <h5 class="system-menu-title">Bursar Menu</h5>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('primaryFeeRec')" onmouseover="SetPointer(this)">Receive fees (Pri)</li>
-                        <li class="menu-list-item" onclick="GotoPage('feeRec')" onmouseover="SetPointer(this)">Receive fees (Sec)</li>
-                        <li class="menu-list-item" onclick="GotoPage('cashRec')" onmouseover="SetPointer(this)">Receive cash</li>
-                        <li class="menu-list-item" onclick="GotoPage('cashPay')" onmouseover="SetPointer(this)">Pay out cash</li>
-                        <li class="menu-list-item" onclick="GotoPage('discount')" onmouseover="SetPointer(this)">Discount</li>
-                        <li class="menu-list-item" onclick="GotoPage('bursarReports')" onmouseover="SetPointer(this)">Reports</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('primaryFeeRec')" onmouseover="SetPointer(this)">Receive fees (Pri)</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('feeRec')" onmouseover="SetPointer(this)">Receive fees (Sec)</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('cashRec')" onmouseover="SetPointer(this)">Receive cash</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('cashPay')" onmouseover="SetPointer(this)">Pay out cash</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('discount')" onmouseover="SetPointer(this)">Discount</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('bursarReports')" onmouseover="SetPointer(this)">Reports</li>
                     </ul>
                     <hr>
                     <h5 class="system-menu-title">Manager Menu</h5>
                     <ul class="menu-list">
-                        <li class="menu-list-item" onclick="GotoPage('feeSettings')" onmouseover="SetPointer(this)">Fee settings</li>
-                        <li class="menu-list-item" onclick="GotoPage('discountReasons')" onmouseover="SetPointer(this)">Discount reasons</li>
-                        <li class="menu-list-item" onclick="GotoPage('revenueSources')" onmouseover="SetPointer(this)">Revenue sources</li>
-                        <li class="menu-list-item" onclick="GotoPage('expenseSources')" onmouseover="SetPointer(this)">Expense sources</li>
-                        <li class="menu-list-item" onclick="GotoPage('finReports')" onmouseover="SetPointer(this)">Reports</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('feeSettings')" onmouseover="SetPointer(this)">Fee settings</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('discountReasons')" onmouseover="SetPointer(this)">Discount reasons</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('revenueSources')" onmouseover="SetPointer(this)">Revenue sources</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('expenseSources')" onmouseover="SetPointer(this)">Expense sources</li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('finReports')" onmouseover="SetPointer(this)">Reports</li>
                     </ul>
                     <hr>
                  <?php
                 }
                 ?> 
         <ul class="menu-list">
-            <li class="menu-list-item" onclick="GotoPage('viewchild')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["studentProfile"]?></li>
+            <li class="menu-list-item btn-primary" onclick="GotoPage('viewchild')" onmouseover="SetPointer(this)"><i class="fa fa-table"></i>  <?= $lang[$_SESSION['lang']]["studentProfile"]?></li>
         </ul>
         </div>
             <?php
@@ -248,7 +248,7 @@ $calendar = new Calendar();
         
         ?>
     </div>
-    <div id="container" class="col-xs-10 container-fluid">
+    <div id="container" class="col-md-10 col-sm-10 col-xs-10 container-fluid">
         <?php 
       if(isset($_SESSION['username']) && $_SESSION['username'] !== ""){
             if (isset($_GET['p']) && $_GET['p'] != "forgottenPw") {
@@ -261,6 +261,8 @@ $calendar = new Calendar();
             include "./html/forgottenPw.php";
        }elseif(isset($_GET['p']) && $_GET['p'] == 'viewchild'){
             include "./html/viewchild.php";
+       }elseif(isset($_GET['p']) && $_GET['p'] == 'status'){
+        include "./html/status.php";
        }else{
            include "./html/login.php";
       } 

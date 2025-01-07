@@ -68,11 +68,19 @@
 <p style="color:red;"><?= $result ?></p>
 <br>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-8">
-        <label id="label1"><?= $lang[$_SESSION['lang']]["RegisterNewStudent"] ?></label>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+            <label id="label1"><?= $lang[$_SESSION['lang']]["RegisterNewStudent"] ?></label>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-8">    
         <form action="" method="post">
         <div class="curved-box">
         <p>
@@ -157,7 +165,7 @@
     </div>
     
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
     </div>

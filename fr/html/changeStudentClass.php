@@ -25,10 +25,10 @@
 <p style="color:red;"><?= $result ?></p>
 <br>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <label id="label1"><?= $lang[$_SESSION['lang']]["EditClass"] ?>: <?= $Model->GetStudent($student_code, $section)[0]['name'] ?></label>
         <form action="" method="post">
         <div class="curved-box">
@@ -65,7 +65,7 @@
         
     </div>
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
     </div>

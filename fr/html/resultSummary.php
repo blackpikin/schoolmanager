@@ -8,15 +8,15 @@ if($lng == 'fr'){
 ?>
 <?php $type = $_GET['type']; ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1">Generate Report summary</label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
@@ -36,18 +36,18 @@ if($type == 'seq'){
         <br>
                 <br>
     <div class="row">
-            <div class="col-xs-3">
+            <div class="col-md-3 col-sm-3 col-xs-3">
 
             </div>
-            <div class="col-xs-6">
-                <p><a target="blank" href="./pdf/SequenceSummaryPdf.php?<?= $url ?>" title="Save as PDF" class="btn btn-primary"><i class="glyphicon glyphicon-download"></i> Save the summary as PDF</a></p>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <p><a target="blank" href="./pdf/SequenceSummaryPdf.php?<?= $url ?>" title="Save as PDF" class="btn btn-primary"><i class="fa fa-download"></i> Save the summary as PDF</a></p>
             </div>
-            <div class="col-xs-3">
+            <div class="col-md-3 col-sm-3 col-xs-3">
 
             </div>
     </div>
     <div class="row">
-        <div class="col-xs-11">
+        <div class="col-md-11 col-sm-11 col-xs-11">
         <?php
         foreach($students as $student){
             if(!in_array($student['student_code'], $student_codes)){
@@ -255,13 +255,13 @@ if(!empty($position_array)){
      <br>
     <br>
 <div class="row">
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 
         </div>
-        <div class="col-xs-3">
-            <p><a target="blank" href="./pdf/TermSummaryPdf.php?year_id=<?= $year_id ?>&class_id=<?= $class_id ?>&term_id=<?= $term_id ?>" title="Save as PDF" class="btn btn-primary"><i class="glyphicon glyphicon-download"></i> Save the summary as PDF</a></p>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <p><a target="blank" href="./pdf/TermSummaryPdf.php?year_id=<?= $year_id ?>&class_id=<?= $class_id ?>&term_id=<?= $term_id ?>" title="Save as PDF" class="btn btn-primary"><i class="fa fa-download"></i> Save the summary as PDF</a></p>
         </div>
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 
         </div>
 </div>

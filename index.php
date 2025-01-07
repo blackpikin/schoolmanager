@@ -42,7 +42,7 @@
     <script type="text/javascript" src="fr/js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="fr/js/bootstrap.min.js"></script>
 </head>
-<body class="grey-body" oncontextmenu="return false">
+<body class="grey-body bkg-page-body" oncontextmenu="return false">
 <div id="firstline" style="margin-top:75px;">
     <br>
     <div class="row">

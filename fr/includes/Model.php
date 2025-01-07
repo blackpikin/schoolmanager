@@ -2712,15 +2712,17 @@ class Model extends Database
 
     public function GetTranscriptMark($term_name, $subject, $student_code, $year_id, $class_id){
         //
-
+        /*
         if($this->IsMockable($class_id)){
             $term_exams_ids = $this->MocksForTerm($term_name, $year_id, $class_id);
         }else{
             $term_exams_ids = $this->ExamsForTerm($term_name, $year_id, $this->get_section());
         }
-
+        */
         $final_mark = "";
-        
+
+        $term_exams_ids = $this->ExamsForTerm($term_name, $year_id, $this->get_section());
+        count($term_exams_ids);
         if(count($term_exams_ids) == 2){
             $exam1 = $term_exams_ids[0]['id'];
             $exam2 = $term_exams_ids[1]['id'];
@@ -4838,4 +4840,81 @@ public function NewCash($amount, $source, $user_id, $dateof, $monthYear, $yearOn
         }
         return implode('', $initials);
     }
+
+    public function GetSomeStudent($student_code, $section){
+        $rows = array();
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare("SELECT id, `name`, gender, dob, pob, guardian, guardian_number, student_code, mother_name, father_name, adm_num, section  FROM students WHERE student_code = ? AND section = ?");
+
+            $stmt->execute([$student_code, $section]);
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $rows = $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+        return $rows;
+    }
+
+    public function Languages(){
+        $rows = ['FRENCH', 'ENGLISH LANGUAGE', 'AUXILLIARY ENGLISH'];
+        return $rows;
+    }
+
+    public function Sciences(){
+        $rows = 
+        [
+        'MATHEMATICS', 
+        'PURE MATHEMATICS', 
+        'PURE MATHS WITH MECHS', 
+        'PURE MATHS WITH STATS', 
+        'CHEMISTRY',
+        'BIOLOGY', 
+        'PHYSICS',
+        'FURTHER MATHEMATICS',
+        'COMPUTER SCIENCE', 
+        'INFORMATION AND COMMUNICATION TECHNOLOGY',
+        'HUMAN BIOLOGY',
+        'GEOLOGY',
+        'FOOD AND NUTRITION',
+    ];
+        return $rows;
+    }
+
+    public function Arts(){
+        $rows = 
+        [
+        'HISTORY', 
+        'CITIZENSHIP', 
+        'GEOGRAPHY', 
+        'ECONOMICS', 
+        'COMMERCE',
+        'LITERATURE',
+        'HOME ECONOMICS',
+        'LOGIC'           
+    ];
+        return $rows;
+    }
+
+    public function OtherSubjects(){
+        $rows = 
+        [
+        'PUBLIC SPEAKING/CC', 
+        'SPORTS', 
+        'MANUAL LABOUR', 
+        'MORAL EDUCATION', 
+        'RELIGIOUS STUDIES'          
+    ];
+        return $rows;
+    }
+
 }

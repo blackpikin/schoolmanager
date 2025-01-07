@@ -6,10 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
         <h3 id="label1"><?= $lang[$_SESSION['lang']]["ImportStudents"] ?></h3>
         <br>
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </form>
         </p>
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2col-xs-2">
 
     </div>
 </div>

@@ -6,26 +6,26 @@
     }
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["ClassSettings"] ?></label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <button class="btn btn-primary button-width" onclick="GotoPage('classSettings')"><?= $lang[$_SESSION['lang']]["AddNewClass"] ?></button>   
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>
@@ -55,8 +55,8 @@
                      ?>
                 </td>
                 <td>
-                    <button title="<?= $lang[$_SESSION['lang']]["EditClass"] ?>" class="glyphicon glyphicon-edit" onclick="GotoPage('modifyClass&ref=<?= $class['id']?>')"></button>
-                    <button title="<?= $lang[$_SESSION['lang']]["viewClassSubjects"] ?>" class="glyphicon glyphicon-list" onclick="GotoPage('viewClassSubjects&ref=<?= $class['id'] ?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["EditClass"] ?>" class="fa fa-edit" onclick="GotoPage('modifyClass&ref=<?= $class['id']?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["viewClassSubjects"] ?>" class="fa fa-list" onclick="GotoPage('viewClassSubjects&ref=<?= $class['id'] ?>')"></button>
                 </td>
             </tr>
             <?php

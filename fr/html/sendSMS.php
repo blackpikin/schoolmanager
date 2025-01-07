@@ -27,18 +27,18 @@
 
 ?>
 <div class="row">
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-6">
+    <div class="col-md-6 col-sm-6 col-xs-6">
         <h2 id="label1">Send SMS to Parents</h2>
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-7">
+    <div class="col-md-7 col-sm-7 col-xs-7">
         <div class="curved-box">
             <form action="" method="post">
             <h5>Select the classes:</h5>
@@ -70,7 +70,7 @@
             </form>
         </div>
     </div>
-    <div class="col-xs-4 curved-box">
+    <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
             <h4>SMS Sender's Results</h4>
             <?php 
             if (!empty($result)){

@@ -42,23 +42,23 @@ $uploadOk = 1; $result ="";
 ?>
 <p style="color:red;"><?= $result ?></p>
 <div class="row" style="margin-top: 50px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["StudentFiles"] ?></label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-5">
+    <div class="col-md-5 col-sm-5 col-xs-5">
           <div class="curved-box">
             <h4><?= $lang[$_SESSION['lang']]["UploadANewFile"] ?></h4>
                 <form action="" method="post" enctype="multipart/form-data">
@@ -72,7 +72,7 @@ $uploadOk = 1; $result ="";
                 </form>
           </div>
     </div>
-    <div class="col-xs-5">
+    <div class="col-md-5 col-sm-5 col-xs-5">
     <div class="curved-box">
             <h4><?= $lang[$_SESSION['lang']]["ExistingFiles"] ?></h4>
                 <table class="table table-bordered table-responsive">
@@ -106,7 +106,7 @@ $uploadOk = 1; $result ="";
                 </table>
           </div>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>

@@ -260,6 +260,24 @@ class EdunaModel extends Edunabase
         
     }
 
+    public function SequenceMark($term_id, $subject_id, $student_code, $academic_year_id, $class_id, $seq1_id){
+        $seq = $this->ExamsForTerm($term_id, $academic_year_id, $subject_id, $seq1_id, $class_id);
+        if($seq != ""){
+            if(isset($this->GetSomeWithCriteria('user_mgt_testmarks', ['marks_on_fixed_limit'], ['test_id'=>$seq, 'yearly_student_id'=>$student_code])[0]['marks_on_fixed_limit'])){
+                $mark1 = $this->GetSomeWithCriteria('user_mgt_testmarks', ['marks_on_fixed_limit'], ['test_id'=>$seq, 'yearly_student_id'=>$student_code])[0]['marks_on_fixed_limit'];
+            }else{
+                $mark1 = '';
+            }
+         }else{
+            $mark1 = '';
+        }
+        if($mark1 != ''){
+            return round($mark1, 2);
+        }else{
+            return '';
+        }
+    }
+
     public function StudentDidSubject($subject_id, $student_code){
         
     }

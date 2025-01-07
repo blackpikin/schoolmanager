@@ -44,21 +44,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1">Modify fee settings</label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <p style="color:red; font-weight:bold;"><?= $result ?></p>
 <div class="row">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
     <label>Select the class</label>
         <select id="c_name" class="form-control">
             <option value="">Select a class</option>
@@ -101,7 +101,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <button class="btn btn-primary" onclick="LoadFeeSettings()">View</button>
         </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
     <div id="fee_list" class="curved-box">
     <form action="" method="post">
         <h4><u>Fees</u></h4>
@@ -124,7 +124,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </form>
     </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
     
     </div>
 </div>

@@ -18,15 +18,15 @@
     }
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
-            <label id="label1"><?= $lang[$_SESSION['lang']]["StudentSettings"] ?></label>
+            <h2 id="label1"><?= $lang[$_SESSION['lang']]["StudentSettings"] ?></h2>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
@@ -34,18 +34,18 @@
     <div class="">
 
     </div>
-    <div class="col-xs-9">
+    <div class="col-md-9 col-sm-9 col-xs-9">
         <button class="btn btn-primary button-width" onclick="GotoPage('studentSettings')"><?= $lang[$_SESSION['lang']]["NewStudent"] ?></button>
         <br>
         <br>
     </div>
-    <div class="col-xs-3"></div>
+    <div class="col-md-3 col-sm-3 col-xs-3"></div>
     </div>
     <div class="row">
-    <div class="col-xs-6">
+    <div class="col-md-6 col-sm-6 col-xs-6">
         <form id="perclass" action="" method="post">
             <label><?= $lang[$_SESSION['lang']]["SelectClassToviewStudents"] ?></label>
-            <select name="c_name" class="form-control" onchange="ClassList(this)">
+            <select id="c_name" name="c_name" class="form-control" onchange="ClassList(this)">
             <?php 
                 if($class_id == ''){
                     ?>
@@ -71,21 +71,24 @@
         </form>
         <br>
     </div>
-    <div class="col-xs-6"></div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+    <br>
+    <button onclick="DownloadCSVFile()" class="btn btn-secondary button-width fa fa-download">&nbsp;&nbsp;Save class CSV</>
+    </div>
     </div>
 
     <div class="row">
     <div class="">
 
     </div>
-    <div class="col-xs-11">
+    <div class="col-md-11 col-sm-11 col-xs-11">
     <form action="" method="post">
     <div class="row">
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
     <input name="srch" style="height:55px;" type="text" value="<?= $srch ?>" placeholder="<?= $lang[$_SESSION['lang']]["SearchStudentPlaceholder"] ?>" class="form-control" >
     </div>
-    <div class="col-xs-4">
-        <button type="submit" style="height:55px;width:55px;" class="btn btn-warning glyphicon glyphicon-search"></button>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <button type="submit" style="height:55px;width:55px;" class="btn btn-warning fa fa-search"></button>
     </div>
     </div>
     </form>
@@ -138,13 +141,13 @@
                         <td><?= $className ?></td>
                         <td><?= $result['guardian_number'] ?></td>
                         <td>
-                        <button title="Edit student's info" class="glyphicon glyphicon-edit" onclick="GotoPage('modifyStudent&ref=<?= $result['student_code'] ?>')"></button>
-                        <button title="Change the student's class" class="glyphicon glyphicon-signal" onclick="GotoPage('changeStudentClass&ref=<?= $result['student_code'] ?>')"></button>
-                        <button title="View Student's profile" class="glyphicon glyphicon-list" onclick="GotoPage('studentProfile&ref=<?= $result['student_code'] ?>')"></button>
-                        <button title="View student's documents" class="glyphicon glyphicon-file" onclick="GotoPage('studentFiles&ref=<?= $result['student_code'] ?>')"></button>
-                        <button title="Change student's picture" class="glyphicon glyphicon-picture" onclick="GotoPage('studentPicture&ref=<?= $result['student_code'] ?>')"></button>
-                        <button title="Certificates" class="glyphicon glyphicon-folder-open" onclick="GotoPage('studentCert&ref=<?= $result['student_code'] ?>')"></button>
-                        <button title="Student's Achievements/Conduct" class="glyphicon glyphicon-record" onclick="GotoPage('studentConduct&ref=<?= $result['student_code'] ?>')"></button>
+                        <button title="Edit student's info" class="btn btn-outline-secondary fa fa-edit" onclick="GotoPage('modifyStudent&ref=<?= $result['student_code'] ?>')"></button>
+                        <button title="Change the student's class" class="btn btn-outline-secondary fa fa-signal" onclick="GotoPage('changeStudentClass&ref=<?= $result['student_code'] ?>')"></button>
+                        <button title="View Student's profile" class="btn btn-outline-secondary fa fa-list" onclick="GotoPage('studentProfile&ref=<?= $result['student_code'] ?>')"></button>
+                        <button title="View student's documents" class="btn btn-outline-secondary fa fa-file" onclick="GotoPage('studentFiles&ref=<?= $result['student_code'] ?>')"></button>
+                        <button title="Change student's picture" class="btn btn-outline-secondary fa fa-photo" onclick="GotoPage('studentPicture&ref=<?= $result['student_code'] ?>')"></button>
+                        <button title="Certificates" class="btn btn-outline-secondary fa fa-folder-open" onclick="GotoPage('studentCert&ref=<?= $result['student_code'] ?>')"></button>
+                        <button title="Student's Achievements/Conduct" class="btn btn-outline-secondary fa fa-calendar" onclick="GotoPage('studentConduct&ref=<?= $result['student_code'] ?>')"></button>
                     </td>
                         </tr>
                         <?php
@@ -160,7 +163,7 @@
                 ?>
                 </div>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
     </div>

@@ -13,40 +13,39 @@
     }
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
-        <p>
-            <label id="label1"><?= $lang[$_SESSION['lang']]["StaffSettings"] ?></label>
-        </p>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+            <h2 id="label1"><?= $lang[$_SESSION['lang']]["StaffSettings"] ?></h2>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-7">
+    <div class="col-md-7 col-sm-7 col-xs-7">
         <button class="btn btn-primary button-width" onclick="GotoPage('staffSettings')"><?= $lang[$_SESSION['lang']]["NewStaff"] ?></button>   
     </div>
-    <div class="col-xs-5">
+    <div class="col-md-5 col-sm-5 col-xs-5">
 
     </div>
 </div>
 <br>
 <form action="" method="post">
     <div class="row">
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
     <input name="srch" style="height:55px;" type="text" value="<?= $srch ?>" placeholder="<?= $lang[$_SESSION['lang']]["SearchStaffPlaceHolder"] ?>" class="form-control" >
     </div>
-    <div class="col-xs-4">
-        <button type="submit" style="height:55px;width:55px;" class="btn btn-warning glyphicon glyphicon-search"></button>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <button type="submit" style="height:55px;width:55px;" class="btn btn-outline-warning fa fa-search"></button>
     </div>
     </div>
-    </form>
+</form>
     <br>
-
-<table class="table tabel-responsive table-bordered">
+<div class="row">
+<div class="col-md-11 col-sm-11 col-xs-11">
+<table class="table table-responsive table-bordered table-hover">
     <tr class="table-header">
         <td>#</td>
         <td><?= $lang[$_SESSION['lang']]["Name"] ?></td>
@@ -87,12 +86,12 @@
                     <?= date_format($date, "d-m-Y") ?>
                 </td>
                 <td>
-                    <button title="<?= $lang[$_SESSION['lang']]["EditStaffInfo"] ?>" class="glyphicon glyphicon-edit" onclick="GotoPage('modifyStaff&ref=<?= $user['id']?>')"></button>
-                    <button title="<?= $lang[$_SESSION['lang']]["ViewStaffFiles"] ?>" class="glyphicon glyphicon-file" onclick="GotoPage('staffFiles&ref=<?= $user['id']?>')"></button>
-                    <button title="<?= $lang[$_SESSION['lang']]["AssignSubjects"] ?>" class="glyphicon glyphicon-user" onclick="GotoPage('staffSubjects&ref=<?= $user['id']?>')"></button>
-                    <button title="<?= $lang[$_SESSION['lang']]["StaffDays"] ?>" class="glyphicon glyphicon-calendar" onclick="GotoPage('staffDays&ref=<?= $user['id']?>')"></button> 
-                    <button title="<?= $lang[$_SESSION['lang']]["FillInMarks"] ?>" class="glyphicon glyphicon-check" onclick="GotoPage('registermarks&ref=<?= $user['id']?>')"></button> 
-                    <button title="<?= $lang[$_SESSION['lang']]["ResetPassword"] ?>" class="glyphicon glyphicon-refresh" onclick="ResetUserPassword('<?= $user['id']?>')"></button> 
+                    <button title="<?= $lang[$_SESSION['lang']]["EditStaffInfo"] ?>" class="btn btn-outline-secondary fa fa-edit" onclick="GotoPage('modifyStaff&ref=<?= $user['id']?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["ViewStaffFiles"] ?>" class="btn btn-outline-secondary fa fa-file" onclick="GotoPage('staffFiles&ref=<?= $user['id']?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["AssignSubjects"] ?>" class="btn btn-outline-secondary fa fa-user" onclick="GotoPage('staffSubjects&ref=<?= $user['id']?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["StaffDays"] ?>" class="btn btn-outline-secondary fa fa-calendar" onclick="GotoPage('staffDays&ref=<?= $user['id']?>')"></button> 
+                    <button title="<?= $lang[$_SESSION['lang']]["FillInMarks"] ?>" class="btn btn-outline-secondary fa fa-check" onclick="GotoPage('registermarks&ref=<?= $user['id']?>')"></button> 
+                    <button title="<?= $lang[$_SESSION['lang']]["ResetPassword"] ?>" class="btn btn-outline-secondary fa fa-refresh" onclick="ResetUserPassword('<?= $user['id']?>')"></button> 
                 </td>
             </tr>
             <?php
@@ -100,3 +99,8 @@
     }   
     ?>
 </table>
+</div>
+<div class="col-md-1 col-sm-1 col-xs-1">
+
+    </div>
+</div>

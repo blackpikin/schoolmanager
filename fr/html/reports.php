@@ -1,21 +1,21 @@
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
-            <label id="label1"><?= $lang[$_SESSION['lang']]["Reports"] ?></label>
+            <h2 id="label1"><?= $lang[$_SESSION['lang']]["Reports"] ?></h2>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-4 curved-box">
+    <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
         <button class="btn btn-primary button-width" onclick="GotoPage('classLists')"><?= $lang[$_SESSION['lang']]["Class lists"] ?>&nbsp;&nbsp;</button>
         <br>
         <br>
@@ -29,7 +29,7 @@
          <button class="btn btn-primary button-width" onclick="GotoPage('schoolIDs')"><?= $lang[$_SESSION['lang']]["School identity cards"] ?></button>
         <br>
     </div>
-    <div class="col-xs-4 curved-box">
+    <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
         <button class="btn btn-primary button-width" onclick="GotoPage('sequenceStatistics')"><?= $lang[$_SESSION['lang']]['Sequence statistics'] ?></button>
         <br>
         <br>
@@ -43,15 +43,15 @@
         <button class="btn btn-primary button-width" onclick="GotoPage('convertMarks')"><?= $lang[$_SESSION['lang']]['ConvertMarks'] ?></button>
         <br>        
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-4 curved-box">
+    <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
     <button class="btn btn-primary button-width" onclick="GotoPage('editClosedExams')"><?= $lang[$_SESSION['lang']]['Closed Exams'] ?></button>
         <br>
         <br>
@@ -61,7 +61,7 @@
         <button class="btn btn-primary button-width" onclick="GotoPage('printMarksheets')"><?= $lang[$_SESSION['lang']]['Print Marksheet'] ?></button>
         <br>
     </div>
-    <div class="col-xs-4 curved-box">
+    <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
         <button class="btn btn-primary button-width" onclick="GotoPage('recAbsences')"><?= $lang[$_SESSION['lang']]['Record absences'] ?></button>
         <br> 
         <br>
@@ -73,9 +73,12 @@
          <br>
 -->
         <button class="btn btn-primary button-width" onclick="GotoPage('annualStats')"><?= $lang[$_SESSION['lang']]['Annual Marksheet'] ?></button>
-        <br>      
+        <br> 
+        <br>
+        <button class="btn btn-primary button-width" onclick="GotoPage('phoneBase')"><?= $lang[$_SESSION['lang']]['phonebook'] ?></button>
+        <br>       
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>

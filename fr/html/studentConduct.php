@@ -48,24 +48,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-10">
+    <div class="col-md-10 col-sm-10 col-xs-10">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["Conduct"] ?>/<?= $lang[$_SESSION['lang']]["Achifment"] ?>  - <?= $data[0]['name'] ?></label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-10">
+    <div class="col-md-10 col-sm-10 col-xs-10">
     <div class="curved-box">
         <span style="color:red;"><?= $pictureErr ?></span>
     <form method="post" action="">
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </form>
 </div>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-md-1 col-xs-1">
 
     </div>
 </div>

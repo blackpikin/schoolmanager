@@ -12,35 +12,35 @@
     
 ?>
 <div class="row" style="margin-top: 50px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]['ExamSettings'] ?></label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <button class="btn btn-primary button-width" onclick="GotoPage('exam')"><?= $lang[$_SESSION['lang']]['NewExam'] ?></button>   
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
 </div>
 <br>
 <div class="row">
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
-    <div class="col-xs-10">
+    <div class="col-md-10 col-sm-10 col-xs-10">
        <table class="table table-responsive table-bordered">
            <tr class="table-header">
                <td><?= $lang[$_SESSION['lang']]['TERM'] ?></td>
@@ -90,7 +90,7 @@
            ?>
        </table>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>

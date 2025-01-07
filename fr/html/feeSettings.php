@@ -57,21 +57,21 @@
 
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <p>
             <label id="label1">Fee settings</label>
         </p>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
 
     </div>
 </div>
 <p style="color:red; font-weight:bold;"><?= $result ?></p>
 <div class="row">
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <h3>Primary</h3>
         <div class="curved-box">
             <h4><u>Classes</u></h4>
@@ -110,7 +110,7 @@
             ?>
         </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
     <div class="curved-box">
         <h4><u>Fees</u></h4>
         <label>Total fees</label>
@@ -129,7 +129,7 @@
         <input  type="number" required="required" onfocusout="ComputeTotalFee()" class="form-control fees_input" id="second" value="<?= $second ?>" name="second">
     </div>
     </div>
-    <div class="col-xs-4">
+    <div class="col-md-4 col-sm-4 col-xs-4">
         <div class="curved-box">
         <h4><u>Student type</u></h4>
         <input id="new" type="radio" name="newold" value="new" required="required"> New

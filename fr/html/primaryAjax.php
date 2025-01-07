@@ -171,7 +171,7 @@ if ($action == 'PrintableClassList'){
     $data = "";
     $mixed_stds = [];
     if(!empty($students)){
-        $data .= '<a target="blank" href="./pdf/primaryClassListPdf.php?ref='.$class_id.'" title="Save as PDF" class="btn btn-primary glyphicon glyphicon-download">&nbsp;Save as PDF</a></p>';
+        $data .= '<a target="blank" href="./pdf/primaryClassListPdf.php?ref='.$class_id.'" title="Save as PDF" class="btn btn-primary fa fa-download">&nbsp;Save as PDF</a></p>';
         $data .= '<br><table class="table table-bordered table-responsive">';
         $data .= '<tr class="table-header"><td>SN</td><td>'.$lang[$_SESSION['lang']]["Name"].'</td><td>'.$lang[$_SESSION['lang']]["Gender"].'</td> <td>T1</td><td>T2</td> <td>T3</td><td>T4</td> <td>T5</td><td>T6</td></tr>';
         foreach($students as $student){

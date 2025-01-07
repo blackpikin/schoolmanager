@@ -12,18 +12,18 @@ if(!empty($students)){
      <br>
             <br>
 <div class="row">
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 
         </div>
-        <div class="col-xs-3">
-            <p><a target="blank" href="./pdf/SequenceRepPdf.php?<?= $url ?>" title="Save as PDF" class="btn btn-primary"><i class="glyphicon glyphicon-download"></i> Save the reports as PDF</a></p>
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <p><a target="blank" href="./pdf/SequenceRepPdf.php?<?= $url ?>" title="Save as PDF" class="btn btn-primary"><i class="fa fa-download"></i> Save the reports as PDF</a></p>
         </div>
-        <div class="col-xs-3">
+        <div class="col-md-3 col-sm-3 col-xs-3">
 
         </div>
 </div>
 <div class="row">
-    <div class="col-xs-11">
+    <div class="col-md-11 col-sm-11 col-xs-11">
     <?php
     foreach($students as $student){
         if(!in_array($student['student_code'], $student_codes)){
@@ -247,7 +247,7 @@ if(!empty($students)){
 }
 ?>
     </div>
-<div class="col-xs-1">
+<div class="col-md-1 col-sm-1 col-xs-1">
 
 </div>
 </div>

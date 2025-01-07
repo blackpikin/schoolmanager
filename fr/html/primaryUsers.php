@@ -40,7 +40,7 @@
     <input name="srch" style="height:55px;" type="text" value="<?= $srch ?>" placeholder="<?= $lang[$_SESSION['lang']]["SearchStaffPlaceHolder"] ?>" class="form-control" >
     </div>
     <div class="col-xs-4">
-        <button type="submit" style="height:55px;width:55px;" class="btn btn-warning glyphicon glyphicon-search"></button>
+        <button type="submit" style="height:55px;width:55px;" class="btn btn-warning fa fa-search"></button>
     </div>
     </div>
     </form>
@@ -87,13 +87,13 @@
                     <?= date_format($date, "d-m-Y") ?>
                 </td>
                 <td>
-                    <button title="<?= $lang[$_SESSION['lang']]["EditStaffInfo"] ?>" class="glyphicon glyphicon-edit" onclick="GotoPage('modifyStaff&ref=<?= $user['id']?>')"></button>
-                    <button title="<?= $lang[$_SESSION['lang']]["ViewStaffFiles"] ?>" class="glyphicon glyphicon-file" onclick="GotoPage('staffFiles&ref=<?= $user['id']?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["EditStaffInfo"] ?>" class="fa fa-edit" onclick="GotoPage('modifyStaff&ref=<?= $user['id']?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["ViewStaffFiles"] ?>" class="fa fa-file" onclick="GotoPage('staffFiles&ref=<?= $user['id']?>')"></button>
                     <!--
-                    <button title="<?= $lang[$_SESSION['lang']]["AssignSubjects"] ?>" class="glyphicon glyphicon-user" onclick="GotoPage('staffSubjects&ref=<?= $user['id']?>')"></button>
-                    <button title="<?= $lang[$_SESSION['lang']]["FillInMarks"] ?>" class="glyphicon glyphicon-check" onclick="GotoPage('registermarks&ref=<?= $user['id']?>')"></button> 
+                    <button title="<?= $lang[$_SESSION['lang']]["AssignSubjects"] ?>" class="fa fa-user" onclick="GotoPage('staffSubjects&ref=<?= $user['id']?>')"></button>
+                    <button title="<?= $lang[$_SESSION['lang']]["FillInMarks"] ?>" class="fa fa-check" onclick="GotoPage('registermarks&ref=<?= $user['id']?>')"></button> 
                      -->
-                    <button title="<?= $lang[$_SESSION['lang']]["ResetPassword"] ?>" class="glyphicon glyphicon-refresh" onclick="ResetUserPassword('<?= $user['id']?>')"></button> 
+                    <button title="<?= $lang[$_SESSION['lang']]["ResetPassword"] ?>" class="fa fa-refresh" onclick="ResetUserPassword('<?= $user['id']?>')"></button> 
                 </td>
             </tr>
             <?php

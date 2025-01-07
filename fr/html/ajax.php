@@ -402,7 +402,7 @@ if ($action == 'CodeList'){
         }
 
         $data .= '</table><p>';
-        $data .= '<a target="blank" href="./pdf/codelistPdf.php?ref='.$class_id.'" title="'.$lang[$_SESSION['lang']]['Save list as PDF'].'" class="btn btn-primary glyphicon glyphicon-download">'.$lang[$_SESSION['lang']]['Save list as PDF'].'</a></p>';
+        $data .= '<a target="blank" href="./pdf/codelistPdf.php?ref='.$class_id.'" title="'.$lang[$_SESSION['lang']]['Save list as PDF'].'" class="btn btn-primary fa fa-download">'.$lang[$_SESSION['lang']]['Save list as PDF'].'</a></p>';
         echo $data;
     }else{
         echo "No students in this class for this year";
@@ -686,7 +686,7 @@ if ($action == 'PrintableEnrolment'){
     //calculate grand total
     $data .= '<tr class="normal-tr"><td><b>Total</b></td><td>'.$Gmales.'</td><td>'.$Gfemales.'</td><td>'.$Gtotal.'</td></tr>';
     $data .= '</table><p>';
-    $data .= '<a target="blank" href="./pdf/enrolmentListPdf.php?ref='.$year_id.'" title="Save as PDF" class="btn btn-primary glyphicon glyphicon-download"></a></p>';
+    $data .= '<a target="blank" href="./pdf/enrolmentListPdf.php?ref='.$year_id.'" title="Save as PDF" class="btn btn-primary fa fa-download"></a></p>';
 
 
     echo $data;
@@ -699,7 +699,7 @@ if ($action == 'PrintableClassList'){
     $data = "";
     $mixed_stds = [];
     if(!empty($students)){
-        $data .= '<a target="blank" href="./pdf/classlistPdf.php?ref='.$class_id.'" title="Save as PDF" class="btn btn-primary glyphicon glyphicon-download">&nbsp;Save as PDF</a></p>';
+        $data .= '<a target="blank" href="./pdf/classlistPdf.php?ref='.$class_id.'" title="Save as PDF" class="btn btn-primary fa fa-download">&nbsp;Save as PDF</a></p>';
         $data .= '<br><table class="table table-bordered table-responsive">';
         $data .= '<tr class="table-header"><td>SN</td><td>'.$lang[$_SESSION['lang']]["Name"].'</td><td>'.$lang[$_SESSION['lang']]["Gender"].'</td> <td>T1</td><td>T2</td> <td>T3</td><td>T4</td> <td>T5</td><td>T6</td></tr>';
         foreach($students as $student){
@@ -939,5 +939,37 @@ if ($action == "CopyMarks"){
     }
 
     echo $data;
+
+}
+
+if ($action == 'PhoneList'){
+    $class_id = $_POST['classID'];
+    $students = $Model->StudentCodesPerYear($class_id, $Model->GetCurrentYear()[0]['id']);
+    $data = "";
+    $mixed_stds = [];
+    if(!empty($students)){
+        $data .= '<a target="blank" href="./pdf/phonelistPdf.php?ref='.$class_id.'" title="Save as PDF" class="btn btn-primary fa fa-download">&nbsp;Save as PDF</a></p>';
+        $data .= '<br><table class="table table-bordered table-responsive">';
+        $data .= '<tr class="table-header"><td>SN</td><td>'.$lang[$_SESSION['lang']]["Name"].'</td><td>'.$lang[$_SESSION['lang']]["Gender"].'</td> <td>'.$lang[$_SESSION['lang']]["GuardianPhone"].'</td><td>'.$lang[$_SESSION['lang']]["GuardianName"].'</td></tr>';
+        foreach($students as $student){
+            $std = $Model->GetStudent($student['student_code'], $section);
+            $mixed_stds[$student['student_code']] = $std[0]['name'];
+        }
+
+        asort($mixed_stds);
+
+        $sn = 1;
+
+        foreach($mixed_stds as $code => $student){
+            $stud = $Model->GetStudent($code, $section)[0];
+            $data .= '<tr class="normal-tr"><td>'.$sn++.'</td><td>'.$student.'</td><td>'.$stud['gender'].'</td><td>'.$stud['guardian_number'].'</td><td>'.$stud['guardian'].'</td> </tr>';
+        }
+
+        $data .= '</table><p>';
+        echo $data;
+    }else{
+        echo "No one in this class this year";
+    }
+   
 
 }

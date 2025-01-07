@@ -66,7 +66,7 @@
 <p style="color:red;"><?= $result ?></p>
 <br>
 <div class="row">
-    <div class="col-xs-11">
+    <div class="col-md-11 col-sm-11 col-xs-11">
     <p>
         <label id="label1"><?= $lang[$_SESSION['lang']]['NewSubject'] ?></label>
     </p>
@@ -79,7 +79,7 @@
     <p>
         <label><?= $lang[$_SESSION['lang']]['Class'] ?></label>
         <div class="row ">
-            <div class="curved-box col-xs-6">
+            <div class="curved-box col-md-6 col-sm-6 col-xs-6">
                 <span style="font-weight:bold;"><?= $lang[$_SESSION['lang']]['FIRST'] ?> CYCLE</span><br>
                     <?php 
                         $cycle1 = $Model->GetSchoolClasses('FIRST', $section);
@@ -116,8 +116,8 @@
         </div>
         <input type="checkbox" name="Fpracto[]">&nbsp;<label>Subject has practicals</label>
             </div>
-            <div class="col-xs-1"></div>
-            <div class="curved-box col-xs-5">
+            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="curved-box col-md-5 col-sm-5 col-xs-5">
                 <span style="font-weight:bold;"><?= $lang[$_SESSION['lang']]['SECOND'] ?> CYCLE</span><br>
                 <?php 
                         $cycle1 = $Model->GetSchoolClasses('SECOND', $section);
@@ -164,7 +164,7 @@
     </div>
     </div>
    
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>

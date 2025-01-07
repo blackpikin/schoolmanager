@@ -54,12 +54,21 @@
 <br>
 <p style="color:red;"><?= $result ?></p>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-8">
-        
-        <label id="label1">Add new Staff</label>
+    <div class="col-md-8 col-xs-8 col-xs-8">
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <h2 id="label1">Add new Staff</h2>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+
+            </div>
+        </div>
         <div class="curved-box">
         <form action="" method="post">
         <p>
@@ -101,7 +110,7 @@
         </form>
         </div>
     </div>
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
     </div>

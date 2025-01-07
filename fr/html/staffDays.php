@@ -24,23 +24,23 @@
 <p style="color:red;"><?= $result ?></p>
 <br>
 <div class="row" >
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["AvailableDaysFor"] ?> <?= $Model->GetUser($_GET['ref'])[0]['name'] ?></label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 <div class="row">
-<div class="col-xs-3">
+<div class="col-md-3 col-sm-3 col-xs-3">
 
 </div>
-<div class="col-xs-6 curved-box">
+<div class="col-md-6 col-sm-6 col-xs-6 curved-box">
     <form action="" method="post">
        <p><input type="checkbox" name="days[]" value="Monday"><label> Monday</label></p>
        <p><input type="checkbox" name="days[]" value="Tuesday"><label> Tuesday</label></p>
@@ -52,7 +52,7 @@
     </form>
 </div>
 <label>Selected days: <br><?= isset($staff_days[0]['dow']) ? $staff_days[0]['dow'] : 'None' ?></label>
-<div class="col-xs-3">
+<div class="col-md-3 col-sm-3 col-xs-3">
     
 </div>
 </div>

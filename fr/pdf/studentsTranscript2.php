@@ -26,6 +26,8 @@ class PDF extends FPDF
 // Page header
 function Header()
     {
+        //bkg
+        $this->Image('../img/pagebkg.png',50,25,200, 200);
         // Logo
         $this->Image('../img/letterhead.png',50,2,200);
        

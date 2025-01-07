@@ -36,24 +36,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 ?>
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
-    <div class="col-xs-8">
+    <div class="col-md-8 col-sm-8 col-xs-8">
         <p>
             <label id="label1"><?= $lang[$_SESSION['lang']]["Change your password"] ?></label>
         </p>
     </div>
-    <div class="col-xs-1">
+    <div class="col-md-1 col-sm-1 col-xs-1">
 
     </div>
 </div>
 
 <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-2">
+    <div class="col-md-2 col-sm-2 col-xs-2">
 
     </div>
-    <div class="col-xs-7">
+    <div class="col-md-7 col-sm-7 col-xs-7">
     <div class="curved-box">
         <span style="color:red; font-weight:bold;"><?= $result ?></span>
         <form action="" method="post">
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         </form>
     </div>
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3">
 
     </div>
 </div>
