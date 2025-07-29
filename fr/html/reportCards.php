@@ -162,7 +162,20 @@
        </div>
        <div class="col-md-3 col-sm-3 col-xs-3">
            <br>
-            <button class="btn btn-primary button-width" onclick="TermReport()"><?= $lang[$_SESSION['lang']]['TermReps'] ?></button>
+           <?php 
+                $report_style = $Model->GetAllWithCriteria('report_templates', ['selected' => 1])[0]['template'];
+           ?>
+           <?php
+                if($report_style == 'british') {
+                    ?>
+                        <button class="btn btn-primary button-width" onclick="BritishTermReport()"><?= $lang[$_SESSION['lang']]['TermReps'] ?></button>
+                    <?php
+                }else{
+                    ?>
+                    <button class="btn btn-primary button-width" onclick="TermReport()"><?= $lang[$_SESSION['lang']]['TermReps'] ?></button>
+                    <?php
+                }
+           ?>
             <br><br>
             <button class="btn btn-primary button-width" onclick="TermSummary()"><?= $lang[$_SESSION['lang']]['TermSumm'] ?></button>
             <br><br>

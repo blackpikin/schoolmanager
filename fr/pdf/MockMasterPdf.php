@@ -79,12 +79,12 @@ if($class_cycle == 'FIRST'){
             $pdf->Cell(60,7,$subject['subject'],1);
         }
         
-        $pdf->Cell(20,7,$Model->CountOLevelGrade('A', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountOLevelGrade('B', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountOLevelGrade('C', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountOLevelGrade('D', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountOLevelGrade('E', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountOLevelGrade('U', $year_id, $class_id, $exam_id, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountOLevelGrade('A', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountOLevelGrade('B', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountOLevelGrade('C', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountOLevelGrade('D', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountOLevelGrade('E', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountOLevelGrade('U', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
     }
 }else{
     $pdf = new PDF();
@@ -114,13 +114,13 @@ if($class_cycle == 'FIRST'){
         }else{
             $pdf->Cell(60,7,$subject['subject'],1);
         }
-        $pdf->Cell(20,7,$Model->CountALevelGrade('A', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountALevelGrade('B', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountALevelGrade('C', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountALevelGrade('D', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountALevelGrade('E', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountALevelGrade('O', $year_id, $class_id, $exam_id, $subject['subject']),1);
-        $pdf->Cell(20,7,$Model->CountALevelGrade('F', $year_id, $class_id, $exam_id, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountALevelGrade('A', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountALevelGrade('B', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountALevelGrade('C', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountALevelGrade('D', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountALevelGrade('E', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountALevelGrade('O', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
+        $pdf->Cell(20,7,$Model->CountALevelGrade('F', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']),1);
     }
 }
 $pdf->Output();

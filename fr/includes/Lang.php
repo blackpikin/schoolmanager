@@ -666,3 +666,4 @@ $lang['fr']['default'] = 'Standard';
 $lang['eng']['default'] = 'Standard';
 $lang['fr']['avg'] = 'Moy';
 $lang['eng']['avg'] = 'Avg';
+

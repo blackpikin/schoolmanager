@@ -47,7 +47,7 @@ function Header()
 ///////////////////////////////////////////////////////////////////////////////
 $year_id = $_GET['year_id'];
 $class_id = $_GET['class_id'];
-$exam_name = $_GET['exam_name'];
+$exam_name = $_GET['exam_id'];
 $exam_id = $Model->GetMockExam($year_id, $exam_name)[0]['id'];
 $page_title =  $exam_name." MASTER SHEET - ".$Model->GetAClassName($class_id)." - ".$Model->GetYearName($year_id);
 $pdf = new PDF();
@@ -98,7 +98,7 @@ foreach($students as $student){
 
     foreach($subjects as $subject){
         if($class_cycle == 'FIRST'){
-            $grade = $Model->OLGrade($student['student_code'], $year_id, $class_id, $exam_id, $subject['subject'] );
+            $grade = $Model->OLGrade($student['student_code'], $year_id, $class_id, $exam_id, $exam_name, $subject['subject'] );
             if($grade == "A"){
                 $papers++;
                 $points = $points + 3;
@@ -111,7 +111,7 @@ foreach($students as $student){
             }
             $pdf->Cell(12,7,$grade,1);
         }else{
-            $grade = $Model->ALGrade($student['student_code'], $year_id, $class_id, $exam_id, $subject['subject'] );
+            $grade = $Model->ALGrade($student['student_code'], $year_id, $class_id, $exam_id, $exam_name, $subject['subject'] );
             if($grade == "A"){
                 $papers++;
                 $points = $points + 5;

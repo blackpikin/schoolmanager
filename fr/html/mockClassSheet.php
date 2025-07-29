@@ -9,7 +9,7 @@ $year_id = $_GET['year_id'];
 $class_id = $_GET['class_id'];
 $exam_name = $_GET['exam_id'];
 $exam_id = $Model->GetMockExam($year_id, $exam_name)[0]['id'];
-$url = 'year_id='.$year_id.'&class_id='.$class_id.'&exam_name='.$exam_name;
+$url = 'year_id='.$year_id.'&class_id='.$class_id.'&exam_id='.$exam_name;
 ?>
 <br>
 <h5 id="label1" style="text-align:center;"><?= $exam_name ?>  MASTER SHEET - <?= $Model->GetAClassName($class_id) ?> - <?= $Model->GetYearName($year_id) ?></h5>
@@ -65,7 +65,7 @@ foreach($students as $student){
         <td>
         <?php
             if($class_cycle == 'FIRST'){
-                $grade = $Model->OLGrade($student['student_code'], $year_id, $class_id, $exam_id, $subject['subject'] );
+                $grade = $Model->OLGrade($student['student_code'], $year_id, $class_id, $exam_id, $exam_name, $subject['subject'] );
                 if($grade == "A"){
                     $papers++;
                     $points = $points + 3;
@@ -78,7 +78,7 @@ foreach($students as $student){
                 }
                 echo $grade;
             }else{
-                $grade = $Model->ALGrade($student['student_code'], $year_id, $class_id, $exam_id, $subject['subject'] );
+                $grade = $Model->ALGrade($student['student_code'], $year_id, $class_id, $exam_id, $exam_name, $subject['subject'] );
                 if($grade == "A"){
                     $papers++;
                     $points = $points + 5;

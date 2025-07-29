@@ -18,7 +18,8 @@ $year_id = $_GET['year_id'];
 $class_id = $_GET['class_id'];
 $exam_name = $_GET['exam_id'];
 $url = 'year_id='.$year_id.'&class_id='.$class_id.'&exam_name='.$exam_name;
-$limits = $Model->Grade();
+$limits = $Model->Grade( $year_id, $exam_name);
+
 ?>
 <br>
 <h4 id="label1" style="text-align:center;"><?= $exam_name ?>  RESULTS - <?= $Model->GetAClassName($class_id) ?> - <?= $Model->GetYearName($year_id) ?></h4>

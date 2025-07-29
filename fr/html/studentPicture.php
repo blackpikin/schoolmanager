@@ -20,7 +20,7 @@ $result = "";
             }
     
             if($imageFileType != "GIF" && $imageFileType != "PNG" && $imageFileType != "JPG" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-                $pictureErr = "Only JPG, JPEG, PNG et GIF file are allowed.";
+                $pictureErr = "Only JPG, JPEG, PNG and GIF files are allowed.";
                 $uploadOk = 0;
             }
 

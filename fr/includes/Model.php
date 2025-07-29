@@ -1613,9 +1613,9 @@ class Model extends Database
         return $rows;
     }
 
-    public function GetStudentsPassPapers($year_id, $class_id, $exam_id, $student_code){
+    public function GetStudentsPassPapers($year_id, $class_id, $exam_id, $exam_name, $student_code){
         $class_cycle = $this->GetAClass($class_id)[0]['cycle'];
-        $limits = $this->Grade();
+        $limits = $this->Grade($year_id, $exam_name);
         $lim = 0;
         if ($class_cycle == "FIRST"){
             $lim = $limits['OL']['OLCmin'];
@@ -2216,8 +2216,9 @@ class Model extends Database
         return $rows;
     }
 
-    public function Grade(){
-        $grades = $this->ContentExists('mock_grades', 'id', 1);
+    public function Grade($year_id, $exam_name){
+        $examName = str_replace('-', '',$exam_name);
+        $grades = $this->GetAllWithCriteria('mock_grades', ['exam'=>strtolower($examName),'year_id'=>$year_id]);
         $OLAmin = ''; $OLAmax = ''; $OLBmin = ''; $OLBmax = ''; $OLCmin = ''; $OLCmax = ''; $OLDmin = ''; $OLDmax = '';
         $OLEmin = ''; $OLEmax = ''; $OLUmin = ''; $OLUmax = '';
         $ALAmin = ''; $ALAmax = ''; $ALBmin = ''; $ALBmax = ''; $ALCmin = ''; $ALCmax = ''; $ALDmin = ''; $ALDmax = '';
@@ -2265,8 +2266,8 @@ class Model extends Database
         ];
     }
 
-    public function CountOLevelGrade($grade, $year_id, $class_id, $exam_id, $subject){
-        $limits = $this->Grade();
+    public function CountOLevelGrade($grade, $year_id, $class_id, $exam_id, $exam_name, $subject){
+        $limits = $this->Grade($year_id, $exam_name);
         $lcb = 0.0; $ucb = 0.0;
         if($grade == 'A'){
             $lcb = $limits['OL']['OLAmin'];
@@ -2317,8 +2318,8 @@ class Model extends Database
         return count($rows);
     }
 
-    public function CountALevelGrade($grade, $year_id, $class_id, $exam_id, $subject){
-        $limits = $this->Grade();
+    public function CountALevelGrade($grade, $year_id, $class_id, $exam_id, $exam_name, $subject){
+        $limits = $this->Grade($year_id, $exam_name);
         $lcb = 0.0; $ucb = 0.0;
         if($grade == 'A'){
             $lcb = $limits['AL']['ALAmin'];
@@ -2372,7 +2373,7 @@ class Model extends Database
         return count($rows);
     }
 
-    public function OLGrade($student_code, $year_id, $class_id, $exam_id, $subject){
+    public function OLGrade($student_code, $year_id, $class_id, $exam_id, $exam_name, $subject){
         $mark = array();
         try {
             $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
@@ -2393,7 +2394,7 @@ class Model extends Database
         }
         $conn = null;
 
-        $limits = $this->Grade();
+        $limits = $this->Grade($year_id, $exam_name);
         $remark = "";
         if(isset($mark[0]['mark'])){
             if($mark[0]['mark'] <= $limits['OL']['OLUmax']){
@@ -2415,7 +2416,7 @@ class Model extends Database
         return $remark;
     }
 
-    public function ALGrade($student_code, $year_id, $class_id, $exam_id, $subject){
+    public function ALGrade($student_code, $year_id, $class_id, $exam_id, $exam_name, $subject){
         $mark = array();
         try {
             $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
@@ -2435,7 +2436,7 @@ class Model extends Database
             echo "Error: " . $e->getMessage();
         }
         $conn = null;
-        $limits = $this->Grade();
+        $limits = $this->Grade($year_id, $exam_name);
         $remark = "";
         if(isset($mark[0]['mark'])){
             if($mark[0]['mark'] <= $limits['AL']['ALFmax']){
@@ -4917,4 +4918,317 @@ public function NewCash($amount, $source, $user_id, $dateof, $monthYear, $yearOn
         return $rows;
     }
 
+    public function GradeRemark($mark){
+        $remark = '';
+        if($mark >= 15.0 && $mark <= 20.0){
+            $remark = 'A';
+        }elseif($mark >= 12.0 && $mark <= 14.99){
+            $remark = 'B';
+        }elseif($mark >= 10.0 && $mark <= 11.99){
+            $remark = 'C';
+        }elseif($mark >= 8.0 && $mark <= 9.99){
+            $remark = 'D';
+        }elseif($mark >= 0.0 && $mark <= 7.99){
+            $remark = 'F';
+        }
+        return $remark;
+    }
+
+    public function AvMarks($exam_id, $class_id, $year_id,  $subject, $type){
+        $rows = array();
+        if($type == 'MIN'){
+            $sql = "SELECT MIN(mark) AS m FROM mark_sheet WHERE exam = ? AND class_id = ? AND academic_year = ? AND `subject` = ?";
+        }elseif($type == 'MAX'){
+            $sql = "SELECT MAX(mark) AS m FROM mark_sheet WHERE exam = ? AND class_id = ? AND academic_year = ? AND `subject` = ?";
+        }elseif($type == 'AVG'){
+            $sql = "SELECT AVG(mark) AS m FROM mark_sheet WHERE exam = ? AND class_id = ? AND academic_year = ? AND `subject` = ?";
+        }
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare($sql);
+
+            $stmt->execute([$exam_id, $class_id, $year_id,  $subject]);
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $rows = $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+        return round($rows[0]['m'], 2);
+    }
+
+    public function SuccessRate($exam_id, $class_id, $year_id,  $subject){
+        $rows = array();
+        $sql = "SELECT COUNT(mark) AS numMarks FROM mark_sheet WHERE exam = ? AND class_id = ? AND academic_year = ? AND `subject` = ?";
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare($sql);
+
+            $stmt->execute([$exam_id, $class_id, $year_id,  $subject]);
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $rows = $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+        $numMarks = $rows[0]['numMarks'];
+
+        $sql = "SELECT mark FROM mark_sheet WHERE exam = ? AND class_id = ? AND academic_year = ? AND `subject` = ? AND mark >= 10";
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare($sql);
+
+            $stmt->execute([$exam_id, $class_id, $year_id,  $subject]);
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $rows = $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+        $conn = null;
+        $passMarks = count($rows);
+
+        $percent = ($passMarks/$numMarks)*100;
+        return round($percent, 2);
+    }
+
+    public function SubjectsPassed($student_code, $exam_id, $class_id, $year_id){
+        $rows = array();
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare("SELECT COUNT(mark) AS subjects_passed FROM mark_sheet WHERE student_code = ? AND class_id = ? AND academic_year = ? AND exam = ? AND mark >= 10");
+
+            $stmt->execute([$student_code, $class_id, $year_id, $exam_id]);
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $rows = $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+         return $rows[0]['subjects_passed'];
+       
+    }
+
+    public function SequenceAverage($student_code, $exam_id, $class_id, $year_id){
+        $rows = array();
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare("SELECT average FROM computed_averages WHERE student = ? AND class_id = ? AND year_id = ? AND exam_id = ?");
+
+            $stmt->execute([$student_code, $class_id, $year_id, $exam_id]);
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $rows = $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+         return $rows[0]['average'];
+       
+    }
+
+    public function RankAverage($exam_id, $class_id, $year_id) {
+        $rows = array();
+    
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+            $sql = "SELECT student, average FROM computed_averages WHERE exam_id = ? AND class_id = ? AND year_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$exam_id, $class_id, $year_id]);
+    
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return [];  // Stop and return if there’s a DB error
+        }
+    
+        $conn = null;
+    
+        if (empty($rows)) {
+            return []; // No students found
+        }
+    
+        // Format students into [student_id, average]
+        $students = [];
+        foreach ($rows as $r) {
+            $students[] = [$r['student'], floatval($r['average'])];
+        }
+    
+        // Sort by average descending
+        usort($students, fn($a, $b) => $b[1] <=> $a[1]);
+    
+        // Assign ranks with proper tie handling
+        $ranks = [];
+        $currentRank = 1;
+        $prevAverage = null;
+        $tieCount = 0;
+    
+        foreach ($students as $index => $student) {
+            list($studentId, $average) = $student;
+    
+            if ($average === $prevAverage) {
+                $tieCount++;
+            } else {
+                $currentRank = $index + 1;
+                $tieCount = 0;
+            }
+    
+            $ranks[$studentId] = $currentRank;
+            $prevAverage = $average;
+        }
+    
+        return $ranks;
+    }
+
+    public function SuccessRateClass($exam_id, $class_id, $year_id){
+        $rows = array();
+    
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+            $sql = "SELECT average FROM computed_averages WHERE exam_id = ? AND class_id = ? AND year_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$exam_id, $class_id, $year_id]);
+    
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return 0.0;  // Stop and return if there’s a DB error
+        }
+    
+        $conn = null;
+
+        $onroll = count($rows);
+
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+            $sql = "SELECT average FROM computed_averages WHERE exam_id = ? AND class_id = ? AND year_id = ? AND average >= 10";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$exam_id, $class_id, $year_id]);
+    
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return 0.0;  // Stop and return if there’s a DB error
+        }
+    
+        $conn = null;
+
+        $passed = count($rows);
+
+        $sr = round(($passed/$onroll)*100, 2);
+        return $sr;
+
+    }
+
+    public function StandardDeviation($exam_id, $class_id, $year_id) {
+        $rows = [];
+        $marks = [];
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+            $sql = "SELECT average FROM computed_averages WHERE exam_id = ? AND class_id = ? AND year_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$exam_id, $class_id, $year_id]);
+    
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return 0.0;  // Stop and return if there’s a DB error
+        }
+        
+        $conn = null;
+
+        foreach($rows as $r){
+            array_push($marks, $r['average']);
+        }
+        
+        if (!is_array($marks) || count($marks) === 0) {
+            return null; // Return null for invalid or empty input
+        }
+    
+        $count = count($marks);
+        $mean = array_sum($marks) / $count;
+    
+        $sumSquaredDiffs = 0;
+        foreach ($marks as $mark) {
+            $sumSquaredDiffs += pow($mark - $mean, 2);
+        }
+    
+        $variance = $sumSquaredDiffs / $count; // For population standard deviation
+        // $variance = $sumSquaredDiffs / ($count - 1); // Uncomment for sample standard deviation
+    
+        return sqrt($variance);
+    }
+    
+    public function DoneSubjects($code, $year_id, $class_id){
+        $rows = array();
+        try {
+            $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare("SELECT DISTINCT(subject) AS subject FROM mark_sheet WHERE student_code = ? AND academic_year = ? AND class_id = ?  ORDER BY subject ASC");
+
+            $stmt->execute([$code, $year_id, $class_id]);
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            $rows = $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+        return $rows;
+    }
 }

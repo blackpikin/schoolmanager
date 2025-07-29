@@ -68,6 +68,29 @@ $class_subjects = [];
                         <button onclick="window.open('./pdf/EdunaReportPDF.php?ref=<?= $student_code ?>&year=<?= $value['year_id'] ?>&class=<?= $value['school_class_id'] ?>&term=3&year_student_id=<?= $value['id'] ?>&trade=2')" class="btn btn-danger" type="button"><?= $lang[$_SESSION['lang']]['THIRD TERM'] ?> </button>
                     </td>
                 </tr>
+
+                <?php
+        }
+                //Get second cycle
+        $students_classes = $Eduna->GetAllWithCriteria('students_yearlystudents', ['student_id' => $student_code, 'school_trade_id'=> 3]);
+        
+        foreach ($students_classes as $key => $value) {
+            $classname = $Eduna->GetSomeWithCriteria('setup_schoolclasses', ['name'], ['id' => $value['school_class_id']]);
+            $yearname = $Eduna->GetSomeWithCriteria('setup_academicyears', ['short_name'], ['id' => $value['year_id']]);
+            ?>
+                <tr class="normal-tr">
+                    <td>
+                        <?= $yearname[0]['short_name'] ?>
+                    </td>
+                    <td>
+                        <?= $classname[0]['name'] ?>
+                    </td>
+                    <td>
+                        <button onclick="window.open('./pdf/EdunaReportPDF.php?ref=<?= $student_code ?>&year=<?= $value['year_id'] ?>&class=<?= $value['school_class_id'] ?>&term=1&year_student_id=<?= $value['id'] ?>&trade=2')" class="btn btn-primary" type="button"><?= $lang[$_SESSION['lang']]['FIRST TERM'] ?> </button>
+                        <button onclick="window.open('./pdf/EdunaReportPDF.php?ref=<?= $student_code ?>&year=<?= $value['year_id'] ?>&class=<?= $value['school_class_id'] ?>&term=2&year_student_id=<?= $value['id'] ?>&trade=2')" class="btn btn-success" type="button"><?= $lang[$_SESSION['lang']]['SECOND TERM'] ?> </button>
+                        <button onclick="window.open('./pdf/EdunaReportPDF.php?ref=<?= $student_code ?>&year=<?= $value['year_id'] ?>&class=<?= $value['school_class_id'] ?>&term=3&year_student_id=<?= $value['id'] ?>&trade=2')" class="btn btn-danger" type="button"><?= $lang[$_SESSION['lang']]['THIRD TERM'] ?> </button>
+                    </td>
+                </tr>
             <?php
         }
     ?>

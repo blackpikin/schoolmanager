@@ -63,7 +63,7 @@ if(!empty($classes)){
                 if ($Model->GetAClass($class['id'])[0]['cycle'] == "FIRST"){
                     $students = $Model->GetStudentsSatForExam($year_id, $class['id'], $exam_id);
                     foreach($students as $student){
-                        $papers = $Model->GetStudentsPassPapers($year_id, $class['id'], $exam_id, $student['student_code']);
+                        $papers = $Model->GetStudentsPassPapers($year_id, $class['id'], $exam_id, $exam_name, $student['student_code']);
                         if($papers >= 4){
                             $pass++;
                         }
@@ -71,7 +71,7 @@ if(!empty($classes)){
                 }else{
                     $students = $Model->GetStudentsSatForExam($year_id, $class['id'], $exam_id);
                     foreach($students as $student){
-                        $papers = $Model->GetStudentsPassPapers($year_id, $class['id'], $exam_id, $student['student_code']);
+                        $papers = $Model->GetStudentsPassPapers($year_id, $class['id'], $exam_id, $exam_name, $student['student_code']);
                         if($papers >= 2){
                             $pass++;
                         }

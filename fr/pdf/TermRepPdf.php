@@ -101,17 +101,18 @@ $group_index = ['ZeroGroupSubs'=>0,'FirstGroupSubs'=>1, 'SecondGroupSubs'=>2, 'T
         $pdf->SetFillColor(0,0,128);
         $pdf->SetTextColor(0,0,0);
         $pdf->Cell(60, 5, "", 0);
+        $year_name = $Model->GetYearName($year_id);
         if($term_name == 'First'){
-            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["FirstTermRep"] ,0);
+            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["FirstTermRep"].' '.$year_name ,0);
             $eval1 = 1; $eval2 = 2;
         }elseif($term_name == 'Second'){
-            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["SecondTermRep"] ,0);
+            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["SecondTermRep"].' '.$year_name ,0);
             $eval1 = 3; $eval2 = 4; 
         }elseif($term_name == 'Third'){
-            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["AnnualReport"] ,0);
+            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["AnnualReport"].' '.$year_name ,0);
             $eval1 = 5; $eval2 = 6; ;
         }else{
-            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["SpecialTermRep"] ,0);
+            $pdf->Cell(30,5,$lang[$_SESSION['lang']]["SpecialTermRep"].' '.$year_name ,0);
             $eval1 = 7; $eval2 = 8;
         }
         

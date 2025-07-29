@@ -86,7 +86,62 @@
        </div>
     </div>
 </div>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-8">
+        <p>
+            <label id="label1"><?= $lang[$_SESSION['lang']]["MockGrades"] ?></label>
+        </p>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1">
+
+    </div>
+</div>
+<div class="row curved-box">
+    <div class="col-md-2 col-sm-2 col-xs-2">
+    <label value="">Select the Exam</label>
+        <select class="form-control" id="exam2">
+        <option value=""><?= $lang[$_SESSION['lang']]["Choose one"] ?></option>
+            <option value="premock"><?= $lang[$_SESSION['lang']]["PRE-MOCK"] ?></option>
+            <option value="mock"><?= $lang[$_SESSION['lang']]["MOCK"] ?></option>
+          </select>
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-8">
+    <label value="">Select the academic year</label>
+          <select id="year2" class="form-control">
+            <option value=""><?= $lang[$_SESSION['lang']]["Choose one"] ?></option>
+            <?php 
+            $years = $Model->GetAcademicYears();
+            if(!empty($years)){
+                foreach($years as $year){
+                    ?>
+                    <option value="<?= $year['id'] ?>">
+                        <?php 
+                            echo $year['start'].'/'.$year['end'];
+                        ?>
+                    </option>
+                    <?php
+                }
+            }
+            ?>
+
+        </select>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-2">
+    <br>
+            <br>
+            <button class="btn btn-warning button-width" onclick="ViewMockSettings()"><?= $lang[$_SESSION['lang']]["MockGrades"] ?></button>
+    </div>
 <br>
 <br>
 <br>
 <br>
+<script>
+    function ViewMockSettings(){
+        let exam = document.getElementById('exam2').value;
+        let year = document.getElementById('year2').value;
+        GotoPage('mockGrades&exam='+exam+'&year_id='+year);
+    }
+</script>

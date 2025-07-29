@@ -46,13 +46,13 @@ if($class_cycle == 'FIRST'){
                 ?>
                 <tr class="normal-tr">
             <td><?= $subject['subject'] ?></td>
-            <td><?= $Model->CountOLevelGrade('A', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountOLevelGrade('B', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountOLevelGrade('C', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountOLevelGrade('D', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountOLevelGrade('E', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountOLevelGrade('U', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-        </tr>
+            <td><?= $Model->CountOLevelGrade('A', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountOLevelGrade('B', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountOLevelGrade('C', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountOLevelGrade('D', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountOLevelGrade('E', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountOLevelGrade('U', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+        </tr> 
                 <?php
             }
         ?>
@@ -77,13 +77,13 @@ if($class_cycle == 'FIRST'){
                 ?>
                 <tr class="normal-tr">
             <td><?= $subject['subject'] ?></td>
-            <td><?= $Model->CountALevelGrade('A', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountALevelGrade('B', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountALevelGrade('C', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountALevelGrade('D', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountALevelGrade('E', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountALevelGrade('O', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
-            <td><?= $Model->CountALevelGrade('F', $year_id, $class_id, $exam_id, $subject['subject']) ?></td>
+            <td><?= $Model->CountALevelGrade('A', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountALevelGrade('B', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountALevelGrade('C', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountALevelGrade('D', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountALevelGrade('E', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountALevelGrade('O', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
+            <td><?= $Model->CountALevelGrade('F', $year_id, $class_id, $exam_id, $exam_name, $subject['subject']) ?></td>
 
         </tr>
                 <?php

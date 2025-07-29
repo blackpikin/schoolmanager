@@ -1,10 +1,17 @@
 <?php 
+    if(isset($_GET['exam'])){
+        $exam = $_GET['exam'];
+        $year_id = $_GET['year_id'];
+        $grades = $Model->GetAllWithCriteria('mock_grades', ['exam'=>$exam, 'year_id'=>$year_id]);
+    }
+    
     $result = "";
-    $grades = $Model->ContentExists('mock_grades', 'id', 1);
     $OLAmin = ''; $OLAmax = ''; $OLBmin = ''; $OLBmax = ''; $OLCmin = ''; $OLCmax = ''; $OLDmin = ''; $OLDmax = '';
     $OLEmin = ''; $OLEmax = ''; $OLUmin = ''; $OLUmax = '';
     $ALAmin = ''; $ALAmax = ''; $ALBmin = ''; $ALBmax = ''; $ALCmin = ''; $ALCmax = ''; $ALDmin = ''; $ALDmax = '';
     $ALEmin = ''; $ALEmax = ''; $ALOmin = ''; $ALOmax = ''; $ALFmin = ''; $ALFmax = '';
+
+    
     if (!empty($grades)){
         $AL = explode(',', $grades[0]['AL']);
         $ALAmin = explode(':', $AL[0])[0]; 
@@ -73,10 +80,10 @@
         $alevel = implode(',', [$ALA, $ALB, $ALC, $ALD, $ALE, $ALO, $ALF]);
 
         if(empty($_POST['sec'])){
-            if(empty($Model->ContentExists('mock_grades', 'id', 1))){
-                $result = $Model->Insert('mock_grades', ['AL'=>$alevel, 'OL'=>$olevel]);
+            if(empty($Model->GetAllWithCriteria('mock_grades', ['exam'=>$_POST['exam'], 'year_id'=>$Model->GetCurrentYear()[0]['id']]))){
+                $result = $Model->Insert('mock_grades', ['AL'=>$alevel, 'OL'=>$olevel, 'exam'=>$_POST['exam'], 'year_id'=>$Model->GetCurrentYear()[0]['id']]);
             }else{
-                $result = $Model->Update('mock_grades', ['AL'=>$alevel, 'OL'=>$olevel], ['id'=>1]);
+                $result = $Model->Update('mock_grades', ['AL'=>$alevel, 'OL'=>$olevel], ['exam'=>$_POST['exam'], 'year_id'=>$Model->GetCurrentYear()[0]['id']]);
             }
         }
     }
@@ -101,6 +108,36 @@
     </div>
     <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
     <form action="" method="post">
+        <?php 
+        if(isset($_GET['exam']) && $_GET['exam'] == 'premock'){
+            ?>
+             <input type="radio" name="exam" value="premock" checked> <?= $lang[$_SESSION['lang']]["PRE-MOCK"] ?>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <input type="radio" name="exam" value="mock" > <?= $lang[$_SESSION['lang']]["MOCK"] ?>
+
+<?php
+        }elseif(isset($_GET['exam']) && $_GET['exam'] == 'mock'){
+            ?>
+ <input type="radio" name="exam" value="premock" > <?= $lang[$_SESSION['lang']]["PRE-MOCK"] ?>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <input type="radio" name="exam" value="mock"  checked> <?= $lang[$_SESSION['lang']]["MOCK"] ?>
+
+<?php
+        }else{
+            ?>
+                 <input type="radio" name="exam" value="premock" > <?= $lang[$_SESSION['lang']]["PRE-MOCK"] ?>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <input type="radio" name="exam" value="mock" > <?= $lang[$_SESSION['lang']]["MOCK"] ?>
+            <?php
+        }
+        
+        ?>
+    </div>
+<div class="row">
+    <div class="col-md-2 col-sm-2 col-xs-2">
+        
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4 curved-box">
             <h3>Ordinary Level</h3>
             <label>A grade</label>
             <br>

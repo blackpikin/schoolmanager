@@ -156,6 +156,7 @@ $calendar = new Calendar();
                 if($_SESSION['role'] == "Teacher"){ ?>
                     <ul class="menu-list">
                         <li class="menu-list-item btn-primary" onclick="GotoPage('fillmarks')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["FillMarks"]?></li>
+                        <li class="menu-list-item btn-primary" onclick="GotoPage('sequenceStatistics')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]['Sequence statistics'] ?></li>
                         <li class="menu-list-item btn-primary" onclick="GotoPage('changelogininfo')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Change your password"]?></li>
                         <li class="menu-list-item btn-primary" onclick="GotoPage('home')" onmouseover="SetPointer(this)"><?= $lang[$_SESSION['lang']]["Calendar"]?></li>
                     </ul>

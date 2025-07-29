@@ -16,7 +16,7 @@ function MarkClassMasterSheet(){
     let cls = $('#c_name').val();
     let exam = $('#exam').val();
     if(year !== "" && cls !== "" && exam !== ""){
-        window.location.href = 'index.php?p=mockClassSheet&year_id='+year+'&class_id='+cls+'&exam_name='+exam;
+        window.location.href = 'index.php?p=mockClassSheet&year_id='+year+'&class_id='+cls+'&exam_id='+exam;
     }else{
         alert("You must select the three parameters: year, class and exam");
     }
@@ -734,6 +734,19 @@ function TermReport(){
 
     if(year !== "" && cls !== "" && term !== ""){
         window.open('./pdf/TermRepPdf.php?year_id='+year+'&class_id='+cls+'&term_id='+term);
+    }else{
+        alert("You must select the three parameters : Year, Class and Term");
+    }
+    
+}
+
+function BritishTermReport(){
+    let year = $('#term_year').val();
+    let cls = $('#term_class').val();
+    let term = $('#term_term').val();
+
+    if(year !== "" && cls !== "" && term !== ""){
+        window.open('./pdf/BritishTermRepPdf.php?year_id='+year+'&class_id='+cls+'&term_id='+term);
     }else{
         alert("You must select the three parameters : Year, Class and Term");
     }
