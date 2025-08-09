@@ -207,7 +207,7 @@ if(!empty($means)){
             $pdf->Cell(90,4,$lang[$_SESSION['lang']]["Classmaster"].': '.$Model->GetAllWithCriteria('classes', ['id'=>$class_id])[0]['cm'],0);
             $pdf->Ln(10);
             //End student information
-
+            
             //Main report table header
             $pdf->Cell(80,5,$lang[$_SESSION['lang']]["Subject"],0,0,'',false);
             $pdf->Cell(10,5,'Coef',0,0,'',false);
@@ -220,7 +220,7 @@ if(!empty($means)){
             $pdf->Cell(55,5,'Class performance',0,0,'C', false);
             $pdf->Ln();
             //End main table header
-
+            $pdf->SetFont('Arial','',8);
             if($hasLang){
             //Print languages
             $pdf->Cell(60,5,'LANGUAGES',0,0,'',false);
@@ -316,21 +316,23 @@ if(!empty($means)){
                     }  
                 }
             }
-            $pdf->Cell(80,5,'Summary',0,0,'C',false);
-            $pdf->Cell(10,5,$total_coef,0,0,'',false);
-            if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+            if($total_coef != 0){
+                $pdf->Cell(80,5,'Summary',0,0,'C',false);
+                $pdf->Cell(10,5,$total_coef,0,0,'',false);
+                if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+                    $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                    $pdf->Cell(10,5,'',0,0,'',false);
+                }else{
+                    $pdf->Cell(10,5,'',0,0,'',false);
+                    $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                }
+                
                 $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
                 $pdf->Cell(10,5,'',0,0,'',false);
-            }else{
-                $pdf->Cell(10,5,'',0,0,'',false);
-                $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                $pdf->Cell(9,5,'',0,0,'', false);
+                $pdf->Cell(16,5,'',0,0,'', false);
+                $pdf->Cell(60,5,'',0,0,'C', false);
             }
-            
-            $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
-            $pdf->Cell(10,5,'',0,0,'',false);
-            $pdf->Cell(9,5,'',0,0,'', false);
-            $pdf->Cell(16,5,'',0,0,'', false);
-            $pdf->Cell(60,5,'',0,0,'C', false);
             $pdf->Ln();
             //End print languages
             }
@@ -357,12 +359,20 @@ if(!empty($means)){
                       $general_coef += $coef;
                         $general_total += $sub_total['total'];
                         if(strlen($mark['subject']) > 34){
+                            if($mark['subject'] == "PURE MATHEMATICS" ||  $mark['subject'] == 'PURE MATHS WITH MECHS' || $mark['subject'] == 'PURE MATHS WITH STATS'){
+                              $subjectTitle ='MATHEMATICS';
+                            }else{
+                              $subjectTitle = substr($mark['subject'], 0, 34);
+                            }
                             $teacher = ucfirst($Model->GetStaffName($Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id)));
-                            $subjectTitle = substr($mark['subject'], 0, 34);
                             $pdf->Cell(80,5,$subjectTitle."  ($teacher)",1);
                         }else{
-                            $teacher = ucfirst($Model->GetStaffName($Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id)));
+                          if($mark['subject'] == "PURE MATHEMATICS" ||  $mark['subject'] == 'PURE MATHS WITH MECHS' || $mark['subject'] == 'PURE MATHS WITH STATS'){
+                            $subjectTitle ='MATHEMATICS';
+                          }else{
                             $subjectTitle = $mark['subject'];
+                          }
+                            $teacher = ucfirst($Model->GetStaffName($Model->GetSubjectTeacher($mark['subject'], $class_id, $year_id)));
                             $pdf->Cell(80,5,$subjectTitle."  ($teacher)",1);
                         }
                           $pdf->Cell(10,5,$coef,1,0,'',false);
@@ -428,20 +438,23 @@ if(!empty($means)){
                       }  
                   }
               }
-              $pdf->Cell(80,5,'Summary',0,0,'C',false);
-              $pdf->Cell(10,5,$total_coef,0,0,'',false);
-              if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+              if($total_coef != 0){
+                $pdf->Cell(80,5,'Summary',0,0,'C',false);
+                $pdf->Cell(10,5,$total_coef,0,0,'',false);
+                if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+                    $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                    $pdf->Cell(10,5,'',0,0,'',false);
+                }else{
+                    $pdf->Cell(10,5,'',0,0,'',false);
+                    $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                }
                 $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
                 $pdf->Cell(10,5,'',0,0,'',false);
-            }else{
-                $pdf->Cell(10,5,'',0,0,'',false);
-                $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
-            }
-            $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
-            $pdf->Cell(10,5,'',0,0,'',false);
-              $pdf->Cell(9,5,'',0,0,'', false);
-              $pdf->Cell(16,5,'',0,0,'', false);
-              $pdf->Cell(60,5,'',0,0,'C', false);
+                $pdf->Cell(9,5,'',0,0,'', false);
+                $pdf->Cell(16,5,'',0,0,'', false);
+                $pdf->Cell(60,5,'',0,0,'C', false);
+              }
+              
               $pdf->Ln();
               //End Print sciences
              }
@@ -539,20 +552,22 @@ if(!empty($means)){
                     }  
                 }
             }
-            $pdf->Cell(80,5,'Summary',0,0,'C',false);
-            $pdf->Cell(10,5,$total_coef,0,0,'',false);
-            if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+            if($total_coef !=0){
+                $pdf->Cell(80,5,'Summary',0,0,'C',false);
+                $pdf->Cell(10,5,$total_coef,0,0,'',false);
+                if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+                    $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                    $pdf->Cell(10,5,'',0,0,'',false);
+                }else{
+                    $pdf->Cell(10,5,'',0,0,'',false);
+                    $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                }
                 $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
                 $pdf->Cell(10,5,'',0,0,'',false);
-            }else{
-                $pdf->Cell(10,5,'',0,0,'',false);
-                $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                $pdf->Cell(9,5,'',0,0,'', false);
+                $pdf->Cell(16,5,'',0,0,'', false);
+                $pdf->Cell(60,5,'',0,0,'C', false);
             }
-            $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
-            $pdf->Cell(10,5,'',0,0,'',false);
-            $pdf->Cell(9,5,'',0,0,'', false);
-            $pdf->Cell(16,5,'',0,0,'', false);
-            $pdf->Cell(60,5,'',0,0,'C', false);
             $pdf->Ln();
             // End print Arts
                }
@@ -651,24 +666,27 @@ if(!empty($means)){
                       }  
                   }
               }
-              $pdf->Cell(80,5,'Summary',0,0,'C',false);
-              $pdf->Cell(10,5,$total_coef,0,0,'',false);
-              if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+              if($total_coef != 0){
+                $pdf->Cell(80,5,'Summary',0,0,'C',false);
+                $pdf->Cell(10,5,$total_coef,0,0,'',false);
+                if($sequence == '1' || $sequence == '3' || $sequence == '5'){
+                    $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                    $pdf->Cell(10,5,'',0,0,'',false);
+                }else{
+                    $pdf->Cell(10,5,'',0,0,'',false);
+                    $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                }
                 $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
                 $pdf->Cell(10,5,'',0,0,'',false);
-            }else{
-                $pdf->Cell(10,5,'',0,0,'',false);
-                $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
+                $pdf->Cell(9,5,'',0,0,'', false);
+                $pdf->Cell(16,5,'',0,0,'', false);
+                $pdf->Cell(60,5,'',0,0,'C', false);
             }
-              $pdf->Cell(10,5,round($total_mark/$total_coef, 2),0,0,'',false);
-              $pdf->Cell(10,5,'',0,0,'',false);
-              $pdf->Cell(9,5,'',0,0,'', false);
-              $pdf->Cell(16,5,'',0,0,'', false);
-              $pdf->Cell(60,5,'',0,0,'C', false);
               $pdf->Ln();
               //End print Others
               }
 
+              if($general_coef != 0){
               $pdf->Cell(80,5,'TOTAL',0,0,'C',false);
               $pdf->Cell(10,5,$general_coef,0,0,'',false);
               if($sequence == '1' || $sequence == '3' || $sequence == '5'){
@@ -697,6 +715,7 @@ if(!empty($means)){
               $pdf->Cell(1,5,'',0,0,'C',false);
               $pdf->Cell(78,15,'',1,0,'C',false);
               $pdf->Cell(1,5,'',0,0,'C',false);
+            }
               if($sequence == '1' || $sequence == '2'){
                 $term = 'First';
               }elseif ($sequence == '3' || $sequence == '4'){

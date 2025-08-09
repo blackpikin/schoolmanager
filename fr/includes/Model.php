@@ -5208,16 +5208,19 @@ public function NewCash($amount, $source, $user_id, $dateof, $monthYear, $yearOn
         return sqrt($variance);
     }
     
-    public function DoneSubjects($code, $year_id, $class_id){
+    public function DoneSubjects($code, $year_id, $class_id, $term){
+        $exams = $this->ExamsForTerm($term, $year_id, 0);
+        $e1 = $exams[0]['id'];
+        $e2 = $exams[1]['id'];
         $rows = array();
         try {
             $conn = new PDO("mysql:host=" . $this->ServerName() . ";dbname=" . $this->DatabaseName(), $this->UserName(), $this->Password());
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $conn->prepare("SELECT DISTINCT(subject) AS subject FROM mark_sheet WHERE student_code = ? AND academic_year = ? AND class_id = ?  ORDER BY subject ASC");
+            $stmt = $conn->prepare("SELECT DISTINCT(subject) AS subject FROM mark_sheet WHERE student_code = ? AND academic_year = ? AND class_id = ? AND exam = ?  ORDER BY subject ASC");
 
-            $stmt->execute([$code, $year_id, $class_id]);
+            $stmt->execute([$code, $year_id, $class_id, $e1]);
 
             // set the resulting array to associative
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);

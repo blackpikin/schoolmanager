@@ -41,11 +41,18 @@
                                 <tr>
                                     <td><?= $Model->GetAClassName($class['class_id']) ?></td>
                                     <td><?php 
-                                        $terms = $Model->GetAllTerms($class['academic_year_id']); 
+                                        $terms = $Model->GetAllTerms($class['academic_year_id']);
+                                        $report_style = $Model->GetAllWithCriteria('report_templates', ['selected' => 1])[0]['template']; 
                                         foreach ($terms as $term){
-                                            ?>
-                                                <a class="btn btn-success" onclick="window.open('./pdf/studentRepPdf.php?ref=<?= $student_code ?>&term_id=<?= $term['term'] ?>&class_id=<?= $class['class_id'] ?>&year_id=<?= $class['academic_year_id'] ?>')" ><?= $term['term'] ?> term</a>&nbsp;|&nbsp;
-                                            <?php
+                                            if($report_style == 'british') {
+                                                    ?>
+                                                        <a class="btn btn-success" onclick="window.open('./pdf/britishstudentRepPdf.php?ref=<?= $student_code ?>&term_id=<?= $term['term'] ?>&class_id=<?= $class['class_id'] ?>&year_id=<?= $class['academic_year_id'] ?>')" ><?= $term['term'] ?> term</a>&nbsp;|&nbsp;
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <a class="btn btn-success" onclick="window.open('./pdf/studentRepPdf.php?ref=<?= $student_code ?>&term_id=<?= $term['term'] ?>&class_id=<?= $class['class_id'] ?>&year_id=<?= $class['academic_year_id'] ?>')" ><?= $term['term'] ?> term</a>&nbsp;|&nbsp;
+                                                    <?php
+                                                }
                                         }
                                     ?>
                                     </td>
@@ -61,11 +68,18 @@
                                 <tr>
                                     <td><?= $Model->GetAClassName($class['class_id']) ?></td>
                                     <td><?php 
-                                        $terms = $Model->GetAllTerms($class['academic_year_id']); 
+                                        $terms = $Model->GetAllTerms($class['academic_year_id']);
+                                        $report_style = $Model->GetAllWithCriteria('report_templates', ['selected' => 1])[0]['template']; 
                                         foreach ($terms as $term){
-                                            ?>
-                                                <a class="btn btn-success" onclick="window.open('./pdf/studentRepPdf.php?ref=<?= $student_code ?>&term_id=<?= $term['term'] ?>&class_id=<?= $class['class_id'] ?>&year_id=<?= $class['academic_year_id'] ?>')" ><?= $term['term'] ?> term</a>&nbsp;|&nbsp;
-                                            <?php
+                                            if($report_style == 'british') {
+                                                    ?>
+                                                        <a class="btn btn-success" onclick="window.open('./pdf/britishstudentRepPdf.php?ref=<?= $student_code ?>&term_id=<?= $term['term'] ?>&class_id=<?= $class['class_id'] ?>&year_id=<?= $class['academic_year_id'] ?>')" ><?= $term['term'] ?> term</a>&nbsp;|&nbsp;
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <a class="btn btn-success" onclick="window.open('./pdf/studentRepPdf.php?ref=<?= $student_code ?>&term_id=<?= $term['term'] ?>&class_id=<?= $class['class_id'] ?>&year_id=<?= $class['academic_year_id'] ?>')" ><?= $term['term'] ?> term</a>&nbsp;|&nbsp;
+                                                    <?php
+                                                }
                                         }
                                     ?>
                                     </td>

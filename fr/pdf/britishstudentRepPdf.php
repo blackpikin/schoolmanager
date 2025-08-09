@@ -55,6 +55,7 @@ function Header()
     }
 }
 ///////////////////////////////////////////////////////////////////////////////
+$student_code = $_GET["ref"];
 $year_id = $_GET['year_id'];
 $class_id = $_GET['class_id'];
 $term_name = $_GET['term_id'];
@@ -100,6 +101,7 @@ $hasOther = false;
  if(!empty($positions)){
     $pdf = new PDF();
     foreach($positions as $code => $pos){
+        if($code == $student_code){
             $s = $Model->GetStudent($code, $section);
             $general_coef = 0;
             $general_total = 0;
@@ -1273,11 +1275,11 @@ $hasOther = false;
               $pdf->Cell(50,5,'Class master',0,0,'C',false);
               $pdf->Cell(80,5,'Supervisor',0,0,'C',false);
               $pdf->Cell(20,5,'Principal',0,0,'C',false);
-
+              $pdf->Output();
+              break;
+            }
+        } 
     }
-       $pdf->Output();
- }
- 
 }else{
     echo '<h3>You have been logged out or your browser window expired. Login again</h3>';
 }
